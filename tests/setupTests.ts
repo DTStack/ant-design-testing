@@ -1,3 +1,3 @@
-import { provider } from "src/provider";
+import { provider } from "../src/provider";
 
 provider({ prefixCls: "ant" });
