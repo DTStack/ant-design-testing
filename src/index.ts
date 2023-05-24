@@ -1,6 +1,13 @@
+export * as cascader from "./cascader";
+export * as checkbox from "./checkbox";
+export * as collapse from "./collapse";
+export * as datePicker from "./datePicker";
+export * as dropdown from "./dropdown";
 export * as input from "./input";
 export * as inputNumber from "./inputNumber";
+export * as radio from "./radio";
 export * as select from "./select";
-export * as dropdown from "./dropdown";
-export * as checkbox from "./checkbox";
+export * as switch from "./switch";
+export * as timePicker from "./timePicker";
+export * as treeSelect from "./treeSelect";
 export { getProvider, provider } from "./provider";

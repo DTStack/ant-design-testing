@@ -23,7 +23,7 @@ export function fireChange(container: IContainer, value: any) {
 }
 
 export function fireClear(container: IContainer) {
-  const iconEl = container.querySelector(`${prefixCls}.-input-clear-icon`);
+  const iconEl = container.querySelector(`.${prefixCls}-input-clear-icon`);
   if (!iconEl) return;
   fireEvent.click(iconEl);
 }
