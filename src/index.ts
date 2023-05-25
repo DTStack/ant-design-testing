@@ -8,6 +8,7 @@ export * as inputNumber from "./inputNumber";
 export * as radio from "./radio";
 export * as select from "./select";
 export * as switch from "./switch";
+export * as tabs from "./tabs";
 export * as timePicker from "./timePicker";
 export * as treeSelect from "./treeSelect";
 export { getProvider, provider } from "./provider";
