@@ -1,5 +1,5 @@
 import { fireEvent } from "@testing-library/react";
-import { IContainer } from "../interface";
+import type { IContainer } from "../interface";
 import { fireOpen as fireSelectOpen } from "../select";
 import { getProvider } from "../provider";
 

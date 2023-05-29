@@ -12,5 +12,29 @@ export function fireCheck(container: IContainer, title: string) {
   fireEvent.click(ele);
 }
 
+export function fireExpand(container: IContainer, title: string) {
+  const ele = container
+    .querySelector(`.${prefixCls}-tree-node-content-wrapper[title="${title}"]`)
+    ?.parentElement?.querySelector(`.${prefixCls}-tree-switcher`);
+  if (!ele) return;
+  fireEvent.click(ele);
+}
+
+export function fireRightClick(container: IContainer, title: string) {
+  const ele = container.querySelector(
+    `.${prefixCls}-tree-node-content-wrapper[title="${title}"]`
+  );
+  if (!ele) return;
+  fireEvent.contextMenu(ele);
+}
+
+export function fireSelect(container: IContainer, title: string) {
+  const ele = container.querySelector(
+    `.${prefixCls}-tree-node-content-wrapper[title="${title}"]`
+  );
+  if (!ele) return;
+  fireEvent.click(ele);
+}
+
 // TODO
-export function fireExpand(container: IContainer, title: string) {}
+export function fireDrag() {}

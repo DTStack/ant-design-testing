@@ -1,7 +1,8 @@
-import { cleanup, fireEvent, render } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import { Tree } from "antd";
 import React from "react";
-import { fireCheck } from "..";
+import { fireCheck, fireExpand, fireRightClick, fireSelect } from "..";
+import type { DataNode } from "antd/es/tree";
 
 const treeData: DataNode[] = [
   {
@@ -48,7 +49,36 @@ describe("Test Tree's fire functions", () => {
     );
 
     fireCheck(container, "parent 1");
+    expect(fn).toBeCalled();
   });
 
-  test("fireExpand", () => {});
+  test("fireExpand", () => {
+    const fn = jest.fn();
+    const { container } = render(
+      <Tree checkable onExpand={fn} treeData={treeData} />
+    );
+
+    fireExpand(container, "parent 1");
+    expect(fn).toBeCalled();
+  });
+
+  test("fireRightClick", () => {
+    const fn = jest.fn();
+    const { container } = render(
+      <Tree checkable onRightClick={fn} treeData={treeData} />
+    );
+
+    fireRightClick(container, "parent 1");
+    expect(fn).toBeCalled();
+  });
+
+  test("fireSelect", () => {
+    const fn = jest.fn();
+    const { container } = render(
+      <Tree checkable onSelect={fn} treeData={treeData} />
+    );
+
+    fireSelect(container, "parent 1");
+    expect(fn).toBeCalled();
+  });
 });
