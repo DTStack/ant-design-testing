@@ -1,8 +1,10 @@
 import { cleanup, render } from "@testing-library/react";
 import { DatePicker } from "antd";
 import { fireChange, fireClose, fireOpen, firePanelChange } from "..";
-import dayjs from "dayjs";
+import moment from "moment";
 import React from "react";
+
+const dateAdaptor = moment;
 
 describe("Test DatePicker's fire functions", () => {
   beforeEach(cleanup);
@@ -22,32 +24,32 @@ describe("Test DatePicker's fire functions", () => {
     const { container, rerender } = render(
       <DatePicker
         onPanelChange={fn}
-        value={dayjs("2018-04-13 19:18")}
+        value={dateAdaptor("2018-04-13 19:18")}
         getPopupContainer={(node) => node.parentElement!}
       />
     );
     fireOpen(container);
     firePanelChange(container);
     expect(fn).lastCalledWith(
-      dayjs("2018-04-13 19:18").subtract(1, "month"),
+      dateAdaptor("2018-04-13 19:18").subtract(1, "month"),
       "date"
     );
 
     firePanelChange(container, "month");
     expect(fn).lastCalledWith(
-      dayjs("2018-04-13 19:18").subtract(1, "month"),
+      dateAdaptor("2018-04-13 19:18").subtract(1, "month"),
       "month"
     );
 
     firePanelChange(container, "year");
     expect(fn).lastCalledWith(
-      dayjs("2018-04-13 19:18").subtract(1, "month"),
+      dateAdaptor("2018-04-13 19:18").subtract(1, "month"),
       "year"
     );
 
     firePanelChange(container, "decade");
     expect(fn).lastCalledWith(
-      dayjs("2018-04-13 19:18").subtract(1, "month"),
+      dateAdaptor("2018-04-13 19:18").subtract(1, "month"),
       "decade"
     );
 
@@ -56,14 +58,14 @@ describe("Test DatePicker's fire functions", () => {
       <DatePicker
         picker="quarter"
         onPanelChange={fn}
-        value={dayjs("2018-04-13 19:18")}
+        value={dateAdaptor("2018-04-13 19:18")}
         getPopupContainer={(node) => node.parentElement!}
       />
     );
     fireOpen(container);
     firePanelChange(container, "quarter");
     expect(fn).lastCalledWith(
-      dayjs("2018-04-13 19:18").subtract(1, "year"),
+      dateAdaptor("2018-04-13 19:18").subtract(1, "year"),
       "quarter"
     );
 
@@ -72,14 +74,14 @@ describe("Test DatePicker's fire functions", () => {
       <DatePicker
         picker="week"
         onPanelChange={fn}
-        value={dayjs("2018-04-13 19:18")}
+        value={dateAdaptor("2018-04-13 19:18")}
         getPopupContainer={(node) => node.parentElement!}
       />
     );
     fireOpen(container);
     firePanelChange(container, "week");
     expect(fn).lastCalledWith(
-      dayjs("2018-04-13 19:18").subtract(1, "month"),
+      dateAdaptor("2018-04-13 19:18").subtract(1, "month"),
       "week"
     );
   });
@@ -90,15 +92,19 @@ describe("Test DatePicker's fire functions", () => {
       const { container } = render(
         <DatePicker
           onChange={fn}
-          value={dayjs("2018-04-13 19:18")}
+          value={dateAdaptor("2018-04-13 19:18")}
           getPopupContainer={(node) => node.parentElement!}
         />
       );
       fireOpen(container);
       fireChange(container, "24");
-      expect(fn).toBeCalledWith(
-        dayjs("2018-04-24 19:18"),
-        dayjs("2018-04-24 19:18").format("YYYY-MM-DD")
+      expect(
+        (fn.mock.calls[0][0] as ReturnType<typeof dateAdaptor>).isSame(
+          dateAdaptor("2018-04-24 19:18")
+        )
+      ).toBeTruthy();
+      expect(fn.mock.calls[0][1]).toBe(
+        dateAdaptor("2018-04-24 19:18").format("YYYY-MM-DD")
       );
     });
 
@@ -107,7 +113,7 @@ describe("Test DatePicker's fire functions", () => {
       const { container } = render(
         <DatePicker
           onChange={fn}
-          value={dayjs("2018-04-13 19:18")}
+          value={dateAdaptor("2018-04-13 19:18")}
           getPopupContainer={(node) => node.parentElement!}
         />
       );
@@ -117,9 +123,13 @@ describe("Test DatePicker's fire functions", () => {
       fireChange(container, "2019");
       fireChange(container, "Nov");
       fireChange(container, "24");
-      expect(fn).toBeCalledWith(
-        dayjs("2019-11-24 19:18"),
-        dayjs("2019-11-24 19:18").format("YYYY-MM-DD")
+      expect(
+        (fn.mock.calls[0][0] as ReturnType<typeof dateAdaptor>).isSame(
+          dateAdaptor("2019-11-24 19:18")
+        )
+      ).toBeTruthy();
+      expect(fn.mock.calls[0][1]).toBe(
+        dateAdaptor("2019-11-24 19:18").format("YYYY-MM-DD")
       );
     });
   });
@@ -129,7 +139,10 @@ describe("Test DatePicker's fire functions", () => {
     const { container } = render(
       <DatePicker.RangePicker
         onCalendarChange={fn}
-        defaultValue={[dayjs("2018-04-13 19:18"), dayjs("2018-04-16 19:18")]}
+        defaultValue={[
+          dateAdaptor("2018-04-13 19:18"),
+          dateAdaptor("2018-04-16 19:18"),
+        ]}
         getPopupContainer={(node) => node.parentElement!}
       />
     );

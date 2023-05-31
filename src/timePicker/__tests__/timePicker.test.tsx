@@ -1,8 +1,10 @@
 import { cleanup, render } from "@testing-library/react";
 import { TimePicker } from "antd";
-import dayjs from "dayjs";
+import moment from "moment";
 import React from "react";
 import { fireChange, fireOpen } from "..";
+
+const dateAdaptor = moment;
 
 describe("Test TimePicker's fire functions", () => {
   beforeEach(cleanup);
@@ -12,7 +14,7 @@ describe("Test TimePicker's fire functions", () => {
     const { container } = render(
       <TimePicker
         onOpenChange={fn}
-        defaultValue={dayjs("00:00:00", "HH:mm:ss")}
+        defaultValue={dateAdaptor("00:00:00", "HH:mm:ss")}
       />
     );
 
@@ -27,7 +29,7 @@ describe("Test TimePicker's fire functions", () => {
         <TimePicker
           onChange={fn}
           getPopupContainer={(node) => node.parentElement!}
-          defaultValue={dayjs("00:00:00", "HH:mm:ss")}
+          defaultValue={dateAdaptor("00:00:00", "HH:mm:ss")}
         />
       );
 
@@ -55,9 +57,9 @@ describe("Test TimePicker's fire functions", () => {
       const format = "HH:mm";
       const { container } = render(
         <TimePicker
-          defaultValue={dayjs("12:08", format)}
+          defaultValue={dateAdaptor("12:08", format)}
           format={format}
-          getPopupContainer={node => node.parentElement!}
+          getPopupContainer={(node) => node.parentElement!}
           onChange={fn}
         />
       );

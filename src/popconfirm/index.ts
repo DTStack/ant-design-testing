@@ -6,7 +6,7 @@ const { prefixCls } = getProvider();
 
 export function fireCancel(container: IContainer) {
   const ele = container
-    .querySelector(`.${prefixCls}-popconfirm-buttons`)
+    .querySelector(`.${prefixCls}-popover-buttons`)
     ?.querySelectorAll(`.${prefixCls}-btn`);
   if (!ele?.item(0)) return;
   fireEvent.click(ele.item(0));
@@ -14,7 +14,7 @@ export function fireCancel(container: IContainer) {
 
 export function fireConfirm(container: IContainer) {
   const ele = container
-    .querySelector(`.${prefixCls}-popconfirm-buttons`)
+    .querySelector(`.${prefixCls}-popover-buttons`)
     ?.querySelectorAll(`.${prefixCls}-btn`);
   if (!ele?.item(1)) return;
   fireEvent.click(ele.item(1));

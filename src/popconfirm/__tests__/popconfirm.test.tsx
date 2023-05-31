@@ -1,10 +1,13 @@
-import { cleanup, render } from "@testing-library/react";
+import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { Button, Popconfirm } from "antd";
 import React from "react";
 import { fireCancel, fireConfirm } from "..";
 
 describe("Test popconfirm fire's functions", () => {
-  beforeEach(cleanup);
+  beforeEach(() => {
+    cleanup();
+    jest.useFakeTimers();
+  });
 
   test("fireCancel", () => {
     const fn = jest.fn();
@@ -18,6 +21,9 @@ describe("Test popconfirm fire's functions", () => {
         <Button danger>Delete</Button>
       </Popconfirm>
     );
+    act(() => {
+      jest.runAllTimers();
+    });
     fireCancel(container);
     expect(fn).toBeCalled();
   });
@@ -34,6 +40,9 @@ describe("Test popconfirm fire's functions", () => {
         <Button danger>Delete</Button>
       </Popconfirm>
     );
+    act(() => {
+      jest.runAllTimers();
+    });
     fireConfirm(container);
     expect(fn).toBeCalled();
   });
