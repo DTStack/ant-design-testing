@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react";
-import type { IContainer } from "src/interface";
-import { getProvider } from "src/provider";
+import type { IContainer } from "../interface";
+import { getProvider } from "../provider";
 
 const { prefixCls } = getProvider();
 
