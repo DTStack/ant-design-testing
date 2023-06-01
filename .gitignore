@@ -2,5 +2,5 @@
 /dist
 .DS_Store
 coverage
-pnpm-lock.yml
+pnpm-lock.yaml
 *.lock
