@@ -2,8 +2,6 @@ import { act, fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
 
-const { prefixCls } = getProvider();
-
 export function fireChange(container: IContainer, value: any) {
   const ele = container.querySelector("input");
   if (!ele) return;
@@ -11,7 +9,9 @@ export function fireChange(container: IContainer, value: any) {
 }
 
 export function fireOpen(container: IContainer) {
-  const ele = container.querySelector(`.${prefixCls}-select-selector`);
+  const ele = container.querySelector(
+    `.${getProvider("prefixCls")}-select-selector`
+  );
   if (!ele) return;
   act(() => {
     fireEvent.mouseDown(ele);
@@ -21,18 +21,20 @@ export function fireOpen(container: IContainer) {
 
 export function fireSelect(container: IContainer, index: number) {
   const ele = container.querySelectorAll(
-    `div.${prefixCls}-select-item-option-content`
+    `div.${getProvider("prefixCls")}-select-item-option-content`
   );
   if (!ele.item(index)) return;
   fireEvent.click(ele.item(index));
 }
 
 export function fireDeSelect(container: IContainer, index: number) {
-  const ele = container.querySelectorAll(`.${prefixCls}-select-selection-item`);
+  const ele = container.querySelectorAll(
+    `.${getProvider("prefixCls")}-select-selection-item`
+  );
   if (!ele.item(index)) return;
   const clear = ele
     .item(index)
-    .querySelector(`.${prefixCls}-select-selection-item-remove`);
+    .querySelector(`.${getProvider("prefixCls")}-select-selection-item-remove`);
   if (!clear) return;
   fireEvent.click(clear);
 }
@@ -50,7 +52,9 @@ export function fireBlur(container: IContainer) {
 }
 
 export function fireClear(container: IContainer) {
-  const ele = container.querySelector(`.${prefixCls}-select-clear`);
+  const ele = container.querySelector(
+    `.${getProvider("prefixCls")}-select-clear`
+  );
   if (!ele) return;
   fireEvent.mouseDown(ele);
 }

@@ -2,8 +2,6 @@ import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
 
-const { prefixCls } = getProvider();
-
 export function fireFocus(container: IContainer) {
   const inputEl = container.querySelector("input");
   if (!inputEl) return;
@@ -23,7 +21,9 @@ export function fireChange(container: IContainer, value: any) {
 }
 
 export function fireClear(container: IContainer) {
-  const iconEl = container.querySelector(`.${prefixCls}-input-clear-icon`);
+  const iconEl = container.querySelector(
+    `.${getProvider("prefixCls")}-input-clear-icon`
+  );
   if (!iconEl) return;
   fireEvent.click(iconEl);
 }

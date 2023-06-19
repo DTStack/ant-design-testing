@@ -2,10 +2,10 @@ import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
 
-const { prefixCls } = getProvider();
-
 export function fireOpen(container: IContainer) {
-  const ele = container.querySelector(`.${prefixCls}-select-selector`);
+  const ele = container.querySelector(
+    `.${getProvider("prefixCls")}-select-selector`
+  );
   if (!ele) return;
   fireEvent.mouseDown(ele);
 }
@@ -18,10 +18,12 @@ export function fireChange(
   for (let i = 0; i < indexes.length; i++) {
     const index = indexes[i];
     const ele = container
-      .querySelectorAll<HTMLUListElement>(`ul.${prefixCls}-cascader-menu`)
+      .querySelectorAll<HTMLUListElement>(
+        `ul.${getProvider("prefixCls")}-cascader-menu`
+      )
       ?.item(i);
     const li = ele?.querySelectorAll<HTMLLIElement>(
-      `li.${prefixCls}-cascader-menu-item`
+      `li.${getProvider("prefixCls")}-cascader-menu-item`
     );
     if (!li?.item(index)) return;
     fireEvent[type as keyof typeof fireEvent]?.(li.item(index));

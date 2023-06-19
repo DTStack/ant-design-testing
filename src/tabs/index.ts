@@ -3,11 +3,9 @@ import type { IContainer } from "../interface";
 import { fireEvent } from "@testing-library/react";
 import type { TabsProps } from "antd";
 
-const { prefixCls } = getProvider();
-
 export function fireClick(container: IContainer, activeKey: string) {
   const ele = container.querySelector(
-    `.${prefixCls}-tabs-tab[data-node-key="${activeKey}"]`
+    `.${getProvider("prefixCls")}-tabs-tab[data-node-key="${activeKey}"]`
   );
   if (!ele) return;
   fireEvent.click(ele);
@@ -31,15 +29,19 @@ export function fireEdit(
 ) {
   switch (action) {
     case "add": {
-      const ele = container.querySelector(`.${prefixCls}-tabs-nav-add`);
+      const ele = container.querySelector(
+        `.${getProvider("prefixCls")}-tabs-nav-add`
+      );
       if (!ele) return;
       fireEvent.click(ele);
       break;
     }
     case "remove": {
       const ele = container
-        .querySelector(`.${prefixCls}-tabs-tab[data-node-key="${activeKey}"]`)
-        ?.querySelector(`.${prefixCls}-tabs-tab-remove`);
+        .querySelector(
+          `.${getProvider("prefixCls")}-tabs-tab[data-node-key="${activeKey}"]`
+        )
+        ?.querySelector(`.${getProvider("prefixCls")}-tabs-tab-remove`);
       if (!ele) return;
       fireEvent.click(ele);
       break;

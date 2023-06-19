@@ -56,7 +56,7 @@ describe("Test treeSelect's fire functions", () => {
     );
 
     fireOpen(container);
-    fireSelect(container, "Node1");
+    fireSelect(container, 0);
     expect(fn).toBeCalled();
   });
 
@@ -91,7 +91,7 @@ describe("Test treeSelect's fire functions", () => {
     );
 
     fireOpen(container);
-    fireTreeExpand(container, "Node1");
+    fireTreeExpand(container, 0);
     expect(fn).toBeCalled();
   });
 });

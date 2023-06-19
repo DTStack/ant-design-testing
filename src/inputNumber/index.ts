@@ -2,8 +2,6 @@ import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
 
-const { prefixCls } = getProvider();
-
 export function fireChange(container: IContainer, value: any) {
   const ele = container.querySelector("input");
   if (!ele) return;
@@ -11,14 +9,16 @@ export function fireChange(container: IContainer, value: any) {
 }
 
 export function fireStepUp(container: IContainer) {
-  const ele = container.querySelector(`.${prefixCls}-input-number-handler-up`);
+  const ele = container.querySelector(
+    `.${getProvider("prefixCls")}-input-number-handler-up`
+  );
   if (!ele) return;
   fireEvent.mouseDown(ele);
 }
 
 export function fireStepDown(container: IContainer) {
   const ele = container.querySelector(
-    `.${prefixCls}-input-number-handler-down`
+    `.${getProvider("prefixCls")}-input-number-handler-down`
   );
   if (!ele) return;
   fireEvent.mouseDown(ele);

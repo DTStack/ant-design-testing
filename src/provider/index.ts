@@ -2,8 +2,12 @@ const globalConfig = {
   prefixCls: "rc",
 };
 
-export function getProvider() {
+export function getProviders() {
   return globalConfig;
+}
+
+export function getProvider(key: keyof typeof globalConfig) {
+  return globalConfig[key];
 }
 
 export function provider(opt: Partial<typeof globalConfig>) {

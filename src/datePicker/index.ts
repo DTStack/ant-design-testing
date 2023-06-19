@@ -3,8 +3,6 @@ import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
 import type { DatePickerProps } from "antd";
 
-const { prefixCls } = getProvider();
-
 type PanelMode = Parameters<NonNullable<DatePickerProps["onPanelChange"]>>[1];
 
 export function fireOpen(container: IContainer) {
@@ -28,17 +26,25 @@ export function firePanelChange(
     switch (mode) {
       case "quarter":
         return container.querySelector(
-          `.${prefixCls}-picker-header-super-prev-btn`
+          `.${getProvider("prefixCls")}-picker-header-super-prev-btn`
         );
       case "week":
       case "date":
-        return container.querySelector(`.${prefixCls}-picker-header-prev-btn`);
+        return container.querySelector(
+          `.${getProvider("prefixCls")}-picker-header-prev-btn`
+        );
       case "month":
-        return container.querySelector(`.${prefixCls}-picker-month-btn`);
+        return container.querySelector(
+          `.${getProvider("prefixCls")}-picker-month-btn`
+        );
       case "year":
-        return container.querySelector(`.${prefixCls}-picker-year-btn`);
+        return container.querySelector(
+          `.${getProvider("prefixCls")}-picker-year-btn`
+        );
       case "decade":
-        return container.querySelector(`.${prefixCls}-picker-decade-btn`);
+        return container.querySelector(
+          `.${getProvider("prefixCls")}-picker-decade-btn`
+        );
       default:
         return null;
     }

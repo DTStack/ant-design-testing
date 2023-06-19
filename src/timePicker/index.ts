@@ -3,15 +3,13 @@ import { getProvider } from "../provider";
 import { fireOpen as fireDatePickerOpen } from "../datePicker";
 import type { IContainer } from "../interface";
 
-const { prefixCls } = getProvider();
-
 export function fireOpen(container: IContainer) {
   fireDatePickerOpen(container);
 }
 
 export function fireOk(container: IContainer) {
   const ele = container
-    .querySelector(`.${prefixCls}-picker-ok`)
+    .querySelector(`.${getProvider("prefixCls")}-picker-ok`)
     ?.querySelector("button");
   if (!ele) return;
   fireEvent.click(ele);
@@ -21,7 +19,7 @@ type TimeString = `${string}:${string}:${string}` | `${string}:${string}`;
 
 export function fireSelectCell(container: IContainer, index: number) {
   const ele = container.querySelectorAll(
-    `li.${prefixCls}-picker-time-panel-cell`
+    `li.${getProvider("prefixCls")}-picker-time-panel-cell`
   );
   if (!ele.item(index)) return;
   fireEvent.click(ele.item(index));
@@ -44,7 +42,9 @@ export function fireChange(
   container: IContainer,
   time: TimeString | [TimeString, TimeString]
 ) {
-  const content = container.querySelector(`.${prefixCls}-picker-content`);
+  const content = container.querySelector(
+    `.${getProvider("prefixCls")}-picker-content`
+  );
   if (!content) return;
 
   if (Array.isArray(time)) {
