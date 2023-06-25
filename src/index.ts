@@ -1,3 +1,4 @@
+export * as autoComplete from "./autoComplete";
 export * as button from "./button";
 export * as cascader from "./cascader";
 export * as checkbox from "./checkbox";
