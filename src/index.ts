@@ -13,5 +13,6 @@ export * as select from "./select";
 export * as switch from "./switch";
 export * as tabs from "./tabs";
 export * as timePicker from "./timePicker";
+export * as tooltip from "./tooltip";
 export * as treeSelect from "./treeSelect";
 export { getProvider, provider, getProviders } from "./provider";

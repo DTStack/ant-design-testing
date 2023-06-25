@@ -34,9 +34,7 @@
   },
   "peerDependencies": {
     "@testing-library/react": "*",
-    "antd": "4"
-  },
-  "optionalDependencies": {
+    "antd": "4",
     "rc-resize-observer": "*"
   },
   "devDependencies": {

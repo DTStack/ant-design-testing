@@ -32,3 +32,5 @@ export function fireCancel(
     fireCancelButton(container);
   }
 }
+
+export * as confirm from "./confirm";

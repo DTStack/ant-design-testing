@@ -33,3 +33,5 @@ export function firePressEnter(container: IContainer) {
   if (!inputEl) return;
   fireEvent.keyDown(inputEl, { key: "Enter" });
 }
+
+export * as textarea from "./textarea";
