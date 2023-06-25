@@ -1,6 +1,6 @@
 import { cleanup, render } from "@testing-library/react";
 import { DatePicker } from "antd";
-import { fireChange, fireClose, fireOpen, firePanelChange } from "..";
+import { fireChange, fireClose, fireOk, fireOpen, firePanelChange } from "..";
 import moment from "moment";
 import React from "react";
 
@@ -150,5 +150,21 @@ describe("Test DatePicker's fire functions", () => {
     fireChange(container, "15");
 
     expect(fn).toBeCalled();
+  });
+
+  test("fireOk", () => {
+    const fn = jest.fn();
+    const { container } = render(
+      <DatePicker
+        showTime
+        onOk={fn}
+        value={dateAdaptor("2018-04-13 19:18")}
+        getPopupContainer={(node) => node.parentElement!}
+      />
+    );
+
+    fireOpen(container);
+    fireOk(container);
+    expect(fn).toBeCalledTimes(1);
   });
 });

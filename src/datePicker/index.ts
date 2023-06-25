@@ -62,3 +62,11 @@ export function fireChange(container: IContainer, text: string) {
   if (!cell) return;
   fireEvent.click(cell);
 }
+
+export function fireOk(container: IContainer) {
+  const ele = container.querySelector(
+    `.${getProvider("prefixCls")}-picker-ok > *`
+  );
+  if (!ele) return;
+  fireEvent.click(ele);
+}
