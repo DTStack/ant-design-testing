@@ -47,6 +47,7 @@
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "moment": "^2.29.4",
+    "rc-resize-observer": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
