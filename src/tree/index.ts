@@ -1,44 +1,55 @@
 import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
+import { failedQuerySelector } from "../utils";
 
 export function fireCheck(container: IContainer, title: string) {
+  const selector = `.${getProvider(
+    "prefixCls"
+  )}-tree-node-content-wrapper[title="${title}"]`;
+  const checkbox = `.${getProvider("prefixCls")}-tree-checkbox`;
   const ele = container
-    .querySelector(
-      `.${getProvider("prefixCls")}-tree-node-content-wrapper[title="${title}"]`
-    )
-    ?.parentElement?.querySelector(
-      `.${getProvider("prefixCls")}-tree-checkbox`
-    );
-  if (!ele) return;
+    .querySelector(selector)
+    ?.parentElement?.querySelector(checkbox);
+  if (!ele) {
+    throw failedQuerySelector(`${selector}'s parentElement ${checkbox}`);
+  }
   fireEvent.click(ele);
 }
 
 export function fireExpand(container: IContainer, title: string) {
+  const selector = `.${getProvider(
+    "prefixCls"
+  )}-tree-node-content-wrapper[title="${title}"]`;
+  const switcher = `.${getProvider("prefixCls")}-tree-switcher`;
   const ele = container
-    .querySelector(
-      `.${getProvider("prefixCls")}-tree-node-content-wrapper[title="${title}"]`
-    )
-    ?.parentElement?.querySelector(
-      `.${getProvider("prefixCls")}-tree-switcher`
-    );
-  if (!ele) return;
+    .querySelector(selector)
+    ?.parentElement?.querySelector(switcher);
+  if (!ele) {
+    throw failedQuerySelector(`${selector}'s parentElement ${switcher}`);
+  }
   fireEvent.click(ele);
 }
 
 export function fireRightClick(container: IContainer, title: string) {
-  const ele = container.querySelector(
-    `.${getProvider("prefixCls")}-tree-node-content-wrapper[title="${title}"]`
-  );
-  if (!ele) return;
+  const selector = `.${getProvider(
+    "prefixCls"
+  )}-tree-node-content-wrapper[title="${title}"]`;
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
   fireEvent.contextMenu(ele);
 }
 
 export function fireSelect(container: IContainer, title: string) {
-  const ele = container.querySelector(
-    `.${getProvider("prefixCls")}-tree-node-content-wrapper[title="${title}"]`
-  );
-  if (!ele) return;
+  const selector = `.${getProvider(
+    "prefixCls"
+  )}-tree-node-content-wrapper[title="${title}"]`;
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
   fireEvent.click(ele);
 }
 

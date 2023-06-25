@@ -1,10 +1,14 @@
 import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
+import { failedQuerySelector } from "../utils";
 
 export function fireClick(container: IContainer) {
-  const ele = container.querySelector(`.${getProvider("prefixCls")}-switch`);
-  if (!ele) return;
+  const selector = `.${getProvider("prefixCls")}-switch`;
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
   fireEvent.click(ele);
 }
 

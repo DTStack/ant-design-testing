@@ -2,12 +2,16 @@ import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
 import { fireEvent } from "@testing-library/react";
 import type { TabsProps } from "antd";
+import { failedQuerySelector } from "../utils";
 
 export function fireClick(container: IContainer, activeKey: string) {
-  const ele = container.querySelector(
-    `.${getProvider("prefixCls")}-tabs-tab[data-node-key="${activeKey}"]`
-  );
-  if (!ele) return;
+  const selector = `.${getProvider(
+    "prefixCls"
+  )}-tabs-tab[data-node-key="${activeKey}"]`;
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
   fireEvent.click(ele);
 }
 
@@ -29,25 +33,31 @@ export function fireEdit(
 ) {
   switch (action) {
     case "add": {
-      const ele = container.querySelector(
-        `.${getProvider("prefixCls")}-tabs-nav-add`
-      );
-      if (!ele) return;
+      const selector = `.${getProvider("prefixCls")}-tabs-nav-add`;
+      const ele = container.querySelector(selector);
+      if (!ele) {
+        throw failedQuerySelector(selector);
+      }
       fireEvent.click(ele);
       break;
     }
     case "remove": {
-      const ele = container
-        .querySelector(
-          `.${getProvider("prefixCls")}-tabs-tab[data-node-key="${activeKey}"]`
-        )
-        ?.querySelector(`.${getProvider("prefixCls")}-tabs-tab-remove`);
-      if (!ele) return;
+      const selector = `.${getProvider(
+        "prefixCls"
+      )}-tabs-tab[data-node-key="${activeKey}"] .${getProvider(
+        "prefixCls"
+      )}-tabs-tab-remove`;
+      const ele = container.querySelector(selector);
+      if (!ele) {
+        throw failedQuerySelector(selector);
+      }
       fireEvent.click(ele);
       break;
     }
 
     default:
-      break;
+      throw new Error(
+        "Invalid action for Tabs. Please ensure action between add or remove"
+      );
   }
 }

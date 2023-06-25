@@ -1,12 +1,14 @@
 import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
+import { failedQuerySelector } from "../utils";
 
 export function fireOpen(container: IContainer) {
-  const ele = container.querySelector(
-    `.${getProvider("prefixCls")}-select-selector`
-  );
-  if (!ele) return;
+  const selector = `.${getProvider("prefixCls")}-select-selector`;
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
   fireEvent.mouseDown(ele);
 }
 
@@ -17,21 +19,23 @@ export function fireChange(
 ) {
   for (let i = 0; i < indexes.length; i++) {
     const index = indexes[i];
+    const selector = `li.${getProvider("prefixCls")}-cascader-menu-item`;
     const ele = container
-      .querySelectorAll<HTMLUListElement>(
-        `ul.${getProvider("prefixCls")}-cascader-menu`
-      )
-      ?.item(i);
-    const li = ele?.querySelectorAll<HTMLLIElement>(
-      `li.${getProvider("prefixCls")}-cascader-menu-item`
-    );
-    if (!li?.item(index)) return;
-    fireEvent[type as keyof typeof fireEvent]?.(li.item(index));
+      .querySelectorAll(`ul.${getProvider("prefixCls")}-cascader-menu`)
+      ?.item(i)
+      .querySelectorAll(selector);
+    if (!ele?.item(index)) {
+      throw failedQuerySelector(selector);
+    }
+    fireEvent[type as keyof typeof fireEvent]?.(ele.item(index));
   }
 }
 
 export function fireSearch(container: IContainer, value: string) {
-  const ele = container.querySelector("input");
-  if (!ele) return;
+  const selector = "input";
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
   fireEvent.change(ele, { target: { value } });
 }

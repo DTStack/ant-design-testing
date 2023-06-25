@@ -2,27 +2,30 @@ import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import { fireOpen as fireDatePickerOpen } from "../datePicker";
 import type { IContainer } from "../interface";
+import { failedQuerySelector } from "../utils";
 
 export function fireOpen(container: IContainer) {
   fireDatePickerOpen(container);
 }
 
 export function fireOk(container: IContainer) {
-  const ele = container
-    .querySelector(`.${getProvider("prefixCls")}-picker-ok`)
-    ?.querySelector("button");
-  if (!ele) return;
+  const selector = `.${getProvider("prefixCls")}-picker-ok button`;
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
   fireEvent.click(ele);
 }
 
 type TimeString = `${string}:${string}:${string}` | `${string}:${string}`;
 
 export function fireSelectCell(container: IContainer, index: number) {
-  const ele = container.querySelectorAll(
-    `li.${getProvider("prefixCls")}-picker-time-panel-cell`
-  );
-  if (!ele.item(index)) return;
-  fireEvent.click(ele.item(index));
+  const selector = `li.${getProvider("prefixCls")}-picker-time-panel-cell`;
+  const ele = container.querySelectorAll(selector).item(index);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
+  fireEvent.click(ele);
 }
 
 function fireSinglePanel(container: HTMLCollection, time: TimeString) {
@@ -42,19 +45,20 @@ export function fireChange(
   container: IContainer,
   time: TimeString | [TimeString, TimeString]
 ) {
-  const content = container.querySelector(
-    `.${getProvider("prefixCls")}-picker-content`
-  );
-  if (!content) return;
+  const selector = `.${getProvider("prefixCls")}-picker-content`;
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
 
   if (Array.isArray(time)) {
     // It's for RangePicker
-    fireSinglePanel(content.children, time[0]);
+    fireSinglePanel(ele.children, time[0]);
     fireOk(container);
-    fireSinglePanel(content.children, time[1]);
+    fireSinglePanel(ele.children, time[1]);
     fireOk(container);
   } else {
-    fireSinglePanel(content.children, time);
+    fireSinglePanel(ele.children, time);
     fireOk(container);
   }
 }

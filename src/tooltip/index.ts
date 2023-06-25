@@ -1,9 +1,12 @@
 import { act, fireEvent } from "@testing-library/react";
+import { failedTriggerElement } from "../utils";
 
-export async function fireOpen(ele?: HTMLElement) {
-  if (!ele) return;
-  await act(async () => {
+export function fireOpen(ele?: HTMLElement) {
+  if (!ele) {
+    throw failedTriggerElement();
+  }
+  act(() => {
     fireEvent.mouseEnter(ele);
-    await jest.runAllTimersAsync();
+    jest.runAllTimers();
   });
 }

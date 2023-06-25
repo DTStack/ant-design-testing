@@ -12,7 +12,7 @@ describe("test tooltip's fire functions", () => {
     jest.useRealTimers();
   });
 
-  test("fireOpen", async () => {
+  test("fireOpen", () => {
     const fn = jest.fn();
     const { getByText, getByTestId } = render(
       <Tooltip
@@ -23,7 +23,7 @@ describe("test tooltip's fire functions", () => {
         <a data-testid="trigger">trigger</a>
       </Tooltip>
     );
-    await fireOpen(getByTestId("trigger"));
+    fireOpen(getByTestId("trigger"));
 
     expect(fn).toBeCalledTimes(1);
     expect(getByText("This's title")).not.toBeNull();

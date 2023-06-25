@@ -1,11 +1,13 @@
 import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
+import { failedQuerySelector } from "../utils";
 
 export function fireChange(container: IContainer, index: number) {
-  const ele = container.querySelectorAll(
-    `.${getProvider("prefixCls")}-collapse-header`
-  );
-  if (!ele.item(index)) return;
-  fireEvent.click(ele.item(index));
+  const selector = `.${getProvider("prefixCls")}-collapse-header`;
+  const ele = container.querySelectorAll(selector).item(index);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
+  fireEvent.click(ele);
 }

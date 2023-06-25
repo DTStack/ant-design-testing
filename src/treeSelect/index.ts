@@ -2,34 +2,45 @@ import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { fireOpen as fireSelectOpen } from "../select";
 import { getProvider } from "../provider";
+import { failedQuerySelector } from "../utils";
 
 export function fireOpen(container: IContainer) {
   fireSelectOpen(container);
 }
 
 export function fireSearch(container: IContainer, value: any) {
-  const ele = container.querySelector("input");
-  if (!ele) return;
+  const selector = "input";
+  const ele = container.querySelector(selector);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
   fireEvent.change(ele, { target: { value } });
 }
 
 export function fireSelect(container: IContainer, index: number) {
-  const ele = container.querySelectorAll(
-    `span.${getProvider("prefixCls")}-select-tree-node-content-wrapper`
-  );
-  if (!ele.item(index)) return;
-  fireEvent.click(ele.item(index));
+  const selector = `span.${getProvider(
+    "prefixCls"
+  )}-select-tree-node-content-wrapper`;
+  const ele = container.querySelectorAll(selector).item(index);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
+  fireEvent.click(ele);
 }
 
 export function fireTreeExpand(container: IContainer, index: number) {
+  const selector = `span.${getProvider(
+    "prefixCls"
+  )}-select-tree-node-content-wrapper`;
+  const switcher = `.${getProvider("prefixCls")}-select-tree-switcher`;
   const ele = container
-    .querySelectorAll(
-      `span.${getProvider("prefixCls")}-select-tree-node-content-wrapper`
-    )
+    .querySelectorAll(selector)
     .item(index)
-    ?.parentElement?.querySelector(
-      `.${getProvider("prefixCls")}-select-tree-switcher`
+    ?.parentElement?.querySelector(switcher);
+  if (!ele) {
+    throw failedQuerySelector(
+      `${selector}[${index}]'s parentElement ${switcher}`
     );
-  if (!ele) return;
+  }
   fireEvent.click(ele);
 }

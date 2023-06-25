@@ -31,7 +31,7 @@ describe("Test confirm's fire functions", () => {
     jest.useRealTimers();
   });
 
-  test.only("fireOpen", async () => {
+  test("fireOpen", async () => {
     const fn = jest.fn();
     const { getByTestId } = render(<Confirm onOk={fn} />);
     await fireOpen(getByTestId("trigger"));

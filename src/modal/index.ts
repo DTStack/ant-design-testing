@@ -1,21 +1,28 @@
 import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
+import { failedQuerySelector } from "../utils";
 
 export function fireCancelButton(container: IContainer) {
-  const ele = container
-    .querySelector(`.${getProvider("prefixCls")}-modal-footer`)
-    ?.querySelectorAll(`button.${getProvider("prefixCls")}-btn`);
-  if (!ele?.item(0)) return;
-  fireEvent.click(ele.item(0));
+  const selector = `.${getProvider(
+    "prefixCls"
+  )}-modal-footer button.${getProvider("prefixCls")}-btn`;
+  const ele = container.querySelectorAll(selector).item(0);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
+  fireEvent.click(ele);
 }
 
 export function fireOk(container: IContainer) {
-  const ele = container
-    .querySelector(`.${getProvider("prefixCls")}-modal-footer`)
-    ?.querySelectorAll(`button.${getProvider("prefixCls")}-btn`);
-  if (!ele?.item(1)) return;
-  fireEvent.click(ele.item(1));
+  const selector = `.${getProvider(
+    "prefixCls"
+  )}-modal-footer button.${getProvider("prefixCls")}-btn`;
+  const ele = container.querySelectorAll(selector).item(1);
+  if (!ele) {
+    throw failedQuerySelector(selector);
+  }
+  fireEvent.click(ele);
 }
 
 export function fireCancel(
@@ -23,10 +30,11 @@ export function fireCancel(
   opt: { closeByButton: boolean } = { closeByButton: true }
 ) {
   if (!opt.closeByButton) {
-    const ele = container.querySelector(
-      `.${getProvider("prefixCls")}-modal-close`
-    );
-    if (!ele) return;
+    const selector = `.${getProvider("prefixCls")}-modal-close`;
+    const ele = container.querySelector(selector);
+    if (!ele) {
+      throw failedQuerySelector(selector);
+    }
     fireEvent.click(ele);
   } else {
     fireCancelButton(container);
