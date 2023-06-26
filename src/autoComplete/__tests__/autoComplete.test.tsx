@@ -7,6 +7,7 @@ import {
   fireFocus,
   fireOpen,
   fireSelect,
+  query,
 } from "..";
 import React from "react";
 
@@ -23,7 +24,10 @@ describe("Test Select fire functions", () => {
   it("Test fireOpen", () => {
     const fn = jest.fn();
     const { container } = render(
-      <AutoComplete onDropdownVisibleChange={fn} options={[{ label: 'a', value: 'a' }]} />
+      <AutoComplete
+        onDropdownVisibleChange={fn}
+        options={[{ label: "a", value: "a" }]}
+      />
     );
     fireOpen(container);
     expect(fn).toBeCalledWith(true);
@@ -35,7 +39,7 @@ describe("Test Select fire functions", () => {
       <AutoComplete
         onChange={fn}
         getPopupContainer={(node) => node.parentNode}
-        options={[{ label: 'a', value: 'a' }]}
+        options={[{ label: "a", value: "a" }]}
       />
     );
     fireOpen(container);
@@ -46,7 +50,11 @@ describe("Test Select fire functions", () => {
   it("Test fireChange", () => {
     const fn = jest.fn();
     const { container } = render(
-      <AutoComplete onSearch={fn} showSearch options={[{ label: 'a', value: 'a' }]} />
+      <AutoComplete
+        onSearch={fn}
+        showSearch
+        options={[{ label: "a", value: "a" }]}
+      />
     );
     fireChange(container, "test");
     expect(fn).toBeCalled();
@@ -55,7 +63,7 @@ describe("Test Select fire functions", () => {
   it("Test fireFocus", () => {
     const fn = jest.fn();
     const { container } = render(
-      <AutoComplete onFocus={fn} options={[{ label: 'a', value: 'a' }]} />
+      <AutoComplete onFocus={fn} options={[{ label: "a", value: "a" }]} />
     );
     fireFocus(container);
     expect(fn).toBeCalled();
@@ -64,7 +72,7 @@ describe("Test Select fire functions", () => {
   it("Test fireBlur", () => {
     const fn = jest.fn();
     const { container } = render(
-      <AutoComplete onBlur={fn} options={[{ label: 'a', value: 'a' }]} />
+      <AutoComplete onBlur={fn} options={[{ label: "a", value: "a" }]} />
     );
     fireFocus(container);
     fireBlur(container);
@@ -78,10 +86,30 @@ describe("Test Select fire functions", () => {
         onClear={fn}
         defaultValue={1}
         allowClear
-        options={[{ label: 'a', value: 'a' }]}
+        options={[{ label: "a", value: "a" }]}
       />
     );
     fireClear(container);
     expect(fn).toBeCalled();
+  });
+
+  it("Test select query", () => {
+    const fn = jest.fn();
+    const { container } = render(
+      <div>
+        <AutoComplete
+          allowClear
+          options={[{ label: "a", value: "a" }]}
+        />
+        <AutoComplete
+          onSearch={fn}
+          allowClear
+          options={[{ label: "a", value: "a" }]}
+        />
+      </div>
+    );
+    const el = query(container, 1);
+    fireChange(el, "a");
+    expect(fn).toBeCalledWith("a");
   });
 });

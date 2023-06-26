@@ -51,3 +51,9 @@ export function fireClear(container: IContainer) {
   if (!ele) throw failedQuerySelector(selector);
   fireEvent.mouseDown(ele);
 }
+
+export function query(container: IContainer, index: number) {
+  const selector = `.${prefixCls}-select-auto-complete`;
+  const ele  = container.querySelectorAll(selector).item(index) as IContainer;
+  return ele;
+}

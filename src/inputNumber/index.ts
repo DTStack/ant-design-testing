@@ -56,3 +56,9 @@ export function fireBlur(container: IContainer) {
   }
   fireEvent.blur(inputEl);
 }
+
+export function query(container: IContainer, index: number) {
+  const selector = `.${getProvider("prefixCls")}-input-number`;
+  const ele = container.querySelectorAll(selector).item(index) as IContainer;
+  return ele;
+}

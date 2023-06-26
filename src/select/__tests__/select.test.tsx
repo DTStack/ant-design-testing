@@ -8,6 +8,7 @@ import {
   fireFocus,
   fireOpen,
   fireSelect,
+  query
 } from "..";
 import React from "react";
 
@@ -99,5 +100,29 @@ describe("Test Select fire functions", () => {
     );
     fireDeSelect(container, 0);
     expect(fn).toBeCalled();
+  });
+
+  it("Test select query", () => {
+    const fn = jest.fn();
+    const { container } = render(
+      <div>
+        <Select
+          defaultValue="1"
+          allowClear
+          mode="tags"
+          options={[{ label: 1, value: "1" }]}
+        />
+        <Select
+          onSearch={fn}
+          defaultValue="1"
+          allowClear
+          mode="tags"
+          options={[{ label: 1, value: "1" }]}
+        />
+      </div>
+    );
+    const el = query(container, 1)
+    fireChange(el, '1')
+    expect(fn).toBeCalledWith('1')
   });
 });

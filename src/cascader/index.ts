@@ -39,3 +39,9 @@ export function fireSearch(container: IContainer, value: string) {
   }
   fireEvent.change(ele, { target: { value } });
 }
+
+export function query(container: IContainer, index: number) {
+  const selector = `.${getProvider("prefixCls")}-cascader`;
+  const ele  = container.querySelectorAll(selector).item(index) as IContainer;
+  return ele;
+}

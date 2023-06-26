@@ -74,3 +74,9 @@ export function fireClear(container: IContainer) {
   }
   fireEvent.mouseDown(ele);
 }
+
+export function query(container: IContainer, index: number) {
+  const selector = `.${getProvider("prefixCls")}-select`;
+  const ele  = container.querySelectorAll(selector).item(index) as IContainer;
+  return ele;
+}
