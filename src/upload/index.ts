@@ -1,16 +1,21 @@
-import { fireEvent } from "@testing-library/react";
+import { act, fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
+import { failedQuerySelector } from "../utils";
 
-const { prefixCls } = getProvider();
+const prefixCls = getProvider('prefixCls');
 
 export const fireUploadAsync = (
   container: IContainer,
   files: File[] | { file: string }[]
 ) => {
-  const ele = container.querySelector("input[type=file]");
-  if (!ele) return;
-  fireEvent.change(ele, { target: { files } });
+  const selector = "input[type=file]";
+  const ele = container.querySelector(selector);
+  if (!ele) throw failedQuerySelector(selector);
+  act(() => {
+    fireEvent.change(ele, { target: { files } });
+    jest.runAllTimers()
+  })
 };
 
 export const fireRemove = (container: IContainer, index: number = 0) => {
@@ -18,6 +23,6 @@ export const fireRemove = (container: IContainer, index: number = 0) => {
     index + 1
   }) .${prefixCls}-upload-list-item .anticon-delete`;
   const ele = container.querySelector(selector);
-  if (!ele) return;
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.click(ele);
 };
