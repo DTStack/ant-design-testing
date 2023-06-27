@@ -1,14 +1,12 @@
 import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
-import { failedQuerySelector } from "../utils";
+import { failedQuerySelector, queryViaSelector } from "../utils";
 
 export function fireOpen(container: IContainer) {
   const selector = `.${getProvider("prefixCls")}-select-selector`;
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.mouseDown(ele);
 }
 
@@ -33,15 +31,13 @@ export function fireChange(
 
 export function fireSearch(container: IContainer, value: string) {
   const selector = "input";
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.change(ele, { target: { value } });
 }
 
 export function query(container: IContainer, index: number) {
   const selector = `.${getProvider("prefixCls")}-cascader`;
-  const ele  = container.querySelectorAll(selector).item(index) as IContainer;
+  const ele = queryViaSelector(container, selector, index);
   return ele;
 }

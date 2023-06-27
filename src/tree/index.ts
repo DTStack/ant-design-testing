@@ -1,7 +1,7 @@
 import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
-import { failedQuerySelector } from "../utils";
+import { failedQuerySelector, queryViaSelector } from "../utils";
 
 export function fireCheck(container: IContainer, title: string) {
   const selector = `.${getProvider(
@@ -35,10 +35,8 @@ export function fireRightClick(container: IContainer, title: string) {
   const selector = `.${getProvider(
     "prefixCls"
   )}-tree-node-content-wrapper[title="${title}"]`;
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.contextMenu(ele);
 }
 
@@ -46,10 +44,8 @@ export function fireSelect(container: IContainer, title: string) {
   const selector = `.${getProvider(
     "prefixCls"
   )}-tree-node-content-wrapper[title="${title}"]`;
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.click(ele);
 }
 

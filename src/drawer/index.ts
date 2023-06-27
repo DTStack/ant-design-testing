@@ -1,7 +1,7 @@
 import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
-import { failedQuerySelector } from "../utils";
+import { failedQuerySelector, queryViaSelector } from "../utils";
 
 export function fireClose(
   container: IContainer,
@@ -10,9 +10,7 @@ export function fireClose(
   const selector = opt.closeByMask
     ? `.${getProvider("prefixCls")}-drawer-mask`
     : `.${getProvider("prefixCls")}-drawer-close`;
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.click(ele);
 }

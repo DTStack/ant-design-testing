@@ -10,4 +10,11 @@ describe("Test Button's fire functions", () => {
     fireClick(container);
     expect(fn).toBeCalled();
   });
+
+  test("fireClick support dom self", () => {
+    const fn = jest.fn();
+    const { container } = render(<Button onClick={fn}>Button</Button>);
+    fireClick(container.querySelector(".ant-btn")!);
+    expect(fn).toBeCalled();
+  });
 });

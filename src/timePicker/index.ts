@@ -2,7 +2,7 @@ import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import { fireOpen as fireDatePickerOpen } from "../datePicker";
 import type { IContainer } from "../interface";
-import { failedQuerySelector } from "../utils";
+import { failedQuerySelector, queryViaSelector } from "../utils";
 
 export function fireOpen(container: IContainer) {
   fireDatePickerOpen(container);
@@ -10,10 +10,8 @@ export function fireOpen(container: IContainer) {
 
 export function fireOk(container: IContainer) {
   const selector = `.${getProvider("prefixCls")}-picker-ok button`;
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.click(ele);
 }
 
@@ -21,10 +19,8 @@ type TimeString = `${string}:${string}:${string}` | `${string}:${string}`;
 
 export function fireSelectCell(container: IContainer, index: number) {
   const selector = `li.${getProvider("prefixCls")}-picker-time-panel-cell`;
-  const ele = container.querySelectorAll(selector).item(index);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector, index);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.click(ele);
 }
 
@@ -46,10 +42,8 @@ export function fireChange(
   time: TimeString | [TimeString, TimeString]
 ) {
   const selector = `.${getProvider("prefixCls")}-picker-content`;
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
 
   if (Array.isArray(time)) {
     // It's for RangePicker

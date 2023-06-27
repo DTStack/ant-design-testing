@@ -2,26 +2,22 @@ import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
 import type { DatePickerProps } from "antd";
-import { failedQuerySelector } from "../utils";
+import { failedQuerySelector, queryViaSelector } from "../utils";
 
 type PanelMode = Parameters<NonNullable<DatePickerProps["onPanelChange"]>>[1];
 
 export function fireOpen(container: IContainer) {
   const selector = "input";
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.mouseDown(ele);
   fireEvent.focus(ele);
 }
 
 export function fireClose(container: IContainer) {
   const selector = "input";
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.blur(ele);
 }
 
@@ -46,13 +42,9 @@ export function firePanelChange(
         return null;
     }
   })();
-  if (!selector) {
-    throw new Error(`${selector} is invaild selector`);
-  }
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  if (!selector) throw new Error(`${selector} is invaild selector`);
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
 
   fireEvent.click(ele);
 }
@@ -63,17 +55,13 @@ export function fireChange(container: IContainer, text: string) {
   const cell = Array.from(eles).find((td) => {
     return td.textContent === String(text) && td.className.includes(selector);
   });
-  if (!cell) {
-    throw failedQuerySelector(`end with ${selector}`);
-  }
+  if (!cell) throw failedQuerySelector(`end with ${selector}`);
   fireEvent.click(cell);
 }
 
 export function fireOk(container: IContainer) {
   const selector = `.${getProvider("prefixCls")}-picker-ok > *`;
-  const ele = container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
+  const ele = queryViaSelector(container, selector);
+  if (!ele) throw failedQuerySelector(selector);
   fireEvent.click(ele);
 }

@@ -1,7 +1,11 @@
 import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
-import { failedQuerySelector, failedQuerySelectors } from "../utils";
+import {
+  failedQuerySelector,
+  failedQuerySelectors,
+  queryViaSelector,
+} from "../utils";
 
 export const fireChange = (
   container: IContainer,
@@ -10,19 +14,12 @@ export const fireChange = (
   const selector = `.${getProvider("prefixCls")}-transfer .${getProvider(
     "prefixCls"
   )}-transfer-operation button`;
-  const btns = container.querySelectorAll(selector);
-  if (!btns.length) throw failedQuerySelector(selector);
+  const toRightBtn = queryViaSelector(container, selector, 0);
+  const toLeftBtn = queryViaSelector(container, selector, 1);
 
-  const toRightBtn = btns[0],
-    toLeftBtn = btns[1];
-
-  if (direction === "left" && toLeftBtn) {
-    fireEvent.click(toLeftBtn);
-  } else if (direction === "right" && toRightBtn) {
-    fireEvent.click(toRightBtn);
-  } else {
-    throw failedQuerySelector(selector);
-  }
+  const btn = direction === "left" ? toLeftBtn : toRightBtn;
+  if (!btn) throw failedQuerySelector(selector);
+  fireEvent.click(btn);
 };
 
 export const fireScroll = (
