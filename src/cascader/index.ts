@@ -1,7 +1,11 @@
 import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
-import { failedQuerySelector, queryViaSelector } from "../utils";
+import {
+  failedQuerySelector,
+  queryViaSelector,
+  queryViaSelectors,
+} from "../utils";
 
 export function fireOpen(container: IContainer) {
   const selector = `.${getProvider("prefixCls")}-select-selector`;
@@ -17,15 +21,15 @@ export function fireChange(
 ) {
   for (let i = 0; i < indexes.length; i++) {
     const index = indexes[i];
-    const selector = `li.${getProvider("prefixCls")}-cascader-menu-item`;
-    const ele = container
-      .querySelectorAll(`ul.${getProvider("prefixCls")}-cascader-menu`)
-      ?.item(i)
-      .querySelectorAll(selector);
-    if (!ele?.item(index)) {
-      throw failedQuerySelector(selector);
+    const selectors = [
+      `ul.${getProvider("prefixCls")}-cascader-menu`,
+      `li.${getProvider("prefixCls")}-cascader-menu-item`,
+    ];
+    const ele = queryViaSelectors(container, selectors, [i, index]);
+    if (!ele) {
+      throw failedQuerySelector(selectors.join(" "));
     }
-    fireEvent[type as keyof typeof fireEvent]?.(ele.item(index));
+    fireEvent[type as keyof typeof fireEvent]?.(ele);
   }
 }
 

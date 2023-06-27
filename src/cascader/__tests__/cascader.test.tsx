@@ -45,7 +45,7 @@ describe("Test Cascader's fire functions", () => {
     fireChange(container, "click", 0, 0, 0);
     expect(fn).toBeCalled();
   });
-
+  
   test("Test fireSearch", () => {
     const fn = jest.fn();
     const { container } = render(

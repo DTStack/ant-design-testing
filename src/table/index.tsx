@@ -1,7 +1,11 @@
 import { fireEvent } from "@testing-library/react";
 import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
-import { failedQuerySelector, failedQuerySelectors, queryViaSelector } from "../utils";
+import {
+  failedQuerySelector,
+  queryViaSelector,
+  queryViaSelectors,
+} from "../utils";
 
 export const fireSelect = (container: IContainer, index: number) => {
   const selector = `.${getProvider("prefixCls")}-table-row .${getProvider(
@@ -26,9 +30,8 @@ export const fireExpand = (container: IContainer, index: number) => {
     `.${getProvider("prefixCls")}-table-row`,
     `button.${getProvider("prefixCls")}-table-row-expand-icon`,
   ];
-  const ele = container
-    .querySelectorAll(selectors[0])
-    [index]?.querySelector(selectors[1]);
-  if (!ele) throw failedQuerySelectors(selectors);
+  const ele = queryViaSelectors(container, selectors, [index]);
+  if (!ele)
+    throw failedQuerySelector(`${selectors[0]}[${index}] ${selectors[1]}`);
   fireEvent.click(ele);
 };

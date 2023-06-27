@@ -1,39 +1,34 @@
 import React from "react";
-import { cleanup, render } from "@testing-library/react";
-import { Upload, UploadProps } from "antd";
+import { cleanup, render, waitFor } from "@testing-library/react";
+import { Upload, type UploadFile } from "antd";
 import { fireRemove, fireUploadAsync } from "..";
 
 describe("Test Upload's fire functions", () => {
-  beforeAll(() => {
+  beforeEach(() => {
+    cleanup();
     jest.useFakeTimers();
   });
-  beforeEach(() => cleanup());
   afterEach(() => {
-    jest.clearAllTimers();
-  });
-  afterAll(() => {
     jest.useRealTimers();
   });
 
-  test("test fireUpload", (done) => {
-    const props: UploadProps = {
-      beforeUpload: () => false,
-      onChange: ({ fileList }) => {
-          expect(fileList[0]?.file).toBe('foo.png');
-          done();
-      },
-    };
+  test("test fireUpload", async () => {
+    const fn = jest.fn();
     const { container } = render(
-      <Upload {...props}>
+      <Upload beforeUpload={() => false} onChange={fn}>
         <button type="button">upload</button>
       </Upload>
     );
 
     fireUploadAsync(container, [{ file: "foo.png" }]);
+    await waitFor(() => {
+      expect(fn).toBeCalledTimes(1);
+      expect(fn.mock.calls[0][0].fileList[0].file).toBe("foo.png");
+    });
   });
 
   test("test fireRemove", () => {
-    const handleRemove = jest.fn()
+    const fn = jest.fn();
     const files = [
       {
         uid: "-1",
@@ -48,18 +43,18 @@ describe("Test Upload's fire functions", () => {
         url: "http://www.baidu.com/xxx.png",
       },
     ];
-    const props: UploadProps = {
-      beforeUpload: () => false,
-      fileList: files as UploadProps["fileList"],
-      onRemove: handleRemove,
-    };
     const { container } = render(
-      <Upload {...props}>
+      <Upload
+        beforeUpload={() => false}
+        fileList={files as UploadFile[]}
+        onRemove={fn}
+      >
         <button type="button">upload</button>
       </Upload>
     );
-
     fireRemove(container, 1);
-    expect(handleRemove.mock.calls[0][0]).toMatchObject({name: 'bar.png'})
+    waitFor(() => {
+      expect(fn.mock.calls[0][0]).toMatchObject({ name: "bar.png" });
+    });
   });
 });

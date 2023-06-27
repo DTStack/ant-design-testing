@@ -1,7 +1,11 @@
 import { act, fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
-import { failedQuerySelector, queryViaSelector } from "../utils";
+import {
+  failedQuerySelector,
+  queryViaSelector,
+  queryViaSelectors,
+} from "../utils";
 
 export function fireChange(container: IContainer, value: any) {
   const selector = "input";
@@ -28,16 +32,13 @@ export function fireSelect(container: IContainer, index: number) {
 }
 
 export function fireDeSelect(container: IContainer, index: number) {
-  const selector = `.${getProvider("prefixCls")}-select-selection-item`;
-  const removeSelector = `.${getProvider(
-    "prefixCls"
-  )}-select-selection-item-remove`;
-  const ele = container
-    .querySelectorAll(selector)
-    .item(index)
-    ?.querySelector(removeSelector);
+  const selectors = [
+    `.${getProvider("prefixCls")}-select-selection-item`,
+    `.${getProvider("prefixCls")}-select-selection-item-remove`,
+  ];
+  const ele = queryViaSelectors(container, selectors, [index]);
   if (!ele) {
-    throw failedQuerySelector(`${selector}[${index}] ${removeSelector}`);
+    throw failedQuerySelector(`${selectors[0]}[${index}] ${selectors[1]}`);
   }
   fireEvent.click(ele);
 }

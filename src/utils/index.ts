@@ -32,3 +32,31 @@ export function queryViaSelector<T extends HTMLElement>(
   }
   return container.querySelector<T>(selector);
 }
+
+export function queryViaSelectors(
+  container: IContainer,
+  selectors: string[],
+  index: number[]
+) {
+  const i = selectors.findIndex(
+    function (this: { className: string }, selector) {
+      this.className += ` ${selector}`;
+      return !container.matches(this.className);
+    },
+    {
+      className: "",
+    }
+  );
+  const restSelectors = selectors.slice(i);
+  const restIndex = index.slice(i);
+  return restSelectors.reduce<HTMLElement | null | undefined>(
+    (acc, cur, idx) => {
+      const queryAll = typeof restIndex[idx] === "number";
+      if (queryAll) {
+        return acc?.querySelectorAll<HTMLElement>(cur).item(restIndex[idx]);
+      }
+      return acc?.querySelector(cur);
+    },
+    container
+  );
+}

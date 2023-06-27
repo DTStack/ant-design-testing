@@ -5,6 +5,7 @@ import {
   failedQuerySelector,
   failedQuerySelectors,
   queryViaSelector,
+  queryViaSelectors,
 } from "../utils";
 
 export const fireChange = (
@@ -31,12 +32,11 @@ export const fireScroll = (
     `.${getProvider("prefixCls")}-transfer-list-content`,
   ];
   const scrollTargetIndex = type === "source" ? 0 : 1;
-  const ele = container
-    .querySelectorAll(selectors[0])
-    .item(scrollTargetIndex)
-    .querySelectorAll(selectors[1])
-    .item(0);
-  if (!ele) throw failedQuerySelectors(selectors);
+  const ele = queryViaSelectors(container, selectors, [scrollTargetIndex, 0]);
+  if (!ele)
+    throw failedQuerySelector(
+      `${selectors[0]}[${scrollTargetIndex}] ${selectors[1]}[0]`
+    );
   fireEvent.scroll(ele);
 };
 
@@ -45,12 +45,16 @@ export const fireSearch = (
   opts: { searchText: string; direction: "left" | "right" }
 ) => {
   const { direction, searchText } = opts;
-  const selector = `.${getProvider("prefixCls")}-transfer-list-search`;
+  const selectors = [
+    `.${getProvider("prefixCls")}-transfer-list-search`,
+    `.${getProvider("prefixCls")}-input`,
+  ];
   const searchTargetIndex = direction === "left" ? 0 : 1;
-  const ele = container
-    .querySelectorAll(selector)
-    [searchTargetIndex]?.querySelector(".ant-input");
-  if (!ele) throw failedQuerySelector(selector);
+  const ele = queryViaSelectors(container, selectors, [searchTargetIndex]);
+  if (!ele)
+    throw failedQuerySelector(
+      `${selectors[0]}[${searchTargetIndex}] ${selectors[1]}`
+    );
 
   fireEvent.change(ele, { target: { value: searchText } });
 };
