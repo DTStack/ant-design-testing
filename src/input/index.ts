@@ -1,13 +1,13 @@
 import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
-import { failedQuerySelector, judgeContainerMatchSelf } from "../utils";
+import { failedQuerySelector, matchContainerSelf } from "../utils";
 
 const prefixCls = getProvider("prefixCls");
 
 export function fireFocus(container: IContainer) {
   const selector = "input";
-  const inputEl = judgeContainerMatchSelf(container, selector)
+  const inputEl = matchContainerSelf(container, selector)
     ? container
     : container.querySelector(selector);
   if (!inputEl) {
@@ -18,7 +18,7 @@ export function fireFocus(container: IContainer) {
 
 export function fireBlur(container: IContainer) {
   const selector = "input";
-  const inputEl = judgeContainerMatchSelf(container, selector)
+  const inputEl = matchContainerSelf(container, selector)
     ? container
     : container.querySelector(selector);
   if (!inputEl) {
@@ -29,7 +29,7 @@ export function fireBlur(container: IContainer) {
 
 export function fireChange(container: IContainer, value: any) {
   const selector = "input";
-  const inputEl = judgeContainerMatchSelf(container, selector)
+  const inputEl = matchContainerSelf(container, selector)
     ? container
     : container.querySelector(selector);
   if (!inputEl) {
@@ -41,7 +41,7 @@ export function fireChange(container: IContainer, value: any) {
 export function fireClear(container: IContainer) {
   let selector = "";
   let iconEl = null;
-  if (judgeContainerMatchSelf(container, "input")) {
+  if (matchContainerSelf(container, "input")) {
     selector = `.${prefixCls}-input~.${prefixCls}-input-suffix .${prefixCls}-input-clear-icon`;
     iconEl = container.parentElement?.querySelector(selector);
   } else {
@@ -57,7 +57,7 @@ export function fireClear(container: IContainer) {
 
 export function firePressEnter(container: IContainer) {
   const selector = "input";
-  const inputEl = judgeContainerMatchSelf(container, selector)
+  const inputEl = matchContainerSelf(container, selector)
     ? container
     : container.querySelector(selector);
   if (!inputEl) {

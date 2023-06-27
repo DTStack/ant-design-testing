@@ -1,11 +1,11 @@
 import { fireEvent } from "@testing-library/react";
 import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
-import { failedQuerySelector, judgeContainerMatchSelf } from "../utils";
+import { failedQuerySelector, matchContainerSelf } from "../utils";
 
 export function fireClick(container: IContainer) {
   const selector = `.${getProvider("prefixCls")}-switch`;
-  const ele = judgeContainerMatchSelf(container, selector) ? container : container.querySelector(selector);
+  const ele = matchContainerSelf(container, selector) ? container : container.querySelector(selector);
   if (!ele) {
     throw failedQuerySelector(selector);
   }

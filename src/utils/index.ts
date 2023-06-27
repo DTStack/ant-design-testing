@@ -10,6 +10,6 @@ export const failedTriggerElement = () =>
 /**
  * @description 判断容器元素自身是否匹配选择器， 像Input与Button这种组件自身可能会作为container
  */
-export const judgeContainerMatchSelf = (container: HTMLElement, selector: string) => {
+export const matchContainerSelf = (container: HTMLElement, selector: string) => {
   return container.matches(selector)
 }
