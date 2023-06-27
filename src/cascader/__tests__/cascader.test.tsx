@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { Cascader } from "antd";
-import { fireChange, fireOpen, fireSearch } from "..";
+import { fireChange, fireOpen, fireSearch, query } from "..";
 
 describe("Test Cascader's fire functions", () => {
   beforeEach(() => {
@@ -63,6 +63,30 @@ describe("Test Cascader's fire functions", () => {
       />
     );
     fireSearch(container, "test");
+    expect(fn).toBeCalled();
+  });
+
+  test("Test query", () => {
+    const fn = jest.fn();
+    const { container } = render(
+      <div>
+        <Cascader />
+        <Cascader
+          showSearch={{
+            filter: (inputValue, path) =>
+              path.some(
+                (option) =>
+                  (option.label as string)
+                    .toLowerCase()
+                    .indexOf(inputValue.toLowerCase()) > -1
+              ),
+          }}
+          onSearch={fn}
+        />
+      </div>
+    );
+    const el = query(container, 1);
+    fireSearch(el, "test");
     expect(fn).toBeCalled();
   });
 });

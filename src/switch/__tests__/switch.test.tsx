@@ -1,7 +1,7 @@
 import { cleanup, render } from "@testing-library/react";
 import { Switch } from "antd";
 import React from "react";
-import { fireClick, fireChange } from "..";
+import { fireClick, fireChange, query } from "..";
 
 describe("Test Switch's fire functions", () => {
   beforeEach(cleanup);
@@ -19,6 +19,18 @@ describe("Test Switch's fire functions", () => {
     const { container } = render(<Switch onChange={fn} />);
 
     fireChange(container);
+    expect(fn).toBeCalledTimes(1);
+  });
+
+  test("query switch", () => {
+    const fn = jest.fn();
+    const { container } = render(<div>
+      <Switch />
+      <Switch onClick={fn} />
+    </div>);
+
+    const el = query(container, 1)
+    fireClick(el);
     expect(fn).toBeCalledTimes(1);
   });
 });

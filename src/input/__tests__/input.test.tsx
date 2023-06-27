@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { Input } from "antd";
-import { fireBlur, fireChange, fireClear, fireFocus, firePressEnter } from "..";
+import { fireBlur, fireChange, fireClear, fireFocus, firePressEnter, query } from "..";
 
 describe("Test input's fire functions", () => {
   test("fireChange", () => {
@@ -44,4 +44,16 @@ describe("Test input's fire functions", () => {
 
     expect(fn).toBeCalled();
   });
+
+  test('query input', () => {
+    const fn = jest.fn();
+    const { container } = render(<div>
+      <Input allowClear defaultValue="test"/>
+      <Input allowClear defaultValue="test" onChange={fn} />
+    </div>);
+    const el = query(container, 1);
+    fireClear(el);
+
+    expect(fn).toBeCalled();
+  })
 });

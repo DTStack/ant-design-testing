@@ -1,3 +1,5 @@
+export * as autoComplete from "./autoComplete";
+export * as button from "./button";
 export * as cascader from "./cascader";
 export * as checkbox from "./checkbox";
 export * as collapse from "./collapse";
@@ -11,8 +13,11 @@ export * as popconfirm from "./popconfirm";
 export * as radio from "./radio";
 export * as select from "./select";
 export * as switch from "./switch";
+export * as table from "./table";
 export * as tabs from "./tabs";
 export * as timePicker from "./timePicker";
 export * as tooltip from "./tooltip";
+export * as transfer from "./transfer";
 export * as treeSelect from "./treeSelect";
+export * as upload from "./upload";
 export { getProvider, provider, getProviders } from "./provider";
