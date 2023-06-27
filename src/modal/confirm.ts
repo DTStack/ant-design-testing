@@ -3,14 +3,14 @@ import type { IContainer } from "../interface";
 import { act, fireEvent } from "@testing-library/react";
 import { failedQuerySelector, failedTriggerElement } from "../utils";
 
-export async function fireOpen(ele?: HTMLElement) {
+export function fireOpen(ele?: HTMLElement) {
   if (!ele) {
     throw failedTriggerElement();
   }
 
-  await act(async () => {
+  act(() => {
     fireEvent.click(ele);
-    await jest.runAllTimersAsync();
+    jest.runAllTimers();
   });
 }
 

@@ -3,8 +3,6 @@ import type { IContainer } from "../interface";
 import { getProvider } from "../provider";
 import { failedQuerySelector } from "../utils";
 
-const prefixCls = getProvider('prefixCls');
-
 export const fireUploadAsync = (
   container: IContainer,
   files: File[] | { file: string }[]
@@ -14,14 +12,16 @@ export const fireUploadAsync = (
   if (!ele) throw failedQuerySelector(selector);
   act(() => {
     fireEvent.change(ele, { target: { files } });
-    jest.runAllTimers()
-  })
+    jest.runAllTimers();
+  });
 };
 
 export const fireRemove = (container: IContainer, index: number = 0) => {
-  const selector = `.${prefixCls}-upload-list-text-container:nth-child(${
-    index + 1
-  }) .${prefixCls}-upload-list-item .anticon-delete`;
+  const selector = `.${getProvider(
+    "prefixCls"
+  )}-upload-list-text-container:nth-child(${index + 1}) .${getProvider(
+    "prefixCls"
+  )}-upload-list-item .anticon-delete`;
   const ele = container.querySelector(selector);
   if (!ele) throw failedQuerySelector(selector);
   fireEvent.click(ele);

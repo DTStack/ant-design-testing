@@ -3,8 +3,6 @@ import { getProvider } from "../provider";
 import type { IContainer } from "../interface";
 import { failedQuerySelector, matchContainerSelf } from "../utils";
 
-const prefixCls = getProvider("prefixCls");
-
 export function fireFocus(container: IContainer) {
   const selector = "input";
   const inputEl = matchContainerSelf(container, selector)
@@ -42,10 +40,12 @@ export function fireClear(container: IContainer) {
   let selector = "";
   let iconEl = null;
   if (matchContainerSelf(container, "input")) {
-    selector = `.${prefixCls}-input~.${prefixCls}-input-suffix .${prefixCls}-input-clear-icon`;
+    selector = `.${getProvider("prefixCls")}-input~.${getProvider(
+      "prefixCls"
+    )}-input-suffix .${getProvider("prefixCls")}-input-clear-icon`;
     iconEl = container.parentElement?.querySelector(selector);
   } else {
-    selector = `.${prefixCls}-input-clear-icon`;
+    selector = `.${getProvider("prefixCls")}-input-clear-icon`;
     iconEl = container.querySelector(selector);
   }
 
@@ -67,7 +67,7 @@ export function firePressEnter(container: IContainer) {
 }
 
 export function query(container: IContainer, index: number) {
-  const selector = `.${prefixCls}-input`;
+  const selector = `.${getProvider("prefixCls")}-input`;
   const ele = container.querySelectorAll(selector).item(index) as IContainer;
   return ele;
 }

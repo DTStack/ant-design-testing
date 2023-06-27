@@ -31,33 +31,29 @@ describe("Test confirm's fire functions", () => {
     jest.useRealTimers();
   });
 
-  test("fireOpen", async () => {
+  test("fireOpen", () => {
     const fn = jest.fn();
     const { getByTestId } = render(<Confirm onOk={fn} />);
-    await fireOpen(getByTestId("trigger"));
+    fireOpen(getByTestId("trigger"));
 
     expect(
       document.querySelector(`.${getProvider("prefixCls")}-modal-root`)
     ).not.toBeNull();
   });
 
-  test("fireOk", async () => {
+  test("fireOk", () => {
     const fn = jest.fn();
     const { getByTestId } = render(<Confirm onOk={fn} />);
-    await fireOpen(getByTestId("trigger"));
+    fireOpen(getByTestId("trigger"));
     fireOk(document.body);
-    await waitFor(() => {
-      expect(fn).toBeCalled();
-    });
+    expect(fn).toBeCalled();
   });
 
-  test("fireCancel", async () => {
+  test("fireCancel", () => {
     const fn = jest.fn();
     const { getByTestId } = render(<Confirm onCancel={fn} />);
-    await fireOpen(getByTestId("trigger"));
+    fireOpen(getByTestId("trigger"));
     fireCancel(document.body);
-    await waitFor(() => {
-      expect(fn).toBeCalled();
-    });
+    expect(fn).toBeCalled();
   });
 });
