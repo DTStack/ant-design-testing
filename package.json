@@ -10,7 +10,8 @@
         "build:deps": "father prebundle",
         "prepublishOnly": "father doctor && npm run build",
         "test": "jest",
-        "release": "bumpp --commit --push --tag && npm publish"
+        "release": "bumpp --commit --push --tag && npm publish",
+        "prepare": "husky install"
     },
     "repository": {
         "type": "git",
@@ -45,6 +46,7 @@
         "antd": "4",
         "bumpp": "^9.1.0",
         "father": "^4.2.0",
+        "husky": "^8.0.3",
         "jest": "^29.5.0",
         "jest-environment-jsdom": "^29.5.0",
         "ko-lint-config": "^2.2.20",
