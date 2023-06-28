@@ -8,14 +8,10 @@ export const failedQuerySelectors = (selectors: string[]) =>
 export const failedTriggerElement = () => new Error('Failed to trigger element for NOT found element');
 
 /**
- * @description 判断容器元素自身是否匹配选择器， 像Input与Button这种组件自身可能会作为container
+ * 判断容器元素自身是否匹配选择器
  */
-export const matchContainerSelf = (container: HTMLElement, selector: string) => {
-    return container.matches(selector);
-};
-
 export function queryViaSelector<T extends HTMLElement>(container: IContainer, selector: string, index?: number) {
-    if (container.matches(selector)) {
+    if (!(container instanceof Document) && container.matches(selector)) {
         return container;
     }
     if (typeof index === 'number') {
@@ -28,7 +24,7 @@ export function queryViaSelectors(container: IContainer, selectors: string[], in
     const i = selectors.findIndex(
         function (this: { className: string }, selector) {
             this.className += ` ${selector}`;
-            return !container.matches(this.className);
+            return !(container instanceof Document) && !container.matches(this.className);
         },
         {
             className: '',
@@ -36,11 +32,11 @@ export function queryViaSelectors(container: IContainer, selectors: string[], in
     );
     const restSelectors = selectors.slice(i);
     const restIndex = index.slice(i);
-    return restSelectors.reduce<HTMLElement | null | undefined>((acc, cur, idx) => {
+    return restSelectors.reduce<IContainer | null | undefined>((acc, cur, idx) => {
         const queryAll = typeof restIndex[idx] === 'number';
         if (queryAll) {
             return acc?.querySelectorAll<HTMLElement>(cur).item(restIndex[idx]);
         }
-        return acc?.querySelector(cur);
+        return acc?.querySelector<HTMLElement>(cur);
     }, container);
 }
