@@ -12,7 +12,7 @@ export const failedTriggerElement = () => new Error('Failed to trigger element f
  */
 export function queryViaSelector<T extends HTMLElement>(container: IContainer, selector: string, index?: number) {
     if (!(container instanceof Document) && container.matches(selector)) {
-        return container;
+        return container as T;
     }
     if (typeof index === 'number') {
         return container.querySelectorAll<T>(selector).item(index);
