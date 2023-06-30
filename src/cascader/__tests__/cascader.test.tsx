@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Cascader } from 'antd';
 
-import { fireChange, fireClear, fireOpen, fireSearch, query, queryDropdown, queryInput, querySelect } from '..';
+import * as cascader from '..';
 
 const options = [
     {
@@ -38,8 +38,8 @@ describe("Test Cascader's fire functions", () => {
                 <Cascader data-testid="cascader2" />
             </div>
         );
-        expect(query(container)).toBe(getByTestId('cascader1'));
-        expect(query(container, 1)).toBe(getByTestId('cascader2'));
+        expect(cascader.query(container)).toBe(getByTestId('cascader1'));
+        expect(cascader.query(container, 1)).toBe(getByTestId('cascader2'));
     });
 
     test('querySelect', () => {
@@ -50,9 +50,9 @@ describe("Test Cascader's fire functions", () => {
                 <Cascader onDropdownVisibleChange={fn} />
             </div>
         );
-        fireOpen(querySelect(container)!);
+        cascader.fireOpen(cascader.querySelect(container)!);
         expect(fn).toBeCalledTimes(1);
-        fireOpen(querySelect(container, 1)!);
+        cascader.fireOpen(cascader.querySelect(container, 1)!);
         // The second time is called by hidden for the first one
         expect(fn).toBeCalledTimes(3);
     });
@@ -66,19 +66,19 @@ describe("Test Cascader's fire functions", () => {
             </div>
         );
 
-        expect(queryInput(container)).toBe(getByTestId('cascader1').querySelector('input'));
-        expect(queryInput(container, 1)).toBe(getByTestId('cascader2').querySelector('input'));
+        expect(cascader.queryInput(container)).toBe(getByTestId('cascader1').querySelector('input'));
+        expect(cascader.queryInput(container, 1)).toBe(getByTestId('cascader2').querySelector('input'));
     });
 
     test('queryDropdown', () => {
         render(<Cascader open options={options} />);
-        expect(queryDropdown(document)).not.toBeNull();
+        expect(cascader.queryDropdown(document)).not.toBeNull();
     });
 
     test('Test fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<Cascader onDropdownVisibleChange={fn} />);
-        fireOpen(container);
+        cascader.fireOpen(container);
         expect(fn).toBeCalledTimes(1);
     });
 
@@ -87,8 +87,8 @@ describe("Test Cascader's fire functions", () => {
         const { container } = render(
             <Cascader onChange={fn} getPopupContainer={(node) => node.parentNode} options={options} />
         );
-        fireOpen(container);
-        fireChange(container, 0, 0, 0);
+        cascader.fireOpen(container);
+        cascader.fireChange(container, 0, 0, 0);
         expect(fn).toBeCalled();
     });
 
@@ -102,8 +102,8 @@ describe("Test Cascader's fire functions", () => {
                 options={options}
             />
         );
-        fireOpen(container);
-        fireChange(container, 'hover', 0, 0, 0);
+        cascader.fireOpen(container);
+        cascader.fireChange(container, 'hover', 0, 0, 0);
         expect(fn).toBeCalled();
     });
 
@@ -120,7 +120,7 @@ describe("Test Cascader's fire functions", () => {
                 onSearch={fn}
             />
         );
-        fireSearch(container, 'test');
+        cascader.fireSearch(container, 'test');
         expect(fn).toBeCalled();
     });
 
@@ -129,7 +129,7 @@ describe("Test Cascader's fire functions", () => {
         const { container } = render(
             <Cascader onClear={fn} options={options} allowClear defaultValue={['1', '1-1', '1-1-1']} />
         );
-        fireClear(container);
+        cascader.fireClear(container);
         expect(fn).toBeCalled();
     });
 
@@ -142,13 +142,13 @@ describe("Test Cascader's fire functions", () => {
                 <Cascader onChange={fn2} getPopupContainer={(node) => node.parentNode} options={options} />
             </>
         );
-        fireOpen(container);
-        fireChange(container, 0, 0, 0);
+        cascader.fireOpen(container);
+        cascader.fireChange(container, 0, 0, 0);
         expect(fn1).toBeCalledTimes(1);
         expect(fn2).toBeCalledTimes(0);
 
-        fireOpen(query(container, 1)!);
-        fireChange(queryDropdown(container, 1)!, 0, 0, 0);
+        cascader.fireOpen(cascader.query(container, 1)!);
+        cascader.fireChange(cascader.queryDropdown(container, 1)!, 0, 0, 0);
         expect(fn1).toBeCalledTimes(1);
         expect(fn2).toBeCalledTimes(1);
     });

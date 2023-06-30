@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { Modal } from 'antd';
 
-import { fireCancel, fireOk } from '..';
+import * as modal from '..';
 
 describe("Test Modal fire's functions", () => {
     beforeEach(cleanup);
@@ -10,21 +10,21 @@ describe("Test Modal fire's functions", () => {
     test('fireCancel', () => {
         const fn = jest.fn();
         const { container } = render(<Modal getContainer={false} open onCancel={fn} />);
-        fireCancel(container);
+        modal.fireCancel(container);
         expect(fn).toBeCalled();
     });
 
-    test('fireCancel by icon', () => {
+    test('fireCancel with queryMask', () => {
         const fn = jest.fn();
         const { container } = render(<Modal getContainer={false} open onCancel={fn} />);
-        fireCancel(container, { closeByButton: false });
+        modal.fireCancel(modal.queryMask(container)!);
         expect(fn).toBeCalled();
     });
 
     test('fireOk', () => {
         const fn = jest.fn();
         const { container } = render(<Modal getContainer={false} open onOk={fn} />);
-        fireOk(container);
+        modal.fireOk(container);
         expect(fn).toBeCalled();
     });
 });

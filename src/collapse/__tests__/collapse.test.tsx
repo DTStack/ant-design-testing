@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { Collapse } from 'antd';
 
-import { fireChange } from '..';
+import * as collapse from '..';
 
 describe("Test Collapse's fire functions", () => {
     beforeEach(cleanup);
@@ -20,7 +20,7 @@ describe("Test Collapse's fire functions", () => {
             </Collapse>
         );
 
-        fireChange(container, 0);
+        collapse.fireChange(container, 0);
         expect(fn).toBeCalled();
     });
 });

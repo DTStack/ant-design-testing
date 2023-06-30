@@ -16,7 +16,7 @@ export const fireClick = (container: IContainer) => {
 
 /**
  * Returns the `index` button that is a descendant of node.
- * @param {number} index the order of element, default is `0`
+ * @param {number} index default is `0`
  */
 export const query = (container: IContainer, index = 0) => {
     const selector = `.${getProvider('prefixCls')}-btn`;

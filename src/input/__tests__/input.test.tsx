@@ -2,13 +2,24 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Input } from 'antd';
 
-import { fireBlur, fireChange, fireClear, fireFocus, firePressEnter, query } from '..';
+import * as input from '..';
 
 describe("Test input's fire functions", () => {
+    test('query', () => {
+        const { container, getByTestId } = render(
+            <div>
+                <Input data-testid="input1" />
+                <Input data-testid="input2" />
+            </div>
+        );
+        expect(input.query(container)).toBe(getByTestId('input1'));
+        expect(input.query(container, 1)).toBe(getByTestId('input2'));
+    });
+
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Input onChange={fn} />);
-        fireChange(container, 'test');
+        input.fireChange(container, 'test');
 
         expect(fn).toBeCalled();
     });
@@ -16,7 +27,7 @@ describe("Test input's fire functions", () => {
     test('fireFocus', () => {
         const fn = jest.fn();
         const { container } = render(<Input onFocus={fn} />);
-        fireFocus(container);
+        input.fireFocus(container);
 
         expect(fn).toBeCalled();
     });
@@ -24,7 +35,7 @@ describe("Test input's fire functions", () => {
     test('fireBlur', () => {
         const fn = jest.fn();
         const { container } = render(<Input onBlur={fn} />);
-        fireBlur(container);
+        input.fireBlur(container);
 
         expect(fn).toBeCalled();
     });
@@ -32,28 +43,14 @@ describe("Test input's fire functions", () => {
     test('fireClear', () => {
         const fn = jest.fn();
         const { container } = render(<Input allowClear defaultValue="test" onChange={fn} />);
-        fireClear(container);
+        input.fireClear(container);
         expect(fn).toBeCalled();
     });
 
     test('firePressEnter', () => {
         const fn = jest.fn();
         const { container } = render(<Input onPressEnter={fn} />);
-        firePressEnter(container);
-
-        expect(fn).toBeCalled();
-    });
-
-    test('query input', () => {
-        const fn = jest.fn();
-        const { container } = render(
-            <div>
-                <Input allowClear defaultValue="test" />
-                <Input allowClear defaultValue="test" onChange={fn} />
-            </div>
-        );
-        const el = query(container, 1);
-        fireClear(el);
+        input.firePressEnter(container);
 
         expect(fn).toBeCalled();
     });

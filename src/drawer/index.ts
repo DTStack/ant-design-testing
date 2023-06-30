@@ -4,6 +4,11 @@ import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { failedQuerySelector, queryViaSelector } from '../utils';
 
+/**
+ * Fires onClose function.
+ *
+ * Call onClose via close icon by default
+ */
 export function fireClose(container: IContainer, opt: { closeByMask: boolean } = { closeByMask: true }) {
     const selector = opt.closeByMask
         ? `.${getProvider('prefixCls')}-drawer-mask`

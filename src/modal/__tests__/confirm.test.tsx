@@ -3,7 +3,7 @@ import { cleanup, render } from '@testing-library/react';
 import { Modal } from 'antd';
 
 import { getProvider } from '../../provider';
-import { fireCancel, fireOk, fireOpen } from '../confirm';
+import * as confirm from '../confirm';
 
 function Confirm({ onOk, onCancel }: any) {
     const handleConfirm = () => {
@@ -35,7 +35,7 @@ describe("Test confirm's fire functions", () => {
     test('fireOpen', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onOk={fn} />);
-        fireOpen(getByTestId('trigger'));
+        confirm.fireOpen(getByTestId('trigger'));
 
         expect(document.querySelector(`.${getProvider('prefixCls')}-modal-root`)).not.toBeNull();
     });
@@ -43,16 +43,16 @@ describe("Test confirm's fire functions", () => {
     test('fireOk', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onOk={fn} />);
-        fireOpen(getByTestId('trigger'));
-        fireOk(document.body);
+        confirm.fireOpen(getByTestId('trigger'));
+        confirm.fireOk(document.body);
         expect(fn).toBeCalled();
     });
 
     test('fireCancel', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onCancel={fn} />);
-        fireOpen(getByTestId('trigger'));
-        fireCancel(document.body);
+        confirm.fireOpen(getByTestId('trigger'));
+        confirm.fireCancel(document.body);
         expect(fn).toBeCalled();
     });
 });

@@ -2,16 +2,27 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { Switch } from 'antd';
 
-import { fireChange, fireClick, query } from '..';
+import * as switchEl from '..';
 
 describe("Test Switch's fire functions", () => {
     beforeEach(cleanup);
+
+    test('query', () => {
+        const { container, getByTestId } = render(
+            <>
+                <Switch data-testid="switch1" />
+                <Switch data-testid="switch2" />
+            </>
+        );
+        expect(switchEl.query(container)).toBe(getByTestId('switch1'));
+        expect(switchEl.query(container, 1)).toBe(getByTestId('switch2'));
+    });
 
     test('fireClick', () => {
         const fn = jest.fn();
         const { container } = render(<Switch onClick={fn} />);
 
-        fireClick(container);
+        switchEl.fireClick(container);
         expect(fn).toBeCalledTimes(1);
     });
 
@@ -19,21 +30,7 @@ describe("Test Switch's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Switch onChange={fn} />);
 
-        fireChange(container);
-        expect(fn).toBeCalledTimes(1);
-    });
-
-    test('query switch', () => {
-        const fn = jest.fn();
-        const { container } = render(
-            <div>
-                <Switch />
-                <Switch onClick={fn} />
-            </div>
-        );
-
-        const el = query(container, 1);
-        fireClick(el);
+        switchEl.fireChange(container);
         expect(fn).toBeCalledTimes(1);
     });
 });

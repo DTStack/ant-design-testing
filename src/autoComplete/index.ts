@@ -1,62 +1,74 @@
-import { act, fireEvent } from '@testing-library/react';
-
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import * as select from '../select';
+import { queryViaSelector } from '../utils';
 
-export function fireChange(container: IContainer, value: any) {
-    const selector = `.${getProvider('prefixCls')}-select-auto-complete input.${getProvider(
-        'prefixCls'
-    )}-select-selection-search-input`;
-    const ele = queryViaSelector(container, selector);
-    if (!ele) throw failedQuerySelector(selector);
-    fireEvent.change(ele, { target: { value } });
+/**
+ * Fires onSearch function
+ */
+export function fireSearch(container: IContainer, value: any) {
+    select.fireSearch(container, value);
 }
 
+/**
+ * Fires onDropdownVisibleChange function.
+ * Meanwhile, open Dropdown
+ * @prerequisite call `jest.useFakeTimers()`
+ */
 export function fireOpen(container: IContainer) {
-    const selector = `.${getProvider('prefixCls')}-select-auto-complete .${getProvider('prefixCls')}-select-selector`;
-    const ele = queryViaSelector(container, selector);
-    if (!ele) throw failedQuerySelector(selector);
-    act(() => {
-        fireEvent.mouseDown(ele);
-        jest.runAllTimers();
-    });
+    select.fireOpen(container);
 }
 
+/**
+ * Fires onSelect function
+ */
 export function fireSelect(container: IContainer, index: number) {
-    const selector = `div.${getProvider('prefixCls')}-select-item-option-content`;
-    const ele = queryViaSelector(container, selector, index);
-    if (!ele) throw failedQuerySelector(`${selector}[${index}]`);
-    fireEvent.click(ele);
+    select.fireSelect(container, index);
 }
 
+/**
+ * Fires onFocus function
+ */
 export function fireFocus(container: IContainer) {
-    const selector = `.${getProvider('prefixCls')}-select-auto-complete input.${getProvider(
-        'prefixCls'
-    )}-select-selection-search-input`;
-    const ele = queryViaSelector(container, selector);
-    if (!ele) throw failedQuerySelector(selector);
-    fireEvent.focus(ele);
+    select.fireFocus(container);
 }
 
+/**
+ * Fires onBlur function
+ */
 export function fireBlur(container: IContainer) {
-    const selector = `.${getProvider('prefixCls')}-select-auto-complete input.${getProvider(
-        'prefixCls'
-    )}-select-selection-search-input`;
-    const ele = queryViaSelector(container, selector);
-    if (!ele) throw failedQuerySelector(selector);
-    fireEvent.blur(ele);
+    select.fireBlur(container);
 }
 
+/**
+ * Fires onClear function
+ */
 export function fireClear(container: IContainer) {
-    const selector = `.${getProvider('prefixCls')}-select-auto-complete .${getProvider('prefixCls')}-select-clear`;
-    const ele = queryViaSelector(container, selector);
-    if (!ele) throw failedQuerySelector(selector);
-    fireEvent.mouseDown(ele);
+    select.fireClear(container);
 }
 
-export function query(container: IContainer, index: number) {
+/**
+ * Returns the `index` container of AutoComplete
+ * @param index default is `0`
+ */
+export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-select-auto-complete`;
     const ele = queryViaSelector(container, selector, index);
     return ele;
+}
+
+export function queryInput(container: IContainer, index = 0) {
+    return select.queryInput(container, index);
+}
+
+export function querySelector(container: IContainer, index = 0) {
+    return select.querySelector(container, index);
+}
+
+export function queryOption(container: IContainer, index = 0) {
+    return select.queryOption(container, index);
+}
+
+export function queryClear(container: IContainer, index = 0) {
+    return select.queryClear(container, index);
 }
