@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { Table } from 'antd';
 
-import { fireExpand, fireSelect, fireSelectAll } from '..';
+import * as table from '..';
 
 const columns = [
     { dataIndex: 'name', title: 'Name' },
@@ -18,7 +18,7 @@ const dataSource = [
 describe("Test Table's fire functions", () => {
     beforeEach(cleanup);
 
-    test('test fireSelect', () => {
+    test('fireSelect', () => {
         const handleSelect = jest.fn();
         const { container } = render(
             <Table
@@ -30,11 +30,11 @@ describe("Test Table's fire functions", () => {
                 }}
             />
         );
-        fireSelect(container, 1);
+        table.fireSelect(container, 1);
         expect(handleSelect.mock.calls[0][0]).toEqual([2]);
     });
 
-    test('test fireSelectAll', () => {
+    test('fireSelectAll', () => {
         const handleSelect = jest.fn();
         const { container } = render(
             <Table
@@ -46,11 +46,11 @@ describe("Test Table's fire functions", () => {
                 }}
             />
         );
-        fireSelectAll(container);
+        table.fireSelectAll(container);
         expect(handleSelect.mock.calls[0][0]).toBeTruthy();
     });
 
-    test('test fireExpand', () => {
+    test('fireExpand', () => {
         const handleExpand = jest.fn();
         const { container } = render(
             <Table
@@ -64,7 +64,7 @@ describe("Test Table's fire functions", () => {
                 }}
             />
         );
-        fireExpand(container, 2);
+        table.fireExpand(container, 2);
         expect(handleExpand.mock.calls[0][0]).toBeTruthy();
         expect(handleExpand.mock.calls[0][1]).toEqual(dataSource[2]);
     });

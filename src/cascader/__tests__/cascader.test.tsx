@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import { Cascader } from 'antd';
 
 import * as cascader from '..';
@@ -25,13 +25,14 @@ const options = [
 
 describe("Test Cascader's fire functions", () => {
     beforeEach(() => {
+        cleanup();
         jest.useFakeTimers();
     });
     afterEach(() => {
         jest.useRealTimers();
     });
 
-    test('Test query', () => {
+    test('query', () => {
         const { container, getByTestId } = render(
             <div>
                 <Cascader data-testid="cascader1" />
@@ -75,14 +76,14 @@ describe("Test Cascader's fire functions", () => {
         expect(cascader.queryDropdown(document)).not.toBeNull();
     });
 
-    test('Test fireOpen', () => {
+    test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<Cascader onDropdownVisibleChange={fn} />);
         cascader.fireOpen(container);
         expect(fn).toBeCalledTimes(1);
     });
 
-    test('Test fireChange', () => {
+    test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(
             <Cascader onChange={fn} getPopupContainer={(node) => node.parentNode} options={options} />
@@ -92,7 +93,7 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
-    test('fireChange hover', () => {
+    test('fireChange with hover trigger', () => {
         const fn = jest.fn();
         const { container } = render(
             <Cascader
@@ -107,7 +108,7 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
-    test('Test fireSearch', () => {
+    test('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(
             <Cascader
@@ -124,7 +125,7 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
-    test('Test fireClear', () => {
+    test('fireClear', () => {
         const fn = jest.fn();
         const { container } = render(
             <Cascader onClear={fn} options={options} allowClear defaultValue={['1', '1-1', '1-1-1']} />

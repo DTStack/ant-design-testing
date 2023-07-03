@@ -3,7 +3,7 @@ import { cleanup, render } from '@testing-library/react';
 import { Tree } from 'antd';
 import type { DataNode } from 'antd/es/tree';
 
-import { fireCheck, fireExpand, fireRightClick, fireSelect } from '..';
+import * as tree from '..';
 
 const treeData: DataNode[] = [
     {
@@ -47,7 +47,7 @@ describe("Test Tree's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Tree checkable onCheck={fn} treeData={treeData} />);
 
-        fireCheck(container, 'parent 1');
+        tree.fireCheck(container, 'parent 1');
         expect(fn).toBeCalled();
     });
 
@@ -55,7 +55,7 @@ describe("Test Tree's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Tree checkable onExpand={fn} treeData={treeData} />);
 
-        fireExpand(container, 'parent 1');
+        tree.fireExpand(container, 'parent 1');
         expect(fn).toBeCalled();
     });
 
@@ -63,7 +63,7 @@ describe("Test Tree's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Tree checkable onRightClick={fn} treeData={treeData} />);
 
-        fireRightClick(container, 'parent 1');
+        tree.fireRightClick(container, 'parent 1');
         expect(fn).toBeCalled();
     });
 
@@ -71,7 +71,7 @@ describe("Test Tree's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Tree checkable onSelect={fn} treeData={treeData} />);
 
-        fireSelect(container, 'parent 1');
+        tree.fireSelect(container, 'parent 1');
         expect(fn).toBeCalled();
     });
 });

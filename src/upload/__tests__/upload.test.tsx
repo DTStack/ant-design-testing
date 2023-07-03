@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render, waitFor } from '@testing-library/react';
 import { Upload, type UploadFile } from 'antd';
 
-import { fireRemove, fireUploadAsync } from '..';
+import * as upload from '..';
 
 describe("Test Upload's fire functions", () => {
     beforeEach(() => {
@@ -13,7 +13,7 @@ describe("Test Upload's fire functions", () => {
         jest.useRealTimers();
     });
 
-    test('test fireUpload', async () => {
+    test('fireUpload', async () => {
         const fn = jest.fn();
         const { container } = render(
             <Upload beforeUpload={() => false} onChange={fn}>
@@ -21,14 +21,14 @@ describe("Test Upload's fire functions", () => {
             </Upload>
         );
 
-        fireUploadAsync(container, [{ file: 'foo.png' }]);
+        upload.fireUploadAsync(container, [{ file: 'foo.png' }]);
         await waitFor(() => {
             expect(fn).toBeCalledTimes(1);
             expect(fn.mock.calls[0][0].fileList[0].file).toBe('foo.png');
         });
     });
 
-    test('test fireRemove', () => {
+    test('fireRemove', () => {
         const fn = jest.fn();
         const files = [
             {
@@ -49,7 +49,7 @@ describe("Test Upload's fire functions", () => {
                 <button type="button">upload</button>
             </Upload>
         );
-        fireRemove(container, 1);
+        upload.fireRemove(container, 1);
         waitFor(() => {
             expect(fn.mock.calls[0][0]).toMatchObject({ name: 'bar.png' });
         });

@@ -4,16 +4,21 @@ import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { failedQuerySelector, queryViaSelector, queryViaSelectors } from '../utils';
 
+/**
+ * Fires onChange function
+ */
 export const fireChange = (container: IContainer, direction: 'left' | 'right') => {
-    const selector = `.${getProvider('prefixCls')}-transfer .${getProvider('prefixCls')}-transfer-operation button`;
-    const toRightBtn = queryViaSelector(container, selector, 0);
-    const toLeftBtn = queryViaSelector(container, selector, 1);
+    const toRightBtn = queryOperationButton(container, 0);
+    const toLeftBtn = queryOperationButton(container, 1);
 
     const btn = direction === 'left' ? toLeftBtn : toRightBtn;
-    if (!btn) throw failedQuerySelector(selector);
+    if (!btn) throw failedQuerySelector('button');
     fireEvent.click(btn);
 };
 
+/**
+ * Fires onScroll function
+ */
 export const fireScroll = (container: IContainer, type: 'source' | 'target' = 'source') => {
     const selectors = [
         `.${getProvider('prefixCls')}-transfer-list`,
@@ -25,6 +30,9 @@ export const fireScroll = (container: IContainer, type: 'source' | 'target' = 's
     fireEvent.scroll(ele);
 };
 
+/**
+ * Fires onSearch function
+ */
 export const fireSearch = (container: IContainer, opts: { searchText: string; direction: 'left' | 'right' }) => {
     const { direction, searchText } = opts;
     const selectors = [`.${getProvider('prefixCls')}-transfer-list-search`, `.${getProvider('prefixCls')}-input`];
@@ -34,3 +42,21 @@ export const fireSearch = (container: IContainer, opts: { searchText: string; di
 
     fireEvent.change(ele, { target: { value: searchText } });
 };
+
+/**
+ * Returns the container element
+ */
+export function query(container: IContainer, index = 0) {
+    const selector = `.${getProvider('prefixCls')}-transfer`;
+    const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
+    return ele;
+}
+
+/**
+ * Returns the operation's button element
+ */
+export function queryOperationButton(container: IContainer, index = 0) {
+    const selector = `.${getProvider('prefixCls')}-transfer .${getProvider('prefixCls')}-transfer-operation button`;
+    const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
+    return ele;
+}

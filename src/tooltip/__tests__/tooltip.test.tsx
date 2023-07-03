@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { Tooltip } from 'antd';
 
-import { fireOpen } from '..';
+import * as tooltip from '..';
 
 describe("test tooltip's fire functions", () => {
     beforeEach(() => {
@@ -20,7 +20,7 @@ describe("test tooltip's fire functions", () => {
                 <a data-testid="trigger">trigger</a>
             </Tooltip>
         );
-        fireOpen(getByTestId('trigger'));
+        tooltip.fireOpen(getByTestId('trigger'));
 
         expect(fn).toBeCalledTimes(1);
         expect(getByText("This's title")).not.toBeNull();

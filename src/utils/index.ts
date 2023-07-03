@@ -20,7 +20,7 @@ export function queryViaSelector<T extends HTMLElement>(container: IContainer, s
     return container.querySelector<T>(selector);
 }
 
-export function queryViaSelectors(container: IContainer, selectors: string[], index: number[]) {
+export function queryViaSelectors<T extends HTMLElement>(container: IContainer, selectors: string[], index: number[]) {
     const i = selectors.findIndex(
         function (this: { className: string }, selector) {
             this.className += ` ${selector}`;
@@ -32,11 +32,11 @@ export function queryViaSelectors(container: IContainer, selectors: string[], in
     );
     const restSelectors = selectors.slice(i);
     const restIndex = index.slice(i);
-    return restSelectors.reduce<IContainer | null | undefined>((acc, cur, idx) => {
+    return restSelectors.reduce<T | undefined | null>((acc, cur, idx) => {
         const queryAll = typeof restIndex[idx] === 'number';
         if (queryAll) {
-            return acc?.querySelectorAll<HTMLElement>(cur).item(restIndex[idx]);
+            return acc?.querySelectorAll<T>(cur).item(restIndex[idx]);
         }
-        return acc?.querySelector<HTMLElement>(cur);
-    }, container);
+        return acc?.querySelector<T>(cur);
+    }, container as T);
 }

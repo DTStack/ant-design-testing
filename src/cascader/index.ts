@@ -1,7 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 import type { CascaderProps } from 'antd';
 
-import { fireChange as inputFireChange } from '../input';
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { fireClear as selectFireClear, fireOpen as selectFireOpen } from '../select';
@@ -56,7 +55,10 @@ export function fireChange(
  * Fires onSearch for Cascader
  */
 export function fireSearch(container: IContainer, value: string) {
-    inputFireChange(container, value);
+    const selector = 'input';
+    const ele = queryInput(container);
+    if (!ele) throw failedQuerySelector(selector);
+    fireEvent.change(ele, { target: { value } });
 }
 
 /**

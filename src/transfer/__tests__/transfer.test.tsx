@@ -16,7 +16,7 @@ describe("Test Transfer's fire functions", () => {
         jest.useFakeTimers();
     });
 
-    test('test fireChange to target', () => {
+    test('fireChange', () => {
         const handleChange = jest.fn();
         const { container } = render(
             <Transfer dataSource={dataSource} selectedKeys={['a']} targetKeys={['b', 'c']} onChange={handleChange} />
@@ -25,7 +25,7 @@ describe("Test Transfer's fire functions", () => {
         expect(handleChange).lastCalledWith(['a', 'b', 'c'], 'right', ['a']);
     });
 
-    test('test fireChange to source', () => {
+    test('fireChange with left direction', () => {
         const handleChange = jest.fn();
         const { container } = render(
             <Transfer
@@ -39,7 +39,7 @@ describe("Test Transfer's fire functions", () => {
         expect(handleChange).lastCalledWith([], 'left', ['b', 'c']);
     });
 
-    test('test fireScroll', () => {
+    test('fireScroll', () => {
         const handleScroll = jest.fn();
         const { container } = render(
             <Transfer listStyle={{ height: 30 }} dataSource={dataSource} onScroll={handleScroll} />
@@ -48,7 +48,7 @@ describe("Test Transfer's fire functions", () => {
         expect(handleScroll).toBeCalled();
     });
 
-    test('test fireSearch', () => {
+    test('fireSearch', () => {
         const handleSearch = jest.fn();
         const { container } = render(
             <Transfer

@@ -2,19 +2,23 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { TreeSelect } from 'antd';
 
-import { fireOpen, fireSearch, fireSelect, fireTreeExpand } from '..';
+import * as treeSelect from '..';
 
 describe("Test treeSelect's fire functions", () => {
     beforeEach(() => {
         jest.useFakeTimers();
         cleanup();
+        document.body.innerHTML = '';
+    });
+    afterEach(() => {
+        jest.useRealTimers();
     });
 
     test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<TreeSelect onDropdownVisibleChange={fn} />);
 
-        fireOpen(container);
+        treeSelect.fireOpen(container);
         expect(fn).toBeCalled();
     });
 
@@ -22,7 +26,7 @@ describe("Test treeSelect's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<TreeSelect onSearch={fn} />);
 
-        fireSearch(container, 'test');
+        treeSelect.fireSearch(container, 'test');
         expect(fn).toBeCalled();
     });
 
@@ -52,8 +56,8 @@ describe("Test treeSelect's fire functions", () => {
             <TreeSelect treeData={treeData} getPopupContainer={(node) => node.parentNode} onSelect={fn} />
         );
 
-        fireOpen(container);
-        fireSelect(container, 0);
+        treeSelect.fireOpen(container);
+        treeSelect.fireSelect(container, 0);
         expect(fn).toBeCalled();
     });
 
@@ -83,8 +87,8 @@ describe("Test treeSelect's fire functions", () => {
             <TreeSelect treeData={treeData} getPopupContainer={(node) => node.parentNode} onTreeExpand={fn} />
         );
 
-        fireOpen(container);
-        fireTreeExpand(container, 0);
+        treeSelect.fireOpen(container);
+        treeSelect.fireTreeExpand(container, 0);
         expect(fn).toBeCalled();
     });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { Tabs, type TabsProps } from 'antd';
 
-import { fireChange, fireEdit } from '..';
+import * as tabs from '..';
 
 const items: TabsProps['items'] = [
     {
@@ -28,24 +28,24 @@ describe("Test Tabs' fire functions", () => {
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Tabs defaultActiveKey="1" items={items} onChange={fn} />);
-        fireChange(container, '2');
+        tabs.fireChange(container, '2');
         expect(fn).toBeCalled();
     });
 
     test('fireClick', () => {
         const fn = jest.fn();
         const { container } = render(<Tabs defaultActiveKey="1" items={items} onTabClick={fn} />);
-        fireChange(container, '1');
+        tabs.fireChange(container, '1');
         expect(fn).toBeCalled();
     });
 
     test('fireEdit', () => {
         const fn = jest.fn();
         const { container } = render(<Tabs defaultActiveKey="1" type="editable-card" items={items} onEdit={fn} />);
-        fireEdit(container, 'add');
+        tabs.fireEdit(container, 'add');
         expect(fn).toBeCalledTimes(1);
 
-        fireEdit(container, 'remove', '1');
+        tabs.fireEdit(container, 'remove', '1');
         expect(fn).toBeCalledTimes(2);
     });
 });

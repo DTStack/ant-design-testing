@@ -22,6 +22,6 @@ describe('Test checkbox', () => {
         const fn = jest.fn();
         const { container } = render(<Checkbox.Group options={['Apple', 'Pear', 'Orange']} onChange={fn} />);
         checkbox.fireChange(container, 0);
-        expect(fn).toBeCalledWith('Apple');
+        expect(fn).toBeCalledWith(['Apple']);
     });
 });

@@ -1,23 +1,27 @@
 import { fireEvent } from '@testing-library/react';
 
-import { fireOpen as fireDatePickerOpen } from '../datePicker';
+import * as datePicker from '../datePicker';
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { failedQuerySelector, queryViaSelector } from '../utils';
 
+/**
+ * Fires onOpenChange function
+ */
 export function fireOpen(container: IContainer) {
-    fireDatePickerOpen(container);
+    datePicker.fireOpen(container);
 }
 
 export function fireOk(container: IContainer) {
-    const selector = `.${getProvider('prefixCls')}-picker-ok button`;
-    const ele = queryViaSelector(container, selector);
-    if (!ele) throw failedQuerySelector(selector);
+    const ele = queryOk(container);
+    if (!ele) throw failedQuerySelector(`.${getProvider('prefixCls')}-picker-ok button`);
     fireEvent.click(ele);
 }
 
 type TimeString = `${string}:${string}:${string}` | `${string}:${string}`;
-
+/**
+ * Select a cell
+ */
 export function fireSelectCell(container: IContainer, index: number) {
     const selector = `li.${getProvider('prefixCls')}-picker-time-panel-cell`;
     const ele = queryViaSelector(container, selector, index);
@@ -38,6 +42,10 @@ function fireSinglePanel(container: HTMLCollection, time: TimeString) {
     }
 }
 
+/**
+ * Fires onChange function
+ * @param time give array when RangePicker
+ */
 export function fireChange(container: IContainer, time: TimeString | [TimeString, TimeString]) {
     const selector = `.${getProvider('prefixCls')}-picker-content`;
     const ele = queryViaSelector(container, selector);
@@ -53,4 +61,29 @@ export function fireChange(container: IContainer, time: TimeString | [TimeString
         fireSinglePanel(ele.children, time);
         fireOk(container);
     }
+}
+
+/**
+ * Returns the container element
+ */
+export function query(container: IContainer, index = 0) {
+    const selector = `.${getProvider('prefixCls')}-picker`;
+    const ele = queryViaSelector(container, selector, index);
+    return ele;
+}
+
+/**
+ * Returns the dropdown element of timePicker
+ */
+export function queryDropdown(container: IContainer, index = 0) {
+    datePicker.queryDropdown(container, index);
+}
+
+/**
+ * Returns the ok button
+ */
+export function queryOk(container: IContainer, index = 0) {
+    const selector = `.${getProvider('prefixCls')}-picker-ok button`;
+    const ele = queryViaSelector(container, selector, index);
+    return ele;
 }
