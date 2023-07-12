@@ -57,18 +57,30 @@ export function query(container: IContainer, index = 0) {
     return ele;
 }
 
+/**
+ * Returns input element of AutoComplete
+ */
 export function queryInput(container: IContainer, index = 0) {
     return select.queryInput(container, index);
 }
 
+/**
+ * Returns selector element of AutoComplete
+ */
 export function querySelector(container: IContainer, index = 0) {
     return select.querySelector(container, index);
 }
 
+/**
+ * Returns option element of AutoComplete
+ */
 export function queryOption(container: IContainer, index = 0) {
     return select.queryOption(container, index);
 }
 
+/**
+ * Returns clear icon element of AutoComplete
+ */
 export function queryClear(container: IContainer, index = 0) {
     return select.queryClear(container, index);
 }

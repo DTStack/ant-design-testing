@@ -25,6 +25,58 @@ describe('Test Select fire functions', () => {
         expect(autoComplete.query(container, 1)).toBe(getByTestId('autoComplete2'));
     });
 
+    it('querySelector', () => {
+        const { container } = render(
+            <>
+                <AutoComplete data-testid="autoComplete1" />
+                <AutoComplete data-testid="autoComplete2" />
+            </>
+        );
+        expect(autoComplete.querySelector(container)).not.toBe(autoComplete.querySelector(container, 1));
+    });
+
+    it('queryOption', () => {
+        const { container } = render(
+            <AutoComplete
+                getPopupContainer={(node) => node.parentNode}
+                options={[
+                    { label: 'a', value: 'a' },
+                    { label: 'b', value: 'b' },
+                ]}
+            />
+        );
+        autoComplete.fireOpen(container);
+        expect(autoComplete.queryOption(container)?.textContent).toBe('a');
+        expect(autoComplete.queryOption(container, 1)?.textContent).toBe('b');
+    });
+
+    it('queryOption', () => {
+        const fn1 = jest.fn();
+        const fn2 = jest.fn();
+        const { container } = render(
+            <>
+                <AutoComplete onClear={fn1} value={1} allowClear options={[{ label: 'a', value: 'a' }]} />
+                <AutoComplete onClear={fn2} value={1} allowClear options={[{ label: 'a', value: 'a' }]} />
+            </>
+        );
+        autoComplete.fireClear(autoComplete.queryClear(container)!);
+        expect(fn1).toBeCalledTimes(1);
+        expect(fn2).not.toBeCalled();
+        autoComplete.fireClear(autoComplete.queryClear(container, 1)!);
+        expect(fn2).toBeCalledTimes(1);
+    });
+
+    it('queryInput', () => {
+        const { container, getByTestId } = render(
+            <>
+                <AutoComplete data-testid="autoComplete1" />
+                <AutoComplete data-testid="autoComplete2" />
+            </>
+        );
+        expect(autoComplete.queryInput(container)).toBe(getByTestId('autoComplete1').querySelector('input'));
+        expect(autoComplete.queryInput(container, 1)).toBe(getByTestId('autoComplete2').querySelector('input'));
+    });
+
     it('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(

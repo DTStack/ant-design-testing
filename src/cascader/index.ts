@@ -42,9 +42,7 @@ export function fireChange(
             `li.${getProvider('prefixCls')}-cascader-menu-item`,
         ];
         const ele = queryViaSelectors(container, selectors, [i, index]);
-        if (!ele) {
-            throw failedQuerySelector(selectors.join(' '));
-        }
+        if (!ele) throw failedQuerySelector(selectors.join(' '));
 
         const last = i === indexes.length - 1;
         fireEvent[last ? 'click' : triggerEvent[type]]?.(ele);
