@@ -67,7 +67,12 @@ export function queryHeader(container: IContainer, index = 0) {
  * Returns the body element for Table
  */
 export function queryBody(container: IContainer, index = 0) {
-    const selector = `.${getProvider('prefixCls')}-table-body`;
+    const wrapper = query(container, index);
+    if (!wrapper) return null;
+    const fixedHeader = wrapper.classList.contains(`.${getProvider('prefixCls')}-table-fixed-header`);
+    const selector = fixedHeader
+        ? `.${getProvider('prefixCls')}-table-body`
+        : `.${getProvider('prefixCls')}-table-tbody`;
     const ele = queryViaSelector(container, selector, index);
     return ele;
 }

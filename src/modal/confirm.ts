@@ -57,6 +57,9 @@ export function queryBtns(container: IContainer, index = 0) {
  * Returns the cancel button
  */
 export function queryCancelButton(container: IContainer, index = 0) {
+    if (container instanceof HTMLButtonElement) {
+        return container;
+    }
     const btns = queryBtns(container, index);
     if (!btns) return null;
     return button.query(btns, 0);
@@ -66,6 +69,9 @@ export function queryCancelButton(container: IContainer, index = 0) {
  * Returns the Ok button
  */
 export function queryOkButton(container: IContainer, index = 0) {
+    if (container instanceof HTMLButtonElement) {
+        return container;
+    }
     const btns = queryBtns(container, index);
     if (!btns) return null;
     return button.query(btns, 1);

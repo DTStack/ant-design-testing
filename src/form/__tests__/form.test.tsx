@@ -42,4 +42,15 @@ describe("Test form's functions", () => {
             expect(fn).toBeCalledTimes(1);
         });
     });
+
+    test('queryFormItemControls', () => {
+        const { container } = render(
+            <Form>
+                <Form.Item label="Username" name="username">
+                    <Input />
+                </Form.Item>
+            </Form>
+        );
+        expect(form.queryFormItemControls(container)?.querySelector('label')).toBeNull();
+    });
 });

@@ -17,6 +17,38 @@ describe("Test TimePicker's fire functions", () => {
         jest.useRealTimers();
     });
 
+    test('query', () => {
+        const { container } = render(<TimePicker getPopupContainer={(node) => node.parentElement!} />);
+        expect(timePicker.query(container)).not.toBeNull();
+    });
+
+    test('queryDropdown', () => {
+        const { container } = render(<TimePicker getPopupContainer={(node) => node.parentElement!} />);
+        timePicker.fireOpen(container);
+        expect(timePicker.queryDropdown(container)).not.toBeNull();
+    });
+
+    test('queryOk', () => {
+        const { container } = render(<TimePicker getPopupContainer={(node) => node.parentElement!} />);
+        timePicker.fireOpen(container);
+        expect(timePicker.queryOk(container)).not.toBeNull();
+    });
+
+    test('fireOk', () => {
+        const fn = jest.fn();
+        const { container } = render(
+            <TimePicker
+                defaultOpenValue={dateAdaptor('00:00:00', 'HH:mm:ss')}
+                onChange={fn}
+                getPopupContainer={(node) => node.parentElement!}
+            />
+        );
+
+        timePicker.fireOpen(container);
+        timePicker.fireOk(container);
+        expect(fn).toBeCalled();
+    });
+
     test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(

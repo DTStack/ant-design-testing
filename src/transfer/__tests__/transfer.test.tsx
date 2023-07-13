@@ -2,7 +2,7 @@ import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 import { Transfer } from 'antd';
 
-import { fireChange, fireScroll, fireSearch } from '..';
+import * as transfer from '..';
 
 const dataSource = [
     { key: 'a', title: 'a' },
@@ -16,40 +16,43 @@ describe("Test Transfer's fire functions", () => {
         jest.useFakeTimers();
     });
 
+    test('query', () => {
+        const { container } = render(<Transfer />);
+        expect(transfer.query(container)).not.toBeNull();
+    });
+
+    test('queryOperationButton', () => {
+        const { container } = render(<Transfer />);
+        expect(transfer.queryOperationButton(container)).not.toBeNull();
+    });
+
     test('fireChange', () => {
-        const handleChange = jest.fn();
+        const fn = jest.fn();
         const { container } = render(
-            <Transfer dataSource={dataSource} selectedKeys={['a']} targetKeys={['b', 'c']} onChange={handleChange} />
+            <Transfer dataSource={dataSource} selectedKeys={['a']} targetKeys={['b', 'c']} onChange={fn} />
         );
-        fireChange(container, 'right');
-        expect(handleChange).lastCalledWith(['a', 'b', 'c'], 'right', ['a']);
+        transfer.fireChange(container, 'right');
+        expect(fn).lastCalledWith(['a', 'b', 'c'], 'right', ['a']);
     });
 
     test('fireChange with left direction', () => {
-        const handleChange = jest.fn();
+        const fn = jest.fn();
         const { container } = render(
-            <Transfer
-                dataSource={dataSource}
-                selectedKeys={['b', 'c']}
-                targetKeys={['b', 'c']}
-                onChange={handleChange}
-            />
+            <Transfer dataSource={dataSource} selectedKeys={['b', 'c']} targetKeys={['b', 'c']} onChange={fn} />
         );
-        fireChange(container, 'left');
-        expect(handleChange).lastCalledWith([], 'left', ['b', 'c']);
+        transfer.fireChange(container, 'left');
+        expect(fn).lastCalledWith([], 'left', ['b', 'c']);
     });
 
     test('fireScroll', () => {
-        const handleScroll = jest.fn();
-        const { container } = render(
-            <Transfer listStyle={{ height: 30 }} dataSource={dataSource} onScroll={handleScroll} />
-        );
-        fireScroll(container);
-        expect(handleScroll).toBeCalled();
+        const fn = jest.fn();
+        const { container } = render(<Transfer listStyle={{ height: 30 }} dataSource={dataSource} onScroll={fn} />);
+        transfer.fireScroll(container);
+        expect(fn).toBeCalled();
     });
 
     test('fireSearch', () => {
-        const handleSearch = jest.fn();
+        const fn = jest.fn();
         const { container } = render(
             <Transfer
                 dataSource={dataSource}
@@ -57,13 +60,13 @@ describe("Test Transfer's fire functions", () => {
                 selectedKeys={[]}
                 targetKeys={[]}
                 render={(item) => item.title}
-                onSearch={handleSearch}
+                onSearch={fn}
             />
         );
-        fireSearch(container, { searchText: 'a', direction: 'left' });
-        expect(handleSearch).toBeCalledWith('left', 'a');
-        handleSearch.mockReset();
-        fireSearch(container, { searchText: 'b', direction: 'right' });
-        expect(handleSearch).toBeCalledWith('right', 'b');
+        transfer.fireSearch(container, { searchText: 'a', direction: 'left' });
+        expect(fn).toBeCalledWith('left', 'a');
+        fn.mockReset();
+        transfer.fireSearch(container, { searchText: 'b', direction: 'right' });
+        expect(fn).toBeCalledWith('right', 'b');
     });
 });

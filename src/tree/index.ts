@@ -8,9 +8,7 @@ export function fireCheck(container: IContainer, title: string) {
     const selector = `.${getProvider('prefixCls')}-tree-node-content-wrapper[title="${title}"]`;
     const checkbox = `.${getProvider('prefixCls')}-tree-checkbox`;
     const ele = container.querySelector(selector)?.parentElement?.querySelector(checkbox);
-    if (!ele) {
-        throw failedQuerySelector(`${selector}'s parentElement ${checkbox}`);
-    }
+    if (!ele) throw failedQuerySelector(`${selector}'s parentElement ${checkbox}`);
     fireEvent.click(ele);
 }
 
@@ -18,9 +16,7 @@ export function fireExpand(container: IContainer, title: string) {
     const selector = `.${getProvider('prefixCls')}-tree-node-content-wrapper[title="${title}"]`;
     const switcher = `.${getProvider('prefixCls')}-tree-switcher`;
     const ele = container.querySelector(selector)?.parentElement?.querySelector(switcher);
-    if (!ele) {
-        throw failedQuerySelector(`${selector}'s parentElement ${switcher}`);
-    }
+    if (!ele) throw failedQuerySelector(`${selector}'s parentElement ${switcher}`);
     fireEvent.click(ele);
 }
 

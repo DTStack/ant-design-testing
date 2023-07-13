@@ -25,6 +25,26 @@ const items: TabsProps['items'] = [
 describe("Test Tabs' fire functions", () => {
     beforeEach(cleanup);
 
+    test('query', () => {
+        const { container } = render(<Tabs defaultActiveKey="1" items={items} />);
+        expect(tabs.query(container)).not.toBeNull();
+    });
+
+    test('queryTabTitle', () => {
+        const { container } = render(<Tabs defaultActiveKey="1" items={items} />);
+        expect(tabs.queryTabTitle(container, '1')?.textContent).toBe('Tab 1');
+    });
+
+    test('queryAddButton', () => {
+        const { container } = render(<Tabs type="editable-card" defaultActiveKey="1" items={items} />);
+        expect(tabs.queryAddButton(container)).toBeInstanceOf(HTMLButtonElement);
+    });
+
+    test('queryRemoveButton', () => {
+        const { container } = render(<Tabs type="editable-card" defaultActiveKey="1" items={items} />);
+        expect(tabs.queryRemoveButton(container, '1')).toBeInstanceOf(HTMLButtonElement);
+    });
+
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Tabs defaultActiveKey="1" items={items} onChange={fn} />);
@@ -35,7 +55,7 @@ describe("Test Tabs' fire functions", () => {
     test('fireClick', () => {
         const fn = jest.fn();
         const { container } = render(<Tabs defaultActiveKey="1" items={items} onTabClick={fn} />);
-        tabs.fireChange(container, '1');
+        tabs.fireClick(container, '1');
         expect(fn).toBeCalled();
     });
 
@@ -47,5 +67,12 @@ describe("Test Tabs' fire functions", () => {
 
         tabs.fireEdit(container, 'remove', '1');
         expect(fn).toBeCalledTimes(2);
+    });
+
+    test('fireEdit should throw error', () => {
+        const fn = jest.fn();
+        const { container } = render(<Tabs defaultActiveKey="1" type="editable-card" items={items} onEdit={fn} />);
+        // @ts-ignore
+        expect(() => tabs.fireEdit(container, 'test')).toThrow();
     });
 });

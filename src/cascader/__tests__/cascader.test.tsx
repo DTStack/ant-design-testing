@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { Cascader } from 'antd';
 
 import * as cascader from '..';
@@ -54,7 +54,7 @@ describe("Test Cascader's fire functions", () => {
         cascader.fireOpen(cascader.querySelect(container)!);
         expect(fn).toBeCalledTimes(1);
         cascader.fireOpen(cascader.querySelect(container, 1)!);
-        // The second time is called by hidden for the first one
+        // The second time is called because of hidden the first one
         expect(fn).toBeCalledTimes(3);
     });
 
@@ -74,6 +74,20 @@ describe("Test Cascader's fire functions", () => {
     test('queryDropdown', () => {
         render(<Cascader open options={options} />);
         expect(cascader.queryDropdown(document)).not.toBeNull();
+    });
+
+    test('queryMenu', () => {
+        const fn = jest.fn();
+        render(<Cascader open options={options} changeOnSelect onChange={fn} />);
+        cascader.fireChange(cascader.queryMenu(document)!, 0);
+        expect(fn).toBeCalled();
+    });
+
+    test('queryMenuItem', () => {
+        const fn = jest.fn();
+        render(<Cascader open options={options} changeOnSelect onChange={fn} />);
+        fireEvent.click(cascader.queryMenuItem(document)!);
+        expect(fn).toBeCalled();
     });
 
     test('fireOpen', () => {

@@ -15,6 +15,50 @@ describe("Test popconfirm fire's functions", () => {
         jest.useRealTimers();
     });
 
+    test('query', () => {
+        const { container } = render(
+            <Popconfirm title="test" getPopupContainer={(node) => node.parentElement!}>
+                <Button danger>Delete</Button>
+            </Popconfirm>
+        );
+        confirm.fireOpen(button.query(container)!);
+        expect(confirm.query(container)).not.toBeNull();
+    });
+
+    test('queryButtons', () => {
+        const { container } = render(
+            <Popconfirm title="test" getPopupContainer={(node) => node.parentElement!}>
+                <Button danger>Delete</Button>
+            </Popconfirm>
+        );
+        confirm.fireOpen(button.query(container)!);
+        expect(confirm.queryButtons(container)).not.toBeNull();
+    });
+
+    test('queryCancelButton', () => {
+        const fn = jest.fn();
+        const { container } = render(
+            <Popconfirm title="test" onCancel={fn} getPopupContainer={(node) => node.parentElement!}>
+                <Button danger>Delete</Button>
+            </Popconfirm>
+        );
+        confirm.fireOpen(button.query(container)!);
+        confirm.fireCancel(confirm.queryCancelButton(container)!);
+        expect(fn).toBeCalled();
+    });
+
+    test('queryConfirmButton', () => {
+        const fn = jest.fn();
+        const { container } = render(
+            <Popconfirm title="test" onConfirm={fn} getPopupContainer={(node) => node.parentElement!}>
+                <Button danger>Delete</Button>
+            </Popconfirm>
+        );
+        confirm.fireOpen(button.query(container)!);
+        confirm.fireConfirm(confirm.queryConfirmButton(container)!);
+        expect(fn).toBeCalled();
+    });
+
     test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(

@@ -32,6 +32,34 @@ describe("Test confirm's fire functions", () => {
         jest.useRealTimers();
     });
 
+    test('query', () => {
+        const { getByTestId } = render(<Confirm />);
+        confirm.fireOpen(getByTestId('trigger'));
+        expect(confirm.query(document)).not.toBeNull();
+    });
+
+    test('queryBtns', () => {
+        const { getByTestId } = render(<Confirm />);
+        confirm.fireOpen(getByTestId('trigger'));
+        expect(confirm.queryBtns(document)).not.toBeNull();
+    });
+
+    test('queryCancelButton', () => {
+        const fn = jest.fn();
+        const { getByTestId } = render(<Confirm onCancel={fn} />);
+        confirm.fireOpen(getByTestId('trigger'));
+        confirm.fireCancel(confirm.queryCancelButton(document)!);
+        expect(fn).toBeCalled();
+    });
+
+    test('queryOkButton', () => {
+        const fn = jest.fn();
+        const { getByTestId } = render(<Confirm onOk={fn} />);
+        confirm.fireOpen(getByTestId('trigger'));
+        confirm.fireOk(confirm.queryOkButton(document)!);
+        expect(fn).toBeCalled();
+    });
+
     test('fireOpen', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onOk={fn} />);

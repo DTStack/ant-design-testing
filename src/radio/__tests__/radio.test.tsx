@@ -7,6 +7,21 @@ import * as radio from '..';
 describe("Test Radio's fire functions", () => {
     beforeEach(cleanup);
 
+    test('query', () => {
+        const { container } = render(<Radio>Radio</Radio>);
+        expect(radio.query(container)).not.toBeNull();
+    });
+
+    test('queryGroup', () => {
+        const { container } = render(<Radio.Group options={['Apple', 'Pear', 'Orange']} />);
+        expect(radio.queryGroup(container)).not.toBeNull();
+    });
+
+    test('queryInput', () => {
+        const { container } = render(<Radio.Group options={['Apple', 'Pear', 'Orange']} />);
+        expect(radio.queryInput(container)).not.toBeNull();
+    });
+
     test('fireMouseEnter', () => {
         const fn = jest.fn();
         const { container } = render(<Radio onMouseEnter={fn}>Radio</Radio>);

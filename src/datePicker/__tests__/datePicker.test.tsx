@@ -10,6 +10,53 @@ const dateAdaptor = moment;
 describe("Test DatePicker's fire functions", () => {
     beforeEach(cleanup);
 
+    test('query', () => {
+        const { container, getByTestId } = render(
+            <>
+                <DatePicker data-testid="datePicker1" />
+                <DatePicker data-testid="datePicker2" />
+            </>
+        );
+        expect(datePicker.query(container)?.querySelector('input')).toBe(getByTestId('datePicker1'));
+        expect(datePicker.query(container, 1)?.querySelector('input')).toBe(getByTestId('datePicker2'));
+    });
+
+    test('queryInput', () => {
+        const { container, getByTestId } = render(
+            <>
+                <DatePicker data-testid="datePicker1" />
+                <DatePicker data-testid="datePicker2" />
+            </>
+        );
+        expect(datePicker.queryInput(container)).toBe(getByTestId('datePicker1'));
+        expect(datePicker.queryInput(container, 1)).toBe(getByTestId('datePicker2'));
+    });
+
+    test('queryDropdown', () => {
+        const fn = jest.fn();
+        const { container } = render(
+            <DatePicker
+                onChange={fn}
+                value={dateAdaptor('2018-04-13 19:18')}
+                getPopupContainer={(node) => node.parentElement!}
+            />
+        );
+        datePicker.fireOpen(container);
+        datePicker.fireChange(datePicker.queryDropdown(container)!, '24');
+        expect(
+            (fn.mock.calls[0][0] as ReturnType<typeof dateAdaptor>).isSame(dateAdaptor('2018-04-24 19:18'))
+        ).toBeTruthy();
+        expect(fn.mock.calls[0][1]).toBe(dateAdaptor('2018-04-24 19:18').format('YYYY-MM-DD'));
+    });
+
+    test('querySuperPrevButton', () => {
+        const { container } = render(
+            <DatePicker value={dateAdaptor('2018-04-13 19:18')} getPopupContainer={(node) => node.parentElement!} />
+        );
+        datePicker.fireOpen(container);
+        expect(datePicker.querySuperPrevButton(container)?.nodeName).toBe('BUTTON');
+    });
+
     test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<DatePicker onOpenChange={fn} />);

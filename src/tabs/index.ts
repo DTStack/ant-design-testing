@@ -68,7 +68,7 @@ export function queryTabTitle(container: IContainer, activeKey: string) {
 }
 
 /**
- * Returns the title element in Tab
+ * Returns the add button element in Tab
  */
 export function queryAddButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tabs-nav-add`;

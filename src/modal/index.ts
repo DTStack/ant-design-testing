@@ -47,6 +47,9 @@ export function queryModalFooter(container: IContainer, index = 0) {
  * Returns the cancel button
  */
 export function queryCancelButton(container: IContainer, index = 0) {
+    if (container instanceof HTMLButtonElement) {
+        return container;
+    }
     const ele = queryModalFooter(container, index);
     if (!ele) return null;
     return button.query(ele, 0);
@@ -56,6 +59,9 @@ export function queryCancelButton(container: IContainer, index = 0) {
  * Returns the ok button
  */
 export function queryOkButton(container: IContainer, index = 0) {
+    if (container instanceof HTMLButtonElement) {
+        return container;
+    }
     const ele = queryModalFooter(container, index);
     if (!ele) return null;
     return button.query(ele, 1);

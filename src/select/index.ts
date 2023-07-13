@@ -51,9 +51,7 @@ export function fireDeSelect(container: IContainer, index: number) {
         `.${getProvider('prefixCls')}-select-selection-item-remove`,
     ];
     const ele = queryViaSelectors(container, selectors, [index]);
-    if (!ele) {
-        throw failedQuerySelector(`${selectors[0]}[${index}] ${selectors[1]}`);
-    }
+    if (!ele) throw failedQuerySelector(`${selectors[0]}[${index}] ${selectors[1]}`);
     fireEvent.click(ele);
 }
 
