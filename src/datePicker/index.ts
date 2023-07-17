@@ -31,11 +31,10 @@ export function fireClose(container: IContainer) {
  * Fires onPanelChange function
  * @notice there are majority ways to call onPanelChange depends on current panel's status
  *
- * The sequence of attempts to call onPanelChange is
- *
+ * The sequence of calling onPanelChange is like
  * `[super prev] -> [prev] -> [next] -> [super next] -> [month] -> [year] -> [decade]`
  *
- * _If you intent to call specific button, please call firePanelChange with queryXXX_
+ * _If you intent to call specific button, call firePanelChange with queryXXX_
  *
  * @param mode defualt is `date`
  */
