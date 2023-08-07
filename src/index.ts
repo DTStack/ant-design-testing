@@ -11,6 +11,7 @@ export * as inputNumber from "./inputNumber";
 export * as modal from "./modal";
 export * as popconfirm from "./popconfirm";
 export * as radio from "./radio";
+export * as segmented from './segmented'
 export * as select from "./select";
 export * as switch from "./switch";
 export * as table from "./table";
