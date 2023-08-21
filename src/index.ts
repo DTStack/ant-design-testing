@@ -1,4 +1,5 @@
 export * as alert from './alert';
+export * as anchor from './anchor';
 export * as autoComplete from "./autoComplete";
 export * as backTop from './backTop';
 export * as button from "./button";
