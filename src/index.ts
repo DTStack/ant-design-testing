@@ -11,6 +11,7 @@ export * as input from "./input";
 export * as inputNumber from "./inputNumber";
 export * as message from './message';
 export * as modal from "./modal";
+export * as notification from './notification';
 export * as popconfirm from "./popconfirm";
 export * as radio from "./radio";
 export * as segmented from './segmented'
