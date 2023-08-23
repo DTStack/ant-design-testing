@@ -21,6 +21,7 @@ export * as select from "./select";
 export * as switch from "./switch";
 export * as table from "./table";
 export * as tabs from "./tabs";
+export * as tag from './tag';
 export * as timePicker from "./timePicker";
 export * as tooltip from "./tooltip";
 export * as transfer from "./transfer";
