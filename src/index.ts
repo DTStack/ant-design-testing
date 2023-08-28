@@ -11,6 +11,7 @@ export * as drawer from "./drawer";
 export * as dropdown from "./dropdown";
 export * as input from "./input";
 export * as inputNumber from "./inputNumber";
+export * as menu from './menu';
 export * as message from './message';
 export * as modal from "./modal";
 export * as notification from './notification';
