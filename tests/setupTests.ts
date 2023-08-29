@@ -10,4 +10,13 @@ Object.defineProperty(global.window, "matchMedia", {
   })),
 });
 
+// fix issue https://github.com/jestjs/jest/pull/13825#issuecomment-1452037295
+Object.defineProperties(MouseEvent.prototype, {
+  pageX: {
+    get() {
+      return this.clientX
+    },
+  },
+})
+
 provider({ prefixCls: "ant" });

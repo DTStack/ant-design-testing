@@ -18,6 +18,7 @@ export * as notification from './notification';
 export * as pagination from './pagination';
 export * as popconfirm from "./popconfirm";
 export * as radio from "./radio";
+export * as rate from './rate';
 export * as segmented from './segmented'
 export * as select from "./select";
 export * as switch from "./switch";
