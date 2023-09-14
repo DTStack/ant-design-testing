@@ -1,75 +1,70 @@
-import { fireEvent } from "@testing-library/react";
-import { getProvider } from "../provider";
-import type { IContainer } from "../interface";
-import { failedQuerySelector, matchContainerSelf } from "../utils";
+import { fireEvent } from '@testing-library/react';
 
-const prefixCls = getProvider("prefixCls");
+import type { IContainer } from '../interface';
+import { getProvider } from '../provider';
+import { failedQuerySelector, queryViaSelector } from '../utils';
 
+/**
+ * Fires onFocus function
+ */
 export function fireFocus(container: IContainer) {
-  const selector = "input";
-  const inputEl = matchContainerSelf(container, selector)
-    ? container
-    : container.querySelector(selector);
-  if (!inputEl) {
-    throw failedQuerySelector(selector);
-  }
-  fireEvent.focus(inputEl);
+    const selector = 'input';
+    const inputEl = query(container);
+    if (!inputEl) throw failedQuerySelector(selector);
+    fireEvent.focus(inputEl);
 }
 
+/**
+ * Fires onBlur function
+ */
 export function fireBlur(container: IContainer) {
-  const selector = "input";
-  const inputEl = matchContainerSelf(container, selector)
-    ? container
-    : container.querySelector(selector);
-  if (!inputEl) {
-    throw failedQuerySelector(selector);
-  }
-  fireEvent.blur(inputEl);
+    const selector = 'input';
+    const inputEl = query(container);
+    if (!inputEl) throw failedQuerySelector(selector);
+    fireEvent.blur(inputEl);
 }
 
+/**
+ * Fires onChange function
+ */
 export function fireChange(container: IContainer, value: any) {
-  const selector = "input";
-  const inputEl = matchContainerSelf(container, selector)
-    ? container
-    : container.querySelector(selector);
-  if (!inputEl) {
-    throw failedQuerySelector(selector);
-  }
-  fireEvent.change(inputEl, { target: { value } });
+    const selector = 'input';
+    const inputEl = query(container);
+    if (!inputEl) throw failedQuerySelector(selector);
+    fireEvent.change(inputEl, { target: { value } });
 }
 
+/**
+ * Fires onClear function
+ */
 export function fireClear(container: IContainer) {
-  let selector = "";
-  let iconEl = null;
-  if (matchContainerSelf(container, "input")) {
-    selector = `.${prefixCls}-input~.${prefixCls}-input-suffix .${prefixCls}-input-clear-icon`;
-    iconEl = container.parentElement?.querySelector(selector);
-  } else {
-    selector = `.${prefixCls}-input-clear-icon`;
-    iconEl = container.querySelector(selector);
-  }
+    const selector = `.${getProvider('prefixCls')}-input-clear-icon`;
+    const ele =
+        container instanceof HTMLInputElement
+            ? query(container.parentElement as HTMLElement)
+            : queryViaSelector(container, selector);
 
-  if (!iconEl) {
-    throw failedQuerySelector(selector);
-  }
-  fireEvent.click(iconEl);
+    if (!ele) throw failedQuerySelector(selector);
+    fireEvent.click(ele);
 }
 
+/**
+ * Fires onPressEnter function
+ */
 export function firePressEnter(container: IContainer) {
-  const selector = "input";
-  const inputEl = matchContainerSelf(container, selector)
-    ? container
-    : container.querySelector(selector);
-  if (!inputEl) {
-    throw failedQuerySelector(selector);
-  }
-  fireEvent.keyDown(inputEl, { key: "Enter" });
+    const selector = 'input';
+    const inputEl = query(container);
+    if (!inputEl) throw failedQuerySelector(selector);
+    fireEvent.keyDown(inputEl, { key: 'Enter' });
 }
 
-export function query(container: IContainer, index: number) {
-  const selector = `.${prefixCls}-input`;
-  const ele = container.querySelectorAll(selector).item(index) as IContainer;
-  return ele;
+/**
+ * Returns the input element
+ */
+export function query(container: IContainer, index = 0) {
+    const selector = `input.${getProvider('prefixCls')}-input`;
+    const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
+    return ele;
 }
 
-export * as textarea from "./textarea";
+export * as textarea from './textarea';

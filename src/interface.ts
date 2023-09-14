@@ -1,1 +1,1 @@
-export type IContainer = HTMLElement;
+export type IContainer = HTMLElement | Document;

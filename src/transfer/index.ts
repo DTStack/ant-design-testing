@@ -1,56 +1,62 @@
-import { fireEvent } from "@testing-library/react";
-import type { IContainer } from "../interface";
-import { getProvider } from "../provider";
-import { failedQuerySelector, failedQuerySelectors } from "../utils";
+import { fireEvent } from '@testing-library/react';
 
-const prefixCls = getProvider("prefixCls");
+import type { IContainer } from '../interface';
+import { getProvider } from '../provider';
+import { failedQuerySelector, queryViaSelector, queryViaSelectors } from '../utils';
 
-export const fireChange = (
-  container: IContainer,
-  direction: "left" | "right"
-) => {
-  const selector = `.${prefixCls}-transfer .${prefixCls}-transfer-operation button`;
-  const btns = container.querySelectorAll(selector);
-  if (!btns.length) throw failedQuerySelector(selector);
+/**
+ * Fires onChange function
+ */
+export const fireChange = (container: IContainer, direction: 'left' | 'right') => {
+    const toRightBtn = queryOperationButton(container, 0);
+    const toLeftBtn = queryOperationButton(container, 1);
 
-  const toRightBtn = btns[0],
-    toLeftBtn = btns[1];
-
-  if (direction === "left" && toLeftBtn) {
-    fireEvent.click(toLeftBtn);
-  } else if (direction === "right" && toRightBtn) {
-    fireEvent.click(toRightBtn);
-  } else {
-    throw failedQuerySelector(selector);
-  }
+    const btn = direction === 'left' ? toLeftBtn : toRightBtn;
+    if (!btn) throw failedQuerySelector('button');
+    fireEvent.click(btn);
 };
 
-export const fireScroll = (
-  container: IContainer,
-  type: "source" | "target" = "source"
-) => {
-  const selectors = [`.${prefixCls}-transfer-list`, `.${prefixCls}-transfer-list-content`]
-  const scrollTargetIndex = type === "source" ? 0 : 1;
-  const ele = container
-    .querySelectorAll(selectors[0])
-    .item(scrollTargetIndex)
-    .querySelectorAll(selectors[1])
-    .item(0);
-  if (!ele) throw failedQuerySelectors(selectors);
-  fireEvent.scroll(ele);
+/**
+ * Fires onScroll function
+ */
+export const fireScroll = (container: IContainer, type: 'source' | 'target' = 'source') => {
+    const selectors = [
+        `.${getProvider('prefixCls')}-transfer-list`,
+        `.${getProvider('prefixCls')}-transfer-list-content`,
+    ];
+    const scrollTargetIndex = type === 'source' ? 0 : 1;
+    const ele = queryViaSelectors(container, selectors, [scrollTargetIndex, 0]);
+    if (!ele) throw failedQuerySelector(`${selectors[0]}[${scrollTargetIndex}] ${selectors[1]}[0]`);
+    fireEvent.scroll(ele);
 };
 
-export const fireSearch = (
-  container: IContainer,
-  opts: { searchText: string; direction: "left" | "right" }
-) => {
-  const { direction, searchText } = opts;
-  const selector = `.${prefixCls}-transfer-list-search`;
-  const searchTargetIndex = direction === "left" ? 0 : 1;
-  const ele = container
-    .querySelectorAll(selector)
-    [searchTargetIndex]?.querySelector(".ant-input");
-  if (!ele) throw failedQuerySelector(selector);
+/**
+ * Fires onSearch function
+ */
+export const fireSearch = (container: IContainer, opts: { searchText: string; direction: 'left' | 'right' }) => {
+    const { direction, searchText } = opts;
+    const selectors = [`.${getProvider('prefixCls')}-transfer-list-search`, `.${getProvider('prefixCls')}-input`];
+    const searchTargetIndex = direction === 'left' ? 0 : 1;
+    const ele = queryViaSelectors(container, selectors, [searchTargetIndex]);
+    if (!ele) throw failedQuerySelector(`${selectors[0]}[${searchTargetIndex}] ${selectors[1]}`);
 
-  fireEvent.change(ele, { target: { value: searchText } });
+    fireEvent.change(ele, { target: { value: searchText } });
 };
+
+/**
+ * Returns the container element
+ */
+export function query(container: IContainer, index = 0) {
+    const selector = `.${getProvider('prefixCls')}-transfer`;
+    const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
+    return ele;
+}
+
+/**
+ * Returns the operation's button element
+ */
+export function queryOperationButton(container: IContainer, index = 0) {
+    const selector = `.${getProvider('prefixCls')}-transfer .${getProvider('prefixCls')}-transfer-operation button`;
+    const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
+    return ele;
+}

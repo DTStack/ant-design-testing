@@ -1,36 +1,36 @@
-import { cleanup, render } from "@testing-library/react";
-import { Switch } from "antd";
-import React from "react";
-import { fireClick, fireChange, query } from "..";
+import React from 'react';
+import { cleanup, render } from '@testing-library/react';
+import { Switch } from 'antd';
+
+import * as switchEl from '..';
 
 describe("Test Switch's fire functions", () => {
-  beforeEach(cleanup);
+    beforeEach(cleanup);
 
-  test("fireClick", () => {
-    const fn = jest.fn();
-    const { container } = render(<Switch onClick={fn} />);
+    test('query', () => {
+        const { container, getByTestId } = render(
+            <>
+                <Switch data-testid="switch1" />
+                <Switch data-testid="switch2" />
+            </>
+        );
+        expect(switchEl.query(container)).toBe(getByTestId('switch1'));
+        expect(switchEl.query(container, 1)).toBe(getByTestId('switch2'));
+    });
 
-    fireClick(container);
-    expect(fn).toBeCalledTimes(1);
-  });
+    test('fireClick', () => {
+        const fn = jest.fn();
+        const { container } = render(<Switch onClick={fn} />);
 
-  test("fireChange", () => {
-    const fn = jest.fn();
-    const { container } = render(<Switch onChange={fn} />);
+        switchEl.fireClick(container);
+        expect(fn).toBeCalledTimes(1);
+    });
 
-    fireChange(container);
-    expect(fn).toBeCalledTimes(1);
-  });
+    test('fireChange', () => {
+        const fn = jest.fn();
+        const { container } = render(<Switch onChange={fn} />);
 
-  test("query switch", () => {
-    const fn = jest.fn();
-    const { container } = render(<div>
-      <Switch />
-      <Switch onClick={fn} />
-    </div>);
-
-    const el = query(container, 1)
-    fireClick(el);
-    expect(fn).toBeCalledTimes(1);
-  });
+        switchEl.fireChange(container);
+        expect(fn).toBeCalledTimes(1);
+    });
 });

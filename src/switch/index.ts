@@ -1,23 +1,30 @@
-import { fireEvent } from "@testing-library/react";
-import { getProvider } from "../provider";
-import type { IContainer } from "../interface";
-import { failedQuerySelector, matchContainerSelf } from "../utils";
+import { fireEvent } from '@testing-library/react';
 
+import type { IContainer } from '../interface';
+import { getProvider } from '../provider';
+import { failedQuerySelector, queryViaSelector } from '../utils';
+
+/**
+ * Fires onClick function
+ */
 export function fireClick(container: IContainer) {
-  const selector = `.${getProvider("prefixCls")}-switch`;
-  const ele = matchContainerSelf(container, selector) ? container : container.querySelector(selector);
-  if (!ele) {
-    throw failedQuerySelector(selector);
-  }
-  fireEvent.click(ele);
+    const ele = query(container);
+    if (!ele) throw failedQuerySelector(`.${getProvider('prefixCls')}-switch`);
+    fireEvent.click(ele);
 }
 
+/**
+ * Fires onChange function
+ */
 export function fireChange(container: IContainer) {
-  fireClick(container);
+    fireClick(container);
 }
 
-export function query(container: IContainer, index: number) {
-  const selector = `.${getProvider("prefixCls")}-switch`;
-  const ele = container.querySelectorAll(selector).item(index) as IContainer;
-  return ele;
+/**
+ * Returns the container element
+ */
+export function query(container: IContainer, index = 0) {
+    const selector = `.${getProvider('prefixCls')}-switch`;
+    const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
+    return ele;
 }

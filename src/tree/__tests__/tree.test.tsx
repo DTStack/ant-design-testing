@@ -1,84 +1,77 @@
-import { cleanup, render } from "@testing-library/react";
-import { Tree } from "antd";
-import React from "react";
-import { fireCheck, fireExpand, fireRightClick, fireSelect } from "..";
-import type { DataNode } from "antd/es/tree";
+import React from 'react';
+import { cleanup, render } from '@testing-library/react';
+import { Tree } from 'antd';
+import type { DataNode } from 'antd/es/tree';
+
+import * as tree from '..';
 
 const treeData: DataNode[] = [
-  {
-    title: "parent 1",
-    key: "0-0",
-    children: [
-      {
-        title: "parent 1-0",
-        key: "0-0-0",
-        disabled: true,
+    {
+        title: 'parent 1',
+        key: '0-0',
         children: [
-          {
-            title: "leaf",
-            key: "0-0-0-0",
-            disableCheckbox: true,
-          },
-          {
-            title: "leaf",
-            key: "0-0-0-1",
-          },
+            {
+                title: 'parent 1-0',
+                key: '0-0-0',
+                disabled: true,
+                children: [
+                    {
+                        title: 'leaf',
+                        key: '0-0-0-0',
+                        disableCheckbox: true,
+                    },
+                    {
+                        title: 'leaf',
+                        key: '0-0-0-1',
+                    },
+                ],
+            },
+            {
+                title: 'parent 1-1',
+                key: '0-0-1',
+                children: [
+                    {
+                        title: <span style={{ color: '#1677ff' }}>sss</span>,
+                        key: '0-0-1-0',
+                    },
+                ],
+            },
         ],
-      },
-      {
-        title: "parent 1-1",
-        key: "0-0-1",
-        children: [
-          {
-            title: <span style={{ color: "#1677ff" }}>sss</span>,
-            key: "0-0-1-0",
-          },
-        ],
-      },
-    ],
-  },
+    },
 ];
 
 describe("Test Tree's fire functions", () => {
-  beforeEach(cleanup);
+    beforeEach(cleanup);
 
-  test("fireCheck", () => {
-    const fn = jest.fn();
-    const { container } = render(
-      <Tree checkable onCheck={fn} treeData={treeData} />
-    );
+    test('fireCheck', () => {
+        const fn = jest.fn();
+        const { container } = render(<Tree checkable onCheck={fn} treeData={treeData} />);
 
-    fireCheck(container, "parent 1");
-    expect(fn).toBeCalled();
-  });
+        tree.fireCheck(container, 'parent 1');
+        expect(fn).toBeCalled();
+    });
 
-  test("fireExpand", () => {
-    const fn = jest.fn();
-    const { container } = render(
-      <Tree checkable onExpand={fn} treeData={treeData} />
-    );
+    test('fireExpand', () => {
+        const fn = jest.fn();
+        const { container } = render(<Tree checkable onExpand={fn} treeData={treeData} />);
 
-    fireExpand(container, "parent 1");
-    expect(fn).toBeCalled();
-  });
+        tree.fireExpand(container, 'parent 1');
+        expect(fn).toBeCalled();
+    });
 
-  test("fireRightClick", () => {
-    const fn = jest.fn();
-    const { container } = render(
-      <Tree checkable onRightClick={fn} treeData={treeData} />
-    );
+    test('fireRightClick', () => {
+        const fn = jest.fn();
+        const { container } = render(<Tree checkable onRightClick={fn} treeData={treeData} />);
 
-    fireRightClick(container, "parent 1");
-    expect(fn).toBeCalled();
-  });
+        tree.fireRightClick(container, 'parent 1');
+        expect(fn).toBeCalled();
+    });
 
-  test("fireSelect", () => {
-    const fn = jest.fn();
-    const { container } = render(
-      <Tree checkable onSelect={fn} treeData={treeData} />
-    );
+    test('fireSelect', () => {
+        const fn = jest.fn();
+        const { container } = render(<Tree checkable onSelect={fn} treeData={treeData} />);
 
-    fireSelect(container, "parent 1");
-    expect(fn).toBeCalled();
-  });
+        tree.fireSelect(container, 'parent 1');
+        expect(fn).toBeCalled();
+    });
 });

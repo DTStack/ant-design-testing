@@ -12,21 +12,21 @@ then, modify the prefixCls if you need it
 
 ```tsx
 // setupTests.ts
-import { provider } from "ant-design-testing";
+import { provider } from 'ant-design-testing';
 
-provider({ prefixCls: "ant" });
+provider({ prefixCls: 'ant' });
 ```
 
 ```tsx
 // yourInput.test.tsx
-import { input } from "ant-design-testing";
+import { input } from 'ant-design-testing';
 
 describe("Test input's fire functions", () => {
-  test("fireChange", () => {
-    const fn = jest.fn();
-    const { container } = render(<Input onChange={fn} />);
-    input.fireChange(container, "test");
-    expect(fn).toBeCalled();
-  });
+    test('fireChange', () => {
+        const fn = jest.fn();
+        const { container } = render(<Input onChange={fn} />);
+        input.fireChange(container, 'test');
+        expect(fn).toBeCalled();
+    });
 });
 ```

@@ -1,59 +1,57 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import { Input } from "antd";
-import { fireBlur, fireChange, fireClear, fireFocus, firePressEnter, query } from "..";
+import React from 'react';
+import { render } from '@testing-library/react';
+import { Input } from 'antd';
+
+import * as input from '..';
 
 describe("Test input's fire functions", () => {
-  test("fireChange", () => {
-    const fn = jest.fn();
-    const { container } = render(<Input onChange={fn} />);
-    fireChange(container, "test");
+    test('query', () => {
+        const { container, getByTestId } = render(
+            <div>
+                <Input data-testid="input1" />
+                <Input data-testid="input2" />
+            </div>
+        );
+        expect(input.query(container)).toBe(getByTestId('input1'));
+        expect(input.query(container, 1)).toBe(getByTestId('input2'));
+    });
 
-    expect(fn).toBeCalled();
-  });
+    test('fireChange', () => {
+        const fn = jest.fn();
+        const { container } = render(<Input onChange={fn} />);
+        input.fireChange(container, 'test');
 
-  test("fireFocus", () => {
-    const fn = jest.fn();
-    const { container } = render(<Input onFocus={fn} />);
-    fireFocus(container);
+        expect(fn).toBeCalled();
+    });
 
-    expect(fn).toBeCalled();
-  });
+    test('fireFocus', () => {
+        const fn = jest.fn();
+        const { container } = render(<Input onFocus={fn} />);
+        input.fireFocus(container);
 
-  test("fireBlur", () => {
-    const fn = jest.fn();
-    const { container } = render(<Input onBlur={fn} />);
-    fireBlur(container);
+        expect(fn).toBeCalled();
+    });
 
-    expect(fn).toBeCalled();
-  });
+    test('fireBlur', () => {
+        const fn = jest.fn();
+        const { container } = render(<Input onBlur={fn} />);
+        input.fireBlur(container);
 
-  test("fireClear", () => {
-    const fn = jest.fn();
-    const { container } = render(
-      <Input allowClear defaultValue="test" onChange={fn} />
-    );
-    fireClear(container);
-    expect(fn).toBeCalled();
-  });
+        expect(fn).toBeCalled();
+    });
 
-  test("firePressEnter", () => {
-    const fn = jest.fn();
-    const { container } = render(<Input onPressEnter={fn} />);
-    firePressEnter(container);
+    test('fireClear', () => {
+        const fn = jest.fn();
+        const { container } = render(<Input allowClear defaultValue="test" onChange={fn} />);
+        input.fireClear(container);
+        expect(fn).toBeCalled();
+    });
 
-    expect(fn).toBeCalled();
-  });
+    test('firePressEnter', () => {
+        const fn = jest.fn();
+        const { container } = render(<Input onPressEnter={fn} />);
+        input.firePressEnter(container);
 
-  test('query input', () => {
-    const fn = jest.fn();
-    const { container } = render(<div>
-      <Input allowClear defaultValue="test"/>
-      <Input allowClear defaultValue="test" onChange={fn} />
-    </div>);
-    const el = query(container, 1);
-    fireClear(el);
-
-    expect(fn).toBeCalled();
-  })
+        expect(fn).toBeCalled();
+    });
 });

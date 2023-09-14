@@ -1,5 +1,5 @@
-import { fireEvent } from "@testing-library/react";
+import { fireEvent } from '@testing-library/react';
 
 export function fireCloseWithESC() {
-  fireEvent.keyDown(window, { key: "Esc", keyCode: 27 });
+    fireEvent.keyDown(window, { key: 'Esc', keyCode: 27 });
 }
