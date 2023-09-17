@@ -10,6 +10,7 @@
         "build:deps": "father prebundle",
         "prepublishOnly": "father doctor && npm run build",
         "test": "jest",
+        "lint:fix": "prettier --write src/** && eslint --fix src/**",
         "release": "bumpp --commit --push --tag && npm publish",
         "prepare": "husky install"
     },

@@ -8,13 +8,6 @@ export const failedQuerySelectors = (selectors: string[]) =>
 export const failedTriggerElement = () => new Error('Failed to trigger element for NOT found element');
 
 /**
- * @description 判断容器元素自身是否匹配选择器， 像Input与Button这种组件自身可能会作为container
- */
-export const matchContainerSelf = (container: HTMLElement, selector: string) => {
-    return container.matches(selector);
-};
-
-/**
  * 判断容器元素自身是否匹配选择器
  */
 export function queryViaSelector<T extends HTMLElement>(container: IContainer, selector: string, index?: number) {

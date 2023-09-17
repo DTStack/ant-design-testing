@@ -1,27 +1,24 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Upload, UploadProps } from 'antd';
 
 import * as upload from '..';
 
 describe("Test Upload's fire functions", () => {
-    beforeAll(() => {
+    beforeEach(() => {
         jest.useFakeTimers();
     });
-    beforeEach(() => cleanup());
+
     afterEach(() => {
-        jest.clearAllTimers();
-    });
-    afterAll(() => {
         jest.useRealTimers();
     });
 
-    test('test fireUpload', (done) => {
+    test('test fireUpload', async () => {
+        const fn = jest.fn();
         const props: UploadProps = {
             beforeUpload: () => false,
             onChange: ({ fileList }) => {
-                expect(fileList[0]?.file).toBe('foo.png');
-                done();
+                fn(fileList[0]?.file);
             },
         };
         const { container } = render(
@@ -29,12 +26,14 @@ describe("Test Upload's fire functions", () => {
                 <button type="button">upload</button>
             </Upload>
         );
-
         upload.fireUploadAsync(container, [{ file: 'foo.png' }]);
+        await waitFor(() => {
+            expect(fn).toBeCalledWith('foo.png');
+        });
     });
 
     test('test fireRemove', () => {
-        const handleRemove = jest.fn();
+        const fn = jest.fn();
         const files = [
             {
                 uid: '-1',
@@ -52,7 +51,7 @@ describe("Test Upload's fire functions", () => {
         const props: UploadProps = {
             beforeUpload: () => false,
             fileList: files as UploadProps['fileList'],
-            onRemove: handleRemove,
+            onRemove: fn,
         };
         const { container } = render(
             <Upload {...props}>
@@ -61,6 +60,47 @@ describe("Test Upload's fire functions", () => {
         );
 
         upload.fireRemove(container, 1);
-        expect(handleRemove.mock.calls[0][0]).toMatchObject({ name: 'bar.png' });
+        expect(fn.mock.calls[0][0]).toMatchObject({ name: 'bar.png' });
+    });
+
+    test('test query', () => {
+        const { container, getByTestId } = render(
+            <>
+                <Upload data-testid="test1">button1</Upload>
+                <Upload data-testid="test2">button2</Upload>
+            </>
+        );
+
+        expect(upload.query(container)).toEqual(getByTestId('test1'));
+        expect(upload.query(container, 1)).toEqual(getByTestId('test2'));
+    });
+
+    test('test queryUploadListItem', () => {
+        const files = [
+            {
+                uid: '-1',
+                name: 'foo.png',
+                status: 'done',
+                url: 'http://www.baidu.com/xxx.png',
+            },
+            {
+                uid: '-2',
+                name: 'bar.png',
+                status: 'done',
+                url: 'http://www.baidu.com/xxx.png',
+            },
+        ];
+        const props: UploadProps = {
+            beforeUpload: () => false,
+            fileList: files as UploadProps['fileList'],
+            itemRender: (_, file) => <div data-testid={file.name}>{file.name}</div>,
+        };
+        const { container, getByTestId } = render(
+            <Upload {...props}>
+                <button type="button">upload</button>
+            </Upload>
+        );
+        expect(upload.queryUploadListItem(container)).toEqual(getByTestId('foo.png'));
+        expect(upload.queryUploadListItem(container, 1)).toEqual(getByTestId('bar.png'));
     });
 });
