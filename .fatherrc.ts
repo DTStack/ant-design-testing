@@ -1,9 +1,10 @@
 import { defineConfig } from 'father';
 
 export default defineConfig({
-  platform: 'node',
-  cjs: {},
-  prebundle: {
-    deps: {}
-  },
+    platform: 'node',
+    cjs: {},
+    esm: {},
+    prebundle: {
+        deps: {},
+    },
 });
