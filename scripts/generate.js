@@ -17,6 +17,8 @@ testFiles.forEach((sourceFile) => {
      * @type {CallExpression}
      */
     let describeCallExpression = null;
+
+    // Get "describe" jest function call expression first
     const expressionStatements = sourceFile.getStatements().filter((s) => s.isKind(SyntaxKind.ExpressionStatement));
     expressionStatements.forEach((s) => {
         const callExpressions = s.getChildrenOfKind(SyntaxKind.CallExpression);
@@ -39,7 +41,7 @@ testFiles.forEach((sourceFile) => {
         .forEach((s) => {
             if (s.isKind(SyntaxKind.ExpressionStatement)) {
                 const jsDoc = s.getFirstChildByKind(SyntaxKind.JSDoc);
-                // only record test example code with @link jsdoc tag
+                // Only record test example code with @link jsdoc tag
                 const jsDocLinkTag = jsDoc
                     ?.getChildrenOfKind(SyntaxKind.JSDocTag)
                     .find((tag) => tag.getFirstChildByKind(SyntaxKind.Identifier)?.getText() === 'link');
@@ -72,16 +74,17 @@ results.forEach(({ componentName, exampleCodeMap }) => {
     if (!outputFile || !exampleCodeMap.size) return;
 
     outputFile.getStatements().forEach((s) => {
-        if (!s.isKind(SyntaxKind.VariableStatement)) return;
-        const declaration = s.getDeclarations()?.[0];
+        // It may be arrow function or common function
+        if (![SyntaxKind.VariableStatement, SyntaxKind.FunctionDeclaration].includes(s.getKind())) return;
+        const declaration = s.isKind(SyntaxKind.VariableStatement) ? s.getDeclarations()?.[0] : s;
         if (!declaration) return;
 
-        // find method declaration and if it has example test code, add jsdoc
+        // Find method declaration and if it has example test code, add jsdoc
         const methodName = declaration.getFirstChildByKind(SyntaxKind.Identifier)?.getText();
         if (!exampleCodeMap.has(methodName)) return;
         const testExampleCode = exampleCodeMap.get(methodName);
 
-        // if method has jsdoc already, append it, or add a new jsdoc with example code
+        // If method has jsdoc already, append it, or add a new jsdoc with example code
         const jsDoc = s.getJsDocs().at(0) || s.addJsDoc({ tags: [] });
         jsDoc.addTag({ tagName: 'example', text: testExampleCode });
     });
