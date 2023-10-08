@@ -6,9 +6,10 @@
     "types": "dist/cjs/index.d.ts",
     "scripts": {
         "dev": "father dev",
-        "build": "father build",
+        "build": "father build && npm run generate",
         "build:deps": "father prebundle",
         "prepublishOnly": "father doctor && npm run build",
+        "generate": "node scripts/generate.js",
         "test": "jest",
         "lint": "eslint src/**",
         "lint:fix": "prettier --write src/** && eslint --fix src/**",
