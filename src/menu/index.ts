@@ -6,26 +6,36 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
 
 const prefix = getProvider('prefixCls');
 
-export const fireMenuItemClick = (container: IContainer, index: number) => {
+/**
+ * Fires onClick function of menu item
+ */
+export function fireMenuItemClick(container: IContainer, index: number) {
     const selector = `li.${prefix}-menu-item`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(`${selector} with index ${index}`);
     act(() => {
         fireEvent.click(ele);
     });
-};
+}
 
-export const fireSubMenuClick = (container: IContainer, index: number) => {
+/**
+ * Fires onClick function of sub menu item
+ */
+export function fireSubMenuClick(container: IContainer, index: number) {
     const selector = `div.${prefix}-menu-submenu-title`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(`${selector} with index ${index}`);
     act(() => {
         fireEvent.click(ele);
     });
-};
+}
 
-export const query = (container: IContainer, index = 0) => {
+/**
+ * Returns the `index` container of Menu
+ * @param index default is `0`
+ */
+export function query(container: IContainer, index = 0) {
     const selector = `.${prefix}-menu`;
     const ele = queryViaSelector(container, selector, index);
     return ele;
-};
+}

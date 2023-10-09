@@ -20,6 +20,9 @@ const resetProperty = () => {
     });
 };
 
+/**
+ * Fires onChange function
+ */
 export const fireChange = (container: IContainer, value: number) => {
     resetProperty();
     const isHalfStar = !Number.isInteger(value);
@@ -31,6 +34,9 @@ export const fireChange = (container: IContainer, value: number) => {
     fireEvent(ele, new MouseEvent('click', { clientX: isHalfStar ? -1 : 0, bubbles: true }));
 };
 
+/**
+ * Fires onHoverChange function
+ */
 export const fireHoverChange = (container: IContainer, value: number) => {
     resetProperty();
     const isHalfStar = !Number.isInteger(value);
@@ -42,6 +48,10 @@ export const fireHoverChange = (container: IContainer, value: number) => {
     fireEvent(ele, new MouseEvent('mousemove', { clientX: isHalfStar ? -1 : 0, bubbles: true }));
 };
 
+/**
+ * Returns the `index` container of Rate
+ * @param index default is `0`
+ */
 export const query = (container: IContainer, index = 0) => {
     const selector = `.${prefixCls}-rate`;
     const ele = queryViaSelector(container, selector, index);

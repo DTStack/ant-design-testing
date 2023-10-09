@@ -6,9 +6,12 @@ import { failedQuerySelector } from '../utils';
 
 const prefix = getProvider('prefixCls');
 
-export const fireClick = (container: IContainer) => {
+/**
+ * Fires onClick function
+ */
+export function fireClick(container: IContainer) {
     const selector = `.${prefix}-back-top`;
     const ele = container.querySelector(selector);
     if (!ele) throw failedQuerySelector(selector);
     fireEvent.click(ele);
-};
+}

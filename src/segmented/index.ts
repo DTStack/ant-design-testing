@@ -6,16 +6,23 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
 
 const prefix = getProvider('prefixCls');
 
-export const fireChange = (container: IContainer, index: number) => {
+/**
+ * Fires onChange function
+ */
+export function fireChange(container: IContainer, index: number) {
     const selector = `.${prefix}-segmented .${prefix}-segmented-item`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(selector);
     fireEvent.click(ele);
-};
+}
 
-export const query = (container: IContainer, index = 0) => {
+/**
+ * Returns the `index` container of Segmented
+ * @param index default is `0`
+ */
+export function query(container: IContainer, index = 0) {
     const selector = `.${prefix}-segmented`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(selector);
     return ele;
-};
+}

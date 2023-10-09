@@ -4,11 +4,17 @@ import type { IContainer } from 'src/interface';
 import { getProvider } from '../provider';
 import { failedQuerySelector, queryViaSelector } from '../utils';
 
-export const fireCloseWithESC = () => {
+/**
+ * Fires onOpenChange function and close Dropdown
+ */
+export function fireCloseWithESC() {
     fireEvent.keyDown(window, { key: 'Esc', keyCode: 27 });
-};
+}
 
-export const fireOpen = (container: IContainer, trigger: 'hover' | 'click' | 'contextMenu' = 'hover') => {
+/**
+ * Fires onOpenChange function and open Dropdown
+ */
+export function fireOpen(container: IContainer, trigger: 'hover' | 'click' | 'contextMenu' = 'hover') {
     const ele = query(container) as HTMLElement;
     act(() => {
         if (trigger === 'click') {
@@ -22,27 +28,41 @@ export const fireOpen = (container: IContainer, trigger: 'hover' | 'click' | 'co
         }
         jest.runAllTimers();
     });
-};
+}
 
-export const fireSelect = (container: IContainer, index = 0) => {
+/**
+ * Fires onClick function of Dropdown Menu Item
+ *
+ * You need open Dropdown first
+ */
+export function fireSelect(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-dropdown-menu-item`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) return failedQuerySelector(selector);
     act(() => {
         fireEvent.click(ele);
     });
-};
+}
 
-export const query = (container: IContainer, index = 0) => {
+/**
+ * Returns the `index` container of Dropdown
+ * @param index default is `0`
+ */
+export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-dropdown-trigger`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) return failedQuerySelector(selector);
     return ele;
-};
+}
 
-export const queryDropdownMenu = (container: IContainer) => {
+/**
+ * Returns doropdown menu
+ *
+ * You need open Dropdown first
+ */
+export function queryDropdownMenu(container: IContainer) {
     const selector = `.${getProvider('prefixCls')}-dropdown-menu`;
     const ele = queryViaSelector(container, selector);
     if (!ele) return failedQuerySelector(selector);
     return ele;
-};
+}

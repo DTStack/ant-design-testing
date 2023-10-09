@@ -44,7 +44,7 @@ export const fireSearch = (container: IContainer, opts: { searchText: string; di
 };
 
 /**
- * Returns the container element
+ * Returns the `index` of container transfer
  */
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-transfer`;
@@ -54,6 +54,7 @@ export function query(container: IContainer, index = 0) {
 
 /**
  * Returns the operation's button element
+ * @param index the index of button you want query, default is `0`
  */
 export function queryOperationButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-transfer .${getProvider('prefixCls')}-transfer-operation button`;

@@ -16,6 +16,7 @@ export function fireChange(container: IContainer, index: number) {
 
 /**
  * Returns the `index` container of Collapse
+ * @param index default is `0`
  */
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-collapse`;

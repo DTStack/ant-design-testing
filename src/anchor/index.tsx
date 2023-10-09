@@ -6,6 +6,10 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
 
 const prefix = getProvider('prefixCls');
 
+/**
+ * Fires onClick function
+ * @param indexOrHash the specific link index or hashname
+ */
 export function fireClick(container: IContainer, indexOrHash?: string | number) {
     let ele = null;
     if (typeof indexOrHash === 'string') {
@@ -20,16 +24,24 @@ export function fireClick(container: IContainer, indexOrHash?: string | number) 
     fireEvent.click(ele);
 }
 
-export const query = (container: IContainer, index = 0) => {
+/**
+ * Returns the `index` container of Anchor
+ * @param index default is `0`
+ */
+export function query(container: IContainer, index = 0) {
     const selector = `.${prefix}-anchor-wrapper`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(selector);
     return ele;
-};
+}
 
-export const queryLink = (container: IContainer, index = 0) => {
+/**
+ * Returns the `index` item of Anchor link
+ * @param index default is `0`
+ */
+export function queryLink(container: IContainer, index = 0) {
     const selector = `.${prefix}-anchor-link-title`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(selector);
     return ele;
-};
+}
