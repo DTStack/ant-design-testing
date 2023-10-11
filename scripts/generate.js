@@ -63,7 +63,7 @@ testFiles.forEach((sourceFile) => {
 });
 
 const outputProject = new Project();
-outputProject.addSourceFilesAtPaths('dist/cjs/*/index.d.ts');
+outputProject.addSourceFilesAtPaths('dist/(cjs|esm)/*/index.d.ts');
 
 results.forEach(({ componentName, exampleCodeMap }) => {
     const outputFile = outputProject.getSourceFile((file) => {
@@ -86,7 +86,7 @@ results.forEach(({ componentName, exampleCodeMap }) => {
 
         // If method has jsdoc already, append it, or add a new jsdoc with example code
         const jsDoc = s.getJsDocs().at(0) || s.addJsDoc({ tags: [] });
-        jsDoc.addTag({ tagName: 'example', text: testExampleCode });
+        jsDoc.addTag({ tagName: 'example', text: '\n' + testExampleCode });
     });
 
     outputFile.saveSync();
