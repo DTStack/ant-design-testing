@@ -4,8 +4,6 @@ import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { failedQuerySelector, queryViaSelector } from '../utils';
 
-const prefix = getProvider('prefixCls');
-
 /**
  * Fires onClick function
  */
@@ -20,7 +18,10 @@ export function fireClick(container: IContainer) {
  * You need set duration to `0`
  */
 export function fireClose(container: IContainer) {
-    const selectors = [`.${prefix}-notification-notice-close`, `.${prefix}-notification-notice-btn`];
+    const selectors = [
+        `.${getProvider('prefixCls')}-notification-notice-close`,
+        `.${getProvider('prefixCls')}-notification-notice-btn`,
+    ];
     const ele = queryViaSelector(container, selectors[0]) || queryViaSelector(container, selectors[1]);
     if (!ele) throw failedQuerySelector(`${selectors[0]} or ${selectors[1]}`);
     act(() => {
@@ -33,7 +34,7 @@ export function fireClose(container: IContainer) {
  * @param index default is `0`
  */
 export function query(container: IContainer, index = 0) {
-    const selector = `.${prefix}-notification-notice`;
+    const selector = `.${getProvider('prefixCls')}-notification-notice`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(selector);
     return ele;

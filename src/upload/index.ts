@@ -4,8 +4,6 @@ import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { failedQuerySelector, queryViaSelector } from '../utils';
 
-const prefix = getProvider('prefixCls');
-
 /**
  * Fires onChange function
  * @prerequisite call `jest.useFakeTimers()`
@@ -36,7 +34,7 @@ export function fireRemove(container: IContainer, index = 0) {
  * @param index default is `0`
  */
 export function query(container: IContainer, index = 0) {
-    const selector = `.${prefix}-upload input[type='file']`;
+    const selector = `.${getProvider('prefixCls')}-upload input[type='file']`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(selector);
     return ele;
@@ -47,7 +45,7 @@ export function query(container: IContainer, index = 0) {
  * @param index default is `0`
  */
 export function queryUploadListItem(container: IContainer, index = 0) {
-    const selector = `.${prefix}-upload-list .${prefix}-upload-list-text-container`;
+    const selector = `.${getProvider('prefixCls')}-upload-list .${getProvider('prefixCls')}-upload-list-text-container`;
     const ele = queryViaSelector(container, selector, index)?.firstElementChild;
     if (!ele) throw failedQuerySelector(selector);
     return ele as HTMLElement;

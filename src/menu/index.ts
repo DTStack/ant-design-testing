@@ -4,13 +4,11 @@ import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { failedQuerySelector, queryViaSelector } from '../utils';
 
-const prefix = getProvider('prefixCls');
-
 /**
  * Fires onClick function of menu item
  */
 export function fireMenuItemClick(container: IContainer, index: number) {
-    const selector = `li.${prefix}-menu-item`;
+    const selector = `li.${getProvider('prefixCls')}-menu-item`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(`${selector} with index ${index}`);
     act(() => {
@@ -22,7 +20,7 @@ export function fireMenuItemClick(container: IContainer, index: number) {
  * Fires onClick function of sub menu item
  */
 export function fireSubMenuClick(container: IContainer, index: number) {
-    const selector = `div.${prefix}-menu-submenu-title`;
+    const selector = `div.${getProvider('prefixCls')}-menu-submenu-title`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(`${selector} with index ${index}`);
     act(() => {
@@ -35,7 +33,7 @@ export function fireSubMenuClick(container: IContainer, index: number) {
  * @param index default is `0`
  */
 export function query(container: IContainer, index = 0) {
-    const selector = `.${prefix}-menu`;
+    const selector = `.${getProvider('prefixCls')}-menu`;
     const ele = queryViaSelector(container, selector, index);
     return ele;
 }

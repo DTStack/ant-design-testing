@@ -4,8 +4,6 @@ import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { failedQuerySelector, queryViaSelector } from '../utils';
 
-const prefix = getProvider('prefixCls');
-
 /**
  * Fires onClick function
  * @param indexOrHash the specific link index or hashname
@@ -13,7 +11,7 @@ const prefix = getProvider('prefixCls');
 export function fireClick(container: IContainer, indexOrHash?: string | number) {
     let ele = null;
     if (typeof indexOrHash === 'string') {
-        const selector = `.${prefix}-anchor-link-title[href="${indexOrHash}"]`;
+        const selector = `.${getProvider('prefixCls')}-anchor-link-title[href="${indexOrHash}"]`;
         ele = queryViaSelector(container, selector);
         if (!ele) throw failedQuerySelector(selector);
     } else if (typeof indexOrHash === 'number') {
@@ -29,7 +27,7 @@ export function fireClick(container: IContainer, indexOrHash?: string | number) 
  * @param index default is `0`
  */
 export function query(container: IContainer, index = 0) {
-    const selector = `.${prefix}-anchor-wrapper`;
+    const selector = `.${getProvider('prefixCls')}-anchor-wrapper`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(selector);
     return ele;
@@ -40,7 +38,7 @@ export function query(container: IContainer, index = 0) {
  * @param index default is `0`
  */
 export function queryLink(container: IContainer, index = 0) {
-    const selector = `.${prefix}-anchor-link-title`;
+    const selector = `.${getProvider('prefixCls')}-anchor-link-title`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(selector);
     return ele;
