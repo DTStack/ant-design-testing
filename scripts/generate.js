@@ -63,7 +63,7 @@ testFiles.forEach((sourceFile) => {
 });
 
 const outputProject = new Project();
-outputProject.addSourceFilesAtPaths('dist/(cjs|esm)/*/index.d.ts');
+outputProject.addSourceFilesAtPaths('dist/*/index.d.ts');
 
 results.forEach(({ componentName, exampleCodeMap }) => {
     const outputFile = outputProject.getSourceFile((file) => {
