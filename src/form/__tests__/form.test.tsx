@@ -14,6 +14,9 @@ describe("Test form's functions", () => {
         jest.useRealTimers();
     });
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container } = render(
             <>
@@ -25,6 +28,9 @@ describe("Test form's functions", () => {
         expect(form.query(container, 1)?.id).toBe('advance');
     });
 
+    /**
+     * @link queryFormItems
+     */
     test('queryFormItems', async () => {
         const fn = jest.fn();
         const { container } = render(
@@ -43,6 +49,9 @@ describe("Test form's functions", () => {
         });
     });
 
+    /**
+     * @link queryFormItemControls
+     */
     test('queryFormItemControls', () => {
         const { container } = render(
             <Form>

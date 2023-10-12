@@ -6,6 +6,8 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
 
 /**
  * Fires onChange function
+ *
+ * It's a async fire function
  * @prerequisite call `jest.useFakeTimers()`
  */
 export function fireUpload(container: IContainer, files: File[] | { name: string }[]) {

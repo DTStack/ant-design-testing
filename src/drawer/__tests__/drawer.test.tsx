@@ -7,6 +7,9 @@ import * as drawer from '..';
 describe("Test Drawer fire's functions", () => {
     beforeEach(cleanup);
 
+    /**
+     * @link fireClose
+     */
     test('fireClose', () => {
         const fn = jest.fn();
         const { container } = render(<Drawer getContainer={false} open onClose={fn} />);

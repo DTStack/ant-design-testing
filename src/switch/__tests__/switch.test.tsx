@@ -7,6 +7,9 @@ import * as switchEl from '..';
 describe("Test Switch's fire functions", () => {
     beforeEach(cleanup);
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container, getByTestId } = render(
             <>
@@ -18,6 +21,9 @@ describe("Test Switch's fire functions", () => {
         expect(switchEl.query(container, 1)).toBe(getByTestId('switch2'));
     });
 
+    /**
+     * @link fireClick
+     */
     test('fireClick', () => {
         const fn = jest.fn();
         const { container } = render(<Switch onClick={fn} />);
@@ -26,6 +32,9 @@ describe("Test Switch's fire functions", () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Switch onChange={fn} />);

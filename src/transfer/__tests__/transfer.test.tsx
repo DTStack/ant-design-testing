@@ -16,16 +16,25 @@ describe("Test Transfer's fire functions", () => {
         jest.useFakeTimers();
     });
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container } = render(<Transfer />);
         expect(transfer.query(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryOperationButton
+     */
     test('queryOperationButton', () => {
         const { container } = render(<Transfer />);
         expect(transfer.queryOperationButton(container)).not.toBeNull();
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -44,6 +53,9 @@ describe("Test Transfer's fire functions", () => {
         expect(fn).lastCalledWith([], 'left', ['b', 'c']);
     });
 
+    /**
+     * @link fireScroll
+     */
     test('fireScroll', () => {
         const fn = jest.fn();
         const { container } = render(<Transfer listStyle={{ height: 30 }} dataSource={dataSource} onScroll={fn} />);
@@ -51,6 +63,9 @@ describe("Test Transfer's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireSearch
+     */
     test('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(

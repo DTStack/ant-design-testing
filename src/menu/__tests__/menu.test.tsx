@@ -8,6 +8,9 @@ import * as menu from '..';
 type MenuItems = Required<MenuProps>['items'];
 
 describe("Test menu fire's functions", () => {
+    /**
+     * @link fireMenuItemClick
+     */
     test('fire menu item click', () => {
         const fn = jest.fn();
         const menuItems: MenuItems = [
@@ -20,6 +23,9 @@ describe("Test menu fire's functions", () => {
         expect(fn.mock.calls[0][0]).toMatchObject({ key: 'Option1' });
     });
 
+    /**
+     * @link fireSubMenuClick
+     */
     test('fire submenu click', () => {
         const fn = jest.fn();
         const menuItems: MenuItems = [
@@ -42,6 +48,9 @@ describe("Test menu fire's functions", () => {
         expect(fn).toBeCalledWith(['SubOption2']);
     });
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container, getByTestId } = render(
             <>

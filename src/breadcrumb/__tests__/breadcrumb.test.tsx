@@ -5,6 +5,9 @@ import { Breadcrumb } from 'antd';
 import * as breadCrumb from '..';
 
 describe("Test breadcrumb's fire functions", () => {
+    /**
+     * @link fireClick
+     */
     test('test fireClick', () => {
         const fn = jest.fn();
         const { container } = render(

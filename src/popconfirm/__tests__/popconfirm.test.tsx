@@ -15,6 +15,9 @@ describe("Test popconfirm fire's functions", () => {
         jest.useRealTimers();
     });
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container } = render(
             <Popconfirm title="test" getPopupContainer={(node) => node.parentElement!}>
@@ -25,6 +28,9 @@ describe("Test popconfirm fire's functions", () => {
         expect(confirm.query(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryButtons
+     */
     test('queryButtons', () => {
         const { container } = render(
             <Popconfirm title="test" getPopupContainer={(node) => node.parentElement!}>
@@ -35,6 +41,9 @@ describe("Test popconfirm fire's functions", () => {
         expect(confirm.queryButtons(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryCancelButton
+     */
     test('queryCancelButton', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -47,6 +56,9 @@ describe("Test popconfirm fire's functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link queryConfirmButton
+     */
     test('queryConfirmButton', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -59,6 +71,9 @@ describe("Test popconfirm fire's functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireOpen
+     */
     test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -70,6 +85,9 @@ describe("Test popconfirm fire's functions", () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link fireCancel
+     */
     test('fireCancel', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -82,6 +100,9 @@ describe("Test popconfirm fire's functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireConfirm
+     */
     test('fireConfirm', () => {
         const fn = jest.fn();
         const { container } = render(

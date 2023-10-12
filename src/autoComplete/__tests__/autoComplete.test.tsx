@@ -9,6 +9,9 @@ describe('Test Select fire functions', () => {
         cleanup();
     });
 
+    /**
+     * @link query
+     */
     it('query', () => {
         const { container, getByTestId } = render(
             <>
@@ -20,6 +23,9 @@ describe('Test Select fire functions', () => {
         expect(autoComplete.query(container, 1)).toBe(getByTestId('autoComplete2'));
     });
 
+    /**
+     * @link querySelector
+     */
     it('querySelector', () => {
         const { container } = render(
             <>
@@ -30,6 +36,9 @@ describe('Test Select fire functions', () => {
         expect(autoComplete.querySelector(container)).not.toBe(autoComplete.querySelector(container, 1));
     });
 
+    /**
+     * @link queryOption
+     */
     it('queryOption', () => {
         const { container } = render(
             <AutoComplete
@@ -45,7 +54,10 @@ describe('Test Select fire functions', () => {
         expect(autoComplete.queryOption(container, 1)?.textContent).toBe('b');
     });
 
-    it('queryOption', () => {
+    /**
+     * @link queryClear
+     */
+    it('queryClear', () => {
         const fn1 = jest.fn();
         const fn2 = jest.fn();
         const { container } = render(
@@ -61,6 +73,9 @@ describe('Test Select fire functions', () => {
         expect(fn2).toBeCalledTimes(1);
     });
 
+    /**
+     * @link queryInput
+     */
     it('queryInput', () => {
         const { container, getByTestId } = render(
             <>
@@ -72,6 +87,9 @@ describe('Test Select fire functions', () => {
         expect(autoComplete.queryInput(container, 1)).toBe(getByTestId('autoComplete2').querySelector('input'));
     });
 
+    /**
+     * @link fireOpen
+     */
     it('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -81,6 +99,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalledWith(true);
     });
 
+    /**
+     * @link fireSelect
+     */
     it('fireSelect', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -95,6 +116,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireSearch
+     */
     it('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(<AutoComplete onSearch={fn} showSearch options={[{ label: 'a', value: 'a' }]} />);
@@ -102,6 +126,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireFocus
+     */
     it('fireFocus', () => {
         const fn = jest.fn();
         const { container } = render(<AutoComplete onFocus={fn} options={[{ label: 'a', value: 'a' }]} />);
@@ -109,6 +136,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireBlur
+     */
     it('fireBlur', () => {
         const fn = jest.fn();
         const { container } = render(<AutoComplete onBlur={fn} options={[{ label: 'a', value: 'a' }]} />);
@@ -117,6 +147,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireClear
+     */
     it('fireClear', () => {
         const fn = jest.fn();
         const { container } = render(

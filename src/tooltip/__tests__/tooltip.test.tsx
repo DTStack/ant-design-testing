@@ -13,6 +13,9 @@ describe("test tooltip's fire functions", () => {
         jest.useRealTimers();
     });
 
+    /**
+     * @link fireOpen
+     */
     test('fireOpen', () => {
         const fn = jest.fn();
         const { getByText, getByTestId } = render(

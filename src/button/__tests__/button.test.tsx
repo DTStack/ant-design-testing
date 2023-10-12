@@ -5,6 +5,9 @@ import { Button } from 'antd';
 import * as button from '..';
 
 describe("Test Button's fire functions", () => {
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container, getByTestId } = render(
             <>
@@ -15,6 +18,10 @@ describe("Test Button's fire functions", () => {
         expect(button.query(container)).toBe(getByTestId('button1'));
         expect(button.query(container, 1)).toBe(getByTestId('button2'));
     });
+
+    /**
+     * @link fireClick
+     */
     test('test fireClick', () => {
         const fn = jest.fn();
         const { container } = render(<Button onClick={fn}>Button</Button>);

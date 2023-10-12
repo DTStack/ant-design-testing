@@ -13,6 +13,9 @@ describe("Test Upload's fire functions", () => {
         jest.useRealTimers();
     });
 
+    /**
+     * @link fireUpload
+     */
     test('test fireUpload', async () => {
         const fn = jest.fn();
         const props: UploadProps = {
@@ -32,6 +35,9 @@ describe("Test Upload's fire functions", () => {
         });
     });
 
+    /**
+     * @link fireRemove
+     */
     test('test fireRemove', () => {
         const fn = jest.fn();
         const files = [
@@ -63,6 +69,9 @@ describe("Test Upload's fire functions", () => {
         expect(fn.mock.calls[0][0]).toMatchObject({ name: 'bar.png' });
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const { container, getByTestId } = render(
             <>
@@ -75,6 +84,9 @@ describe("Test Upload's fire functions", () => {
         expect(upload.query(container, 1)).toEqual(getByTestId('test2'));
     });
 
+    /**
+     * @link queryUploadListItem
+     */
     test('test queryUploadListItem', () => {
         const files = [
             {

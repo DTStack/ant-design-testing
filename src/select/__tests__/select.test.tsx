@@ -10,6 +10,9 @@ describe('Test Select fire functions', () => {
         cleanup();
     });
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container, getByTestId } = render(
             <>
@@ -21,6 +24,9 @@ describe('Test Select fire functions', () => {
         expect(select.query(container, 1)).toBe(getByTestId('select2'));
     });
 
+    /**
+     * @link queryInput
+     */
     test('queryInput', () => {
         const fn1 = jest.fn();
         const fn2 = jest.fn();
@@ -36,6 +42,9 @@ describe('Test Select fire functions', () => {
         expect(fn2).toBeCalledWith('test2');
     });
 
+    /**
+     * @link querySelector
+     */
     test('querySelector', () => {
         const fn1 = jest.fn();
         const fn2 = jest.fn();
@@ -51,6 +60,9 @@ describe('Test Select fire functions', () => {
         expect(fn2).toBeCalledTimes(1);
     });
 
+    /**
+     * @link queryDropdown
+     */
     test('queryDropdown', () => {
         const fn1 = jest.fn();
         const fn2 = jest.fn();
@@ -68,6 +80,9 @@ describe('Test Select fire functions', () => {
         expect(fn2).toBeCalledWith(2, expect.objectContaining({ label: 2, value: 2 }));
     });
 
+    /**
+     * @link queryOption
+     */
     test('queryOption', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -85,6 +100,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalledWith(2, expect.objectContaining({ label: 2, value: 2 }));
     });
 
+    /**
+     * @link fireOpen
+     */
     it('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<Select onDropdownVisibleChange={fn} options={[{ label: 1, value: 1 }]} />);
@@ -92,6 +110,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalledWith(true);
     });
 
+    /**
+     * @link fireSelect
+     */
     it('fireSelect', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -102,6 +123,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireSearch
+     */
     it('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(<Select onSearch={fn} showSearch options={[{ label: 1, value: 1 }]} />);
@@ -109,6 +133,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireFocus
+     */
     it('fireFocus', () => {
         const fn = jest.fn();
         const { container } = render(<Select onFocus={fn} options={[{ label: 1, value: 1 }]} />);
@@ -116,6 +143,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireBlur
+     */
     it('fireBlur', () => {
         const fn = jest.fn();
         const { container } = render(<Select onBlur={fn} options={[{ label: 1, value: 1 }]} />);
@@ -124,6 +154,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireClear
+     */
     it('fireClear', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -133,6 +166,9 @@ describe('Test Select fire functions', () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireDeSelect
+     */
     it('fireDeSelect', () => {
         const fn = jest.fn();
         const { container } = render(

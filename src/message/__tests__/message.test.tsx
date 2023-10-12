@@ -16,12 +16,18 @@ describe('Test Message', () => {
         Message.destroy();
     });
 
+    /**
+     * @link query
+     */
     it('query', () => {
         const { container } = render(<Button onClick={() => Message.info('This is message')}>Display</Button>);
         button.fireClick(container);
         expect(message.query(document)).not.toBeNull();
     });
 
+    /**
+     * @link fireClick
+     */
     it('fireClick', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -41,6 +47,9 @@ describe('Test Message', () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link fireClose
+     */
     it('fireClose', async () => {
         const fn = jest.fn();
         const { container } = render(

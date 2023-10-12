@@ -10,6 +10,9 @@ const dateAdaptor = moment;
 describe("Test DatePicker's fire functions", () => {
     beforeEach(cleanup);
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container, getByTestId } = render(
             <>
@@ -21,6 +24,9 @@ describe("Test DatePicker's fire functions", () => {
         expect(datePicker.query(container, 1)?.querySelector('input')).toBe(getByTestId('datePicker2'));
     });
 
+    /**
+     * @link queryInput
+     */
     test('queryInput', () => {
         const { container, getByTestId } = render(
             <>
@@ -32,6 +38,9 @@ describe("Test DatePicker's fire functions", () => {
         expect(datePicker.queryInput(container, 1)).toBe(getByTestId('datePicker2'));
     });
 
+    /**
+     * @link queryDropdown
+     */
     test('queryDropdown', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -49,6 +58,9 @@ describe("Test DatePicker's fire functions", () => {
         expect(fn.mock.calls[0][1]).toBe(dateAdaptor('2018-04-24 19:18').format('YYYY-MM-DD'));
     });
 
+    /**
+     * @link querySuperPrevButton
+     */
     test('querySuperPrevButton', () => {
         const { container } = render(
             <DatePicker value={dateAdaptor('2018-04-13 19:18')} getPopupContainer={(node) => node.parentElement!} />
@@ -57,6 +69,9 @@ describe("Test DatePicker's fire functions", () => {
         expect(datePicker.querySuperPrevButton(container)?.nodeName).toBe('BUTTON');
     });
 
+    /**
+     * @link fireOpen
+     */
     test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<DatePicker onOpenChange={fn} />);
@@ -64,6 +79,9 @@ describe("Test DatePicker's fire functions", () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link fireClose
+     */
     test('fireClose', () => {
         const fn = jest.fn();
         const { container } = render(<DatePicker onOpenChange={fn} open />);
@@ -71,6 +89,9 @@ describe("Test DatePicker's fire functions", () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link firePanelChange
+     */
     test('firePanelChange', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -114,6 +135,9 @@ describe("Test DatePicker's fire functions", () => {
         expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'decade');
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -146,6 +170,9 @@ describe("Test DatePicker's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireOk
+     */
     test('fireOk', () => {
         const fn = jest.fn();
         const { container } = render(

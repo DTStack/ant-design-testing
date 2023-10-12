@@ -14,6 +14,9 @@ describe("Test treeSelect's fire functions", () => {
         jest.useRealTimers();
     });
 
+    /**
+     * @link fireOpen
+     */
     test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<TreeSelect onDropdownVisibleChange={fn} />);
@@ -22,6 +25,9 @@ describe("Test treeSelect's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireSearch
+     */
     test('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(<TreeSelect onSearch={fn} />);
@@ -30,6 +36,9 @@ describe("Test treeSelect's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireSelect
+     */
     test('fireSelect', () => {
         const fn = jest.fn();
         const treeData = [
@@ -61,6 +70,9 @@ describe("Test treeSelect's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireTreeExpand
+     */
     test('fireTreeExpand', () => {
         const fn = jest.fn();
         const treeData = [

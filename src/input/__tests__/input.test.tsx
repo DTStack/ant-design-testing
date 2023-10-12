@@ -5,6 +5,9 @@ import { Input } from 'antd';
 import * as input from '..';
 
 describe("Test input's fire functions", () => {
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container, getByTestId } = render(
             <div>
@@ -16,6 +19,9 @@ describe("Test input's fire functions", () => {
         expect(input.query(container, 1)).toBe(getByTestId('input2'));
     });
 
+    /**
+     * @link querySearchButton
+     */
     test('querySearchButton', () => {
         const fn = jest.fn();
         const { container } = render(<Input.Search onSearch={fn} />);
@@ -23,6 +29,9 @@ describe("Test input's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Input onChange={fn} />);
@@ -30,6 +39,9 @@ describe("Test input's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireFocus
+     */
     test('fireFocus', () => {
         const fn = jest.fn();
         const { container } = render(<Input onFocus={fn} />);
@@ -37,6 +49,9 @@ describe("Test input's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireBlur
+     */
     test('fireBlur', () => {
         const fn = jest.fn();
         const { container } = render(<Input onBlur={fn} />);
@@ -44,6 +59,9 @@ describe("Test input's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireClear
+     */
     test('fireClear', () => {
         const fn = jest.fn();
         const { container } = render(<Input allowClear defaultValue="test" onChange={fn} />);
@@ -51,6 +69,9 @@ describe("Test input's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link firePressEnter
+     */
     test('firePressEnter', () => {
         const fn = jest.fn();
         const { container } = render(<Input onPressEnter={fn} />);

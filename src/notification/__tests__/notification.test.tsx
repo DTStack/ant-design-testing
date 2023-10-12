@@ -11,6 +11,9 @@ describe("Test Notification's fire functions", () => {
         });
     });
 
+    /**
+     * @link fireClick
+     */
     test('test fireClick', () => {
         const fn = jest.fn();
         act(() => {
@@ -24,6 +27,9 @@ describe("Test Notification's fire functions", () => {
         expect(fn).toHaveBeenCalled();
     });
 
+    /**
+     * @link fireClose
+     */
     test('test fireClose', async () => {
         const fn = jest.fn();
         act(() => {
@@ -40,6 +46,9 @@ describe("Test Notification's fire functions", () => {
         });
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         act(() => {
             notification.info({

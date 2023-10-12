@@ -5,6 +5,9 @@ import { BackTop } from 'antd';
 import * as backTop from '..';
 
 describe("Test BackTop's fire functions", () => {
+    /**
+     * @link fireClick
+     */
     test('test fireClick', () => {
         const onClick = jest.fn();
         const { container } = render(<BackTop onClick={onClick} visibilityHeight={0} />);
