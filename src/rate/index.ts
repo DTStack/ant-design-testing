@@ -57,6 +57,5 @@ export const fireHoverChange = (container: IContainer, value: number) => {
 export const query = (container: IContainer, index = 0) => {
     const selector = `.${getProvider('prefixCls')}-rate`;
     const ele = queryViaSelector(container, selector, index);
-    if (!ele) throw failedQuerySelector(selector);
     return ele;
 };

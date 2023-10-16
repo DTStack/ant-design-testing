@@ -13,9 +13,12 @@ export function fireCloseWithESC() {
 
 /**
  * Fires onOpenChange function and open Dropdown
+ * @prerequisite call `jest.useFakeTimers()`
  */
 export function fireOpen(container: IContainer, trigger: 'hover' | 'click' | 'contextMenu' = 'hover') {
-    const ele = query(container) as HTMLElement;
+    const selector = `.${getProvider('prefixCls')}-dropdown-trigger`;
+    const ele = query(container);
+    if (!ele) throw failedQuerySelector(selector);
     act(() => {
         if (trigger === 'click') {
             fireEvent.click(ele);
@@ -51,7 +54,6 @@ export function fireSelect(container: IContainer, index = 0) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-dropdown-trigger`;
     const ele = queryViaSelector(container, selector, index);
-    if (!ele) return failedQuerySelector(selector);
     return ele;
 }
 
@@ -63,6 +65,15 @@ export function query(container: IContainer, index = 0) {
 export function queryDropdownMenu(container: IContainer) {
     const selector = `.${getProvider('prefixCls')}-dropdown-menu`;
     const ele = queryViaSelector(container, selector);
-    if (!ele) return failedQuerySelector(selector);
+    return ele;
+}
+
+/**
+ * Returns the `index` container of Dropdown Menu Item
+ * @param index default is `0`
+ */
+export function queryDropdownMenuItem(container: IContainer, index = 0) {
+    const selector = `.${getProvider('prefixCls')}-dropdown-menu-item`;
+    const ele = queryViaSelector(container, selector, index);
     return ele;
 }

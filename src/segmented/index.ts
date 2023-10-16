@@ -21,6 +21,5 @@ export function fireChange(container: IContainer, index: number) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-segmented`;
     const ele = queryViaSelector(container, selector, index);
-    if (!ele) throw failedQuerySelector(selector);
     return ele;
 }

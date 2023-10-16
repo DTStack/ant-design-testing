@@ -72,4 +72,23 @@ describe("Test Dropdown's fire functions", () => {
         expect(dropdown.query(container)).toEqual(getByTestId('test1'));
         expect(dropdown.query(container, 1)).toEqual(getByTestId('test2'));
     });
+
+    test('test queryDropdownMenuItem', () => {
+        const { container } = render(
+            <Dropdown
+                menu={{
+                    items: [
+                        { key: 1, label: 'test1' },
+                        { key: 2, label: 'test2' },
+                    ],
+                }}
+                getPopupContainer={(triggerNode) => triggerNode.parentElement!}
+            >
+                <a>button1</a>
+            </Dropdown>
+        );
+        dropdown.fireOpen(container);
+        expect(dropdown.queryDropdownMenuItem(container)?.textContent).toEqual('test1');
+        expect(dropdown.queryDropdownMenuItem(container, 1)?.textContent).toEqual('test2');
+    });
 });

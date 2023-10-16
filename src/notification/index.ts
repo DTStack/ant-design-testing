@@ -8,7 +8,9 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
  * Fires onClick function
  */
 export function fireClick(container: IContainer) {
+    const selector = `.${getProvider('prefixCls')}-notification-notice`;
     const ele = query(container);
+    if (!ele) throw failedQuerySelector(selector);
     fireEvent.click(ele);
 }
 
@@ -36,6 +38,5 @@ export function fireClose(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-notification-notice`;
     const ele = queryViaSelector(container, selector, index);
-    if (!ele) throw failedQuerySelector(selector);
     return ele;
 }
