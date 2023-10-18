@@ -6,13 +6,8 @@ import * as select from '..';
 
 describe('Test Select fire functions', () => {
     beforeEach(() => {
-        jest.useFakeTimers();
         document.body.innerHTML = '';
         cleanup();
-    });
-
-    afterEach(() => {
-        jest.useRealTimers();
     });
 
     test('query', () => {

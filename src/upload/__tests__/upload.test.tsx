@@ -18,7 +18,7 @@ describe("Test Upload's fire functions", () => {
         const props: UploadProps = {
             beforeUpload: () => false,
             onChange: ({ fileList }) => {
-                fn(fileList[0]?.file);
+                fn(fileList?.[0]);
             },
         };
         const { container } = render(
@@ -26,9 +26,9 @@ describe("Test Upload's fire functions", () => {
                 <button type="button">upload</button>
             </Upload>
         );
-        upload.fireUploadAsync(container, [{ file: 'foo.png' }]);
+        upload.fireUpload(container, [{ name: 'foo.png' }]);
         await waitFor(() => {
-            expect(fn).toBeCalledWith('foo.png');
+            expect(fn).toBeCalledWith(expect.objectContaining({ name: 'foo.png' }));
         });
     });
 

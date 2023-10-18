@@ -8,7 +8,7 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
  * Fires onChange function
  * @prerequisite call `jest.useFakeTimers()`
  */
-export function fireUploadAsync(container: IContainer, files: File[] | { file: string }[]) {
+export function fireUpload(container: IContainer, files: File[] | { name: string }[]) {
     const selector = `.${getProvider('prefixCls')}-upload input[type='file']`;
     const ele = query(container);
     if (!ele) throw failedQuerySelector(selector);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { Cascader } from 'antd';
 
 import * as cascader from '..';
@@ -24,14 +24,6 @@ const options = [
 ];
 
 describe("Test Cascader's fire functions", () => {
-    beforeEach(() => {
-        cleanup();
-        jest.useFakeTimers();
-    });
-    afterEach(() => {
-        jest.useRealTimers();
-    });
-
     test('query', () => {
         const { container, getByTestId } = render(
             <div>

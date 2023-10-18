@@ -48,6 +48,6 @@ describe("Test Notification's fire functions", () => {
                 duration: 0,
             });
         });
-        expect(query(document.body).className).toContain('test1');
+        expect(query(document.body)?.className).toContain('test1');
     });
 });

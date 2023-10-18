@@ -11,4 +11,15 @@ describe("Test BackTop's fire functions", () => {
         backTop.fireClick(container);
         expect(onClick).toHaveBeenCalled();
     });
+
+    test('test query', () => {
+        const { container, getByTestId } = render(
+            <>
+                <BackTop data-testid="test1" />
+                <BackTop data-testid="test2" />
+            </>
+        );
+        expect(backTop.query(container)).toBe(getByTestId('test1'));
+        expect(backTop.query(container, 1)).toBe(getByTestId('test2'));
+    });
 });

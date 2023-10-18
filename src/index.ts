@@ -18,6 +18,7 @@ export * as menu from './menu';
 export * as message from './message';
 export * as modal from './modal';
 export * as notification from './notification';
+export * as pageHeader from './pageHeader';
 export * as pagination from './pagination';
 export * as popconfirm from './popconfirm';
 export { getProvider, getProviders, provider } from './provider';

@@ -6,12 +6,7 @@ import * as autoComplete from '..';
 
 describe('Test Select fire functions', () => {
     beforeEach(() => {
-        jest.useFakeTimers();
         cleanup();
-    });
-
-    afterEach(() => {
-        jest.useRealTimers();
     });
 
     it('query', () => {

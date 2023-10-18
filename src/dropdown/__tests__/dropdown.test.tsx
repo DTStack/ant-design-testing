@@ -74,6 +74,7 @@ describe("Test Dropdown's fire functions", () => {
     });
 
     test('test queryDropdownMenuItem', () => {
+        const fn = jest.fn();
         const { container } = render(
             <Dropdown
                 menu={{
@@ -81,6 +82,7 @@ describe("Test Dropdown's fire functions", () => {
                         { key: 1, label: 'test1' },
                         { key: 2, label: 'test2' },
                     ],
+                    onClick: fn,
                 }}
                 getPopupContainer={(triggerNode) => triggerNode.parentElement!}
             >
@@ -90,5 +92,8 @@ describe("Test Dropdown's fire functions", () => {
         dropdown.fireOpen(container);
         expect(dropdown.queryDropdownMenuItem(container)?.textContent).toEqual('test1');
         expect(dropdown.queryDropdownMenuItem(container, 1)?.textContent).toEqual('test2');
+
+        dropdown.fireSelect(dropdown.queryDropdownMenuItem(container, 1) as HTMLElement);
+        expect(fn).toBeCalledWith(expect.objectContaining({ key: '2' }));
     });
 });
