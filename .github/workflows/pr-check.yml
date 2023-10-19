@@ -1,0 +1,35 @@
+name: PR Check
+on: pull_request
+jobs:
+  lint: 
+    name: eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: setup node environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '8'
+      - run: pnpm install
+      - run: pnpm run lint
+  test:
+    name: test job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: setup node environment
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '8'
+      - run: pnpm install
+      - run: pnpm run test
+    needs: lint
+   
