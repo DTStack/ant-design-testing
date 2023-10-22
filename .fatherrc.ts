@@ -1,8 +1,9 @@
 import { defineConfig } from 'father';
 
 export default defineConfig({
-    platform: 'browser',
-    esm: { output: 'dist' },
+    platform: 'node',
+    esm: { output: 'dist/esm' },
+    cjs: { output: 'dist/cjs' },
     prebundle: {
         deps: {},
     },

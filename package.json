@@ -2,9 +2,9 @@
     "name": "ant-design-testing",
     "version": "0.1.0-beta.4",
     "description": "Easier testing for ant-design-based UI library",
-    "main": "dist/index.js",
-    "module": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/cjs/index.d.ts",
     "scripts": {
         "dev": "father dev",
         "build": "father build && npm run generate",
@@ -23,10 +23,14 @@
     },
     "keywords": [
         "Ant Design",
-        "UI library"
+        "UI library",
+        "Jest",
+        "Unit Test",
+        "React Testing Library"
     ],
     "authors": [
-        "mortalYoung <yangwei1@outlook.com>"
+        "mortalYoung <yangwei1@outlook.com>",
+        "JackWang032 <w2522134117@outlook.com>"
     ],
     "license": "MIT",
     "files": [
