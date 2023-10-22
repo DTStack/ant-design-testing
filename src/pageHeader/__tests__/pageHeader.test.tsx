@@ -5,6 +5,9 @@ import { PageHeader } from 'antd';
 import * as pageHeader from '..';
 
 describe("Test PageHeader's fire functions", () => {
+    /**
+     * @link fireBack
+     */
     test('test fireBack', () => {
         const fn = jest.fn();
         const { container } = render(<PageHeader title="header" onBack={fn} />);
@@ -12,6 +15,9 @@ describe("Test PageHeader's fire functions", () => {
         expect(fn).toHaveBeenCalled();
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const fn1 = jest.fn();
         const fn2 = jest.fn();

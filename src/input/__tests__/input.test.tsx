@@ -79,7 +79,10 @@ describe("Test input's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
-    test('fireOnSearch', () => {
+    /**
+     * @link firePressEnter
+     */
+    test('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(<Input.Search onSearch={fn} />);
         input.fireSearch(container);

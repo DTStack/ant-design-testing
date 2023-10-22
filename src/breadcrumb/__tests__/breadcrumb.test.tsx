@@ -20,6 +20,9 @@ describe("Test breadcrumb's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const { container, getByTestId } = render(
             <>
@@ -31,6 +34,9 @@ describe("Test breadcrumb's fire functions", () => {
         expect(breadCrumb.query(container, 1)).toBe(getByTestId('test2'));
     });
 
+    /**
+     * @link queryBreadcrumbItem
+     */
     test('test queryBreadcrumbItem', () => {
         const { container, queryByText } = render(
             <Breadcrumb>

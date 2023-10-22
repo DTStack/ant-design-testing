@@ -15,6 +15,9 @@ describe("Test BackTop's fire functions", () => {
         expect(onClick).toHaveBeenCalled();
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const { container, getByTestId } = render(
             <>
