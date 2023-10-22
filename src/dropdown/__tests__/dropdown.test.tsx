@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Dropdown } from 'antd';
 
 import * as dropdown from '..';
@@ -18,7 +18,7 @@ describe("Test Dropdown's fire functions", () => {
         jest.useRealTimers();
     });
 
-    test('test fireOpen', () => {
+    test('test fireOpen', async () => {
         const fn = jest.fn();
         const { container } = render(
             <Dropdown menu={{ items }} onOpenChange={fn} trigger={['click', 'hover', 'contextMenu']}>
@@ -26,14 +26,14 @@ describe("Test Dropdown's fire functions", () => {
             </Dropdown>
         );
         dropdown.fireOpen(container);
-        expect(fn).toBeCalledTimes(1);
+        await waitFor(() => expect(fn).toBeCalledTimes(1));
         dropdown.fireOpen(container, 'click');
-        expect(fn).toBeCalledTimes(2);
+        await waitFor(() => expect(fn).toBeCalledTimes(2));
         dropdown.fireOpen(container, 'contextMenu');
-        expect(fn).toBeCalledTimes(3);
+        await waitFor(() => expect(fn).toBeCalledTimes(3));
     });
 
-    test('test fireSelect', () => {
+    test('test fireSelect', async () => {
         const fn = jest.fn();
         const { container } = render(
             <Dropdown menu={{ items, onClick: fn }} getPopupContainer={(trigger) => trigger.parentElement!}>
@@ -42,10 +42,10 @@ describe("Test Dropdown's fire functions", () => {
         );
         dropdown.fireOpen(container);
         dropdown.fireSelect(dropdown.queryDropdownMenu(container) as HTMLElement, 1);
-        expect(fn.mock.calls[0][0]).toMatchObject({ key: 'item-2' });
+        await waitFor(() => expect(fn.mock.calls[0][0]).toMatchObject({ key: 'item-2' }));
     });
 
-    test('test fireCloseWithESC', () => {
+    test('test fireCloseWithESC', async () => {
         const fn = jest.fn();
         const { container } = render(
             <Dropdown menu={{ items }} onOpenChange={(open) => !open && fn()}>
@@ -54,7 +54,7 @@ describe("Test Dropdown's fire functions", () => {
         );
         dropdown.fireOpen(container);
         dropdown.fireCloseWithESC();
-        expect(fn).toBeCalled();
+        await waitFor(() => expect(fn).toBeCalled());
     });
 
     test('test query', () => {
@@ -73,7 +73,7 @@ describe("Test Dropdown's fire functions", () => {
         expect(dropdown.query(container, 1)).toEqual(getByTestId('test2'));
     });
 
-    test('test queryDropdownMenuItem', () => {
+    test('test queryDropdownMenuItem', async () => {
         const fn = jest.fn();
         const { container } = render(
             <Dropdown
@@ -90,10 +90,10 @@ describe("Test Dropdown's fire functions", () => {
             </Dropdown>
         );
         dropdown.fireOpen(container);
-        expect(dropdown.queryDropdownMenuItem(container)?.textContent).toEqual('test1');
-        expect(dropdown.queryDropdownMenuItem(container, 1)?.textContent).toEqual('test2');
+        await waitFor(() => expect(dropdown.queryDropdownMenuItem(container)?.textContent).toEqual('test1'));
+        await waitFor(() => expect(dropdown.queryDropdownMenuItem(container, 1)?.textContent).toEqual('test2'));
 
         dropdown.fireSelect(dropdown.queryDropdownMenuItem(container, 1) as HTMLElement);
-        expect(fn).toBeCalledWith(expect.objectContaining({ key: '2' }));
+        await waitFor(() => expect(fn).toBeCalledWith(expect.objectContaining({ key: '2' })));
     });
 });
