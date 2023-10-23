@@ -5,6 +5,9 @@ import { Tag } from 'antd';
 import * as tag from '..';
 
 describe("Test Tag's fire functions", () => {
+    /**
+     * @link fireClose
+     */
     test('test fireClose', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -19,6 +22,9 @@ describe("Test Tag's fire functions", () => {
         expect(fn).toHaveBeenCalled();
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const { container, getByTestId } = render(
             <>

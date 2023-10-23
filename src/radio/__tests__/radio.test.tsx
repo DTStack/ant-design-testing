@@ -7,21 +7,33 @@ import * as radio from '..';
 describe("Test Radio's fire functions", () => {
     beforeEach(cleanup);
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container } = render(<Radio>Radio</Radio>);
         expect(radio.query(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryGroup
+     */
     test('queryGroup', () => {
         const { container } = render(<Radio.Group options={['Apple', 'Pear', 'Orange']} />);
         expect(radio.queryGroup(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryInput
+     */
     test('queryInput', () => {
         const { container } = render(<Radio.Group options={['Apple', 'Pear', 'Orange']} />);
         expect(radio.queryInput(container)).not.toBeNull();
     });
 
+    /**
+     * @link fireMouseEnter
+     */
     test('fireMouseEnter', () => {
         const fn = jest.fn();
         const { container } = render(<Radio onMouseEnter={fn}>Radio</Radio>);
@@ -42,6 +54,9 @@ describe("Test Radio's fire functions", () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link fireMouseLeave
+     */
     test('fireMouseLeave', () => {
         const fn = jest.fn();
         const { container } = render(<Radio onMouseLeave={fn}>Radio</Radio>);
@@ -50,6 +65,9 @@ describe("Test Radio's fire functions", () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link fireMouseLeave
+     */
     test('fireMouseLeave with group', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -62,6 +80,9 @@ describe("Test Radio's fire functions", () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(

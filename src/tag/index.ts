@@ -1,4 +1,4 @@
-import { fireEvent, getByText } from '@testing-library/react';
+import { fireEvent, queryByText } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
@@ -24,7 +24,7 @@ export function query(container: IContainer, titleOrIndex: string | number) {
     const selector = `.${getProvider('prefixCls')}-tag`;
     let ele = null;
     if (typeof titleOrIndex === 'string') {
-        ele = getByText(container as HTMLElement, titleOrIndex, { selector });
+        ele = queryByText(container as HTMLElement, titleOrIndex, { selector });
     } else {
         ele = queryViaSelector(container, selector, titleOrIndex);
     }

@@ -19,11 +19,17 @@ const dataSource = [
 describe("Test Table's fire functions", () => {
     beforeEach(cleanup);
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container } = render(<Table rowKey="id" dataSource={dataSource} columns={columns} />);
         expect(table.query(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryHeader
+     */
     test('queryHeader', () => {
         const { container } = render(<Table rowKey="id" dataSource={dataSource} columns={columns} />);
         expect(table.queryHeader(container)).not.toBeNull();
@@ -36,6 +42,9 @@ describe("Test Table's fire functions", () => {
         expect(table.queryHeader(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryBody
+     */
     test('queryBody', () => {
         const { container } = render(<Table rowKey="id" dataSource={dataSource} columns={columns} />);
         expect(table.queryBody(container)).not.toBeNull();
@@ -48,11 +57,17 @@ describe("Test Table's fire functions", () => {
         expect(table.queryBody(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryRow
+     */
     test('queryRow', () => {
         const { container } = render(<Table rowKey="id" dataSource={dataSource} columns={columns} />);
         expect(table.queryRow(container)).not.toBeNull();
     });
 
+    /**
+     * @link fireSelect
+     */
     test('fireSelect', () => {
         const handleSelect = jest.fn();
         const { container } = render(
@@ -69,6 +84,9 @@ describe("Test Table's fire functions", () => {
         expect(handleSelect.mock.calls[0][0]).toEqual([2]);
     });
 
+    /**
+     * @link fireSelectAll
+     */
     test('fireSelectAll', () => {
         const handleSelect = jest.fn();
         const { container } = render(
@@ -85,6 +103,9 @@ describe("Test Table's fire functions", () => {
         expect(handleSelect.mock.calls[0][0]).toBeTruthy();
     });
 
+    /**
+     * @link fireExpand
+     */
     test('fireExpand', () => {
         const handleExpand = jest.fn();
         const { container } = render(

@@ -5,6 +5,9 @@ import { Rate } from 'antd';
 import * as rate from '..';
 
 describe("Test rate's fire functions", () => {
+    /**
+     * @link fireChange
+     */
     test('test fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Rate allowHalf onChange={fn} />);
@@ -14,6 +17,9 @@ describe("Test rate's fire functions", () => {
         expect(fn).lastCalledWith(3.5);
     });
 
+    /**
+     * @link fireHoverChange
+     */
     test('test fireHoverChange', () => {
         const fn = jest.fn();
         const { container } = render(<Rate allowHalf onHoverChange={fn} />);
@@ -23,6 +29,9 @@ describe("Test rate's fire functions", () => {
         expect(fn).lastCalledWith(1);
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const { container } = render(
             <>

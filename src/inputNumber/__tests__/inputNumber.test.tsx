@@ -5,6 +5,9 @@ import { InputNumber } from 'antd';
 import * as inputNumber from '..';
 
 describe("Test inputNumber's fire functions", () => {
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container } = render(
             <>
@@ -16,11 +19,17 @@ describe("Test inputNumber's fire functions", () => {
         expect(inputNumber.query(container, 1)?.className).toEqual(expect.stringContaining('test2'));
     });
 
+    /**
+     * @link queryInput
+     */
     test('queryInput', () => {
         const { container } = render(<InputNumber />);
         expect(inputNumber.queryInput(container)?.nodeName).toBe('INPUT');
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<InputNumber onChange={fn} />);
@@ -29,6 +38,9 @@ describe("Test inputNumber's fire functions", () => {
         expect(fn).toBeCalledWith(1);
     });
 
+    /**
+     * @link fireStepUp
+     */
     test('fireStepUp', () => {
         const fn = jest.fn();
         const { container } = render(<InputNumber onStep={fn} defaultValue={1} />);
@@ -37,6 +49,9 @@ describe("Test inputNumber's fire functions", () => {
         expect(fn).toBeCalledWith(2, expect.objectContaining({ type: 'up' }));
     });
 
+    /**
+     * @link fireStepDown
+     */
     test('fireStepDown', () => {
         const fn = jest.fn();
         const { container } = render(<InputNumber onStep={fn} defaultValue={1} />);
@@ -45,6 +60,9 @@ describe("Test inputNumber's fire functions", () => {
         expect(fn).toBeCalledWith(0, expect.objectContaining({ type: 'down' }));
     });
 
+    /**
+     * @link fireFocus
+     */
     test('fireFocus', () => {
         const fn = jest.fn();
         const { container } = render(<InputNumber onFocus={fn} />);
@@ -53,6 +71,9 @@ describe("Test inputNumber's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireBlur
+     */
     test('fireBlur', () => {
         const fn = jest.fn();
         const { container } = render(<InputNumber onBlur={fn} />);
@@ -61,6 +82,9 @@ describe("Test inputNumber's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link firePressEnter
+     */
     test('firePressEnter', () => {
         const fn = jest.fn();
         const { container } = render(<InputNumber onPressEnter={fn} />);

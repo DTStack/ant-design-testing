@@ -6,10 +6,14 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
 
 /**
  * Fires onChange function
+ *
+ * It's a async fire function
  * @prerequisite call `jest.useFakeTimers()`
  */
-export function fireUploadAsync(container: IContainer, files: File[] | { file: string }[]) {
+export function fireUpload(container: IContainer, files: File[] | { name: string }[]) {
+    const selector = `.${getProvider('prefixCls')}-upload input[type='file']`;
     const ele = query(container);
+    if (!ele) throw failedQuerySelector(selector);
     act(() => {
         fireEvent.change(ele, { target: { files } });
         jest.runAllTimers();
@@ -21,9 +25,17 @@ export function fireUploadAsync(container: IContainer, files: File[] | { file: s
  * @param index default remove item is `0`
  */
 export function fireRemove(container: IContainer, index = 0) {
-    const selector = '.anticon-delete';
-    const ele = queryViaSelector(queryUploadListItem(container, index), selector);
-    if (!ele) throw failedQuerySelector(selector);
+    const selectors = [
+        `.${getProvider('prefixCls')}-upload-list .${getProvider('prefixCls')}-upload-list-text-container`,
+        '.anticon-delete',
+    ];
+
+    const listItemEle = queryUploadListItem(container, index);
+    if (!listItemEle) throw failedQuerySelector(selectors[0]);
+
+    const ele = queryViaSelector(listItemEle as IContainer, selectors[1]);
+    if (!ele) throw failedQuerySelector(selectors[1]);
+
     act(() => {
         fireEvent.click(ele);
     });
@@ -36,7 +48,6 @@ export function fireRemove(container: IContainer, index = 0) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-upload input[type='file']`;
     const ele = queryViaSelector(container, selector, index);
-    if (!ele) throw failedQuerySelector(selector);
     return ele;
 }
 
@@ -47,6 +58,5 @@ export function query(container: IContainer, index = 0) {
 export function queryUploadListItem(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-upload-list .${getProvider('prefixCls')}-upload-list-text-container`;
     const ele = queryViaSelector(container, selector, index)?.firstElementChild;
-    if (!ele) throw failedQuerySelector(selector);
-    return ele as HTMLElement;
+    return ele;
 }

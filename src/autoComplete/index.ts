@@ -13,7 +13,6 @@ export function fireSearch(container: IContainer, value: any) {
 /**
  * Fires onDropdownVisibleChange function.
  * Meanwhile, open Dropdown
- * @prerequisite call `jest.useFakeTimers()`
  */
 export function fireOpen(container: IContainer) {
     select.fireOpen(container);

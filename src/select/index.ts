@@ -1,4 +1,4 @@
-import { act, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
@@ -17,16 +17,12 @@ export function fireSearch(container: IContainer, value: any) {
 /**
  * Fires onDropdownVisibleChange function.
  * Meanwhile, open Dropdown
- * @prerequisite call `jest.useFakeTimers()`
  */
 export function fireOpen(container: IContainer) {
     const selector = `.${getProvider('prefixCls')}-select-selector`;
     const ele = querySelector(container);
     if (!ele) throw failedQuerySelector(selector);
-    act(() => {
-        fireEvent.mouseDown(ele);
-        jest.runAllTimers();
-    });
+    fireEvent.mouseDown(ele);
 }
 
 /**

@@ -42,6 +42,9 @@ const treeData: DataNode[] = [
 describe("Test Tree's fire functions", () => {
     beforeEach(cleanup);
 
+    /**
+     * @link fireCheck
+     */
     test('fireCheck', () => {
         const fn = jest.fn();
         const { container } = render(<Tree checkable onCheck={fn} treeData={treeData} />);
@@ -50,6 +53,9 @@ describe("Test Tree's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireExpand
+     */
     test('fireExpand', () => {
         const fn = jest.fn();
         const { container } = render(<Tree checkable onExpand={fn} treeData={treeData} />);
@@ -58,6 +64,9 @@ describe("Test Tree's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireRightClick
+     */
     test('fireRightClick', () => {
         const fn = jest.fn();
         const { container } = render(<Tree checkable onRightClick={fn} treeData={treeData} />);
@@ -66,6 +75,9 @@ describe("Test Tree's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireSelect
+     */
     test('fireSelect', () => {
         const fn = jest.fn();
         const { container } = render(<Tree checkable onSelect={fn} treeData={treeData} />);
@@ -74,6 +86,9 @@ describe("Test Tree's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireDrag
+     */
     test('fireDrag', () => {
         const onDragStart = jest.fn();
         const onDragEnter = jest.fn();
@@ -108,6 +123,9 @@ describe("Test Tree's fire functions", () => {
         expect(onDragEnd).toBeCalled();
     });
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container } = render(
             <>

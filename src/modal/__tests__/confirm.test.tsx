@@ -32,18 +32,27 @@ describe("Test confirm's fire functions", () => {
         jest.useRealTimers();
     });
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { getByTestId } = render(<Confirm />);
         confirm.fireOpen(getByTestId('trigger'));
         expect(confirm.query(document)).not.toBeNull();
     });
 
+    /**
+     * @link queryBtns
+     */
     test('queryBtns', () => {
         const { getByTestId } = render(<Confirm />);
         confirm.fireOpen(getByTestId('trigger'));
         expect(confirm.queryBtns(document)).not.toBeNull();
     });
 
+    /**
+     * @link queryCancelButton
+     */
     test('queryCancelButton', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onCancel={fn} />);
@@ -52,6 +61,9 @@ describe("Test confirm's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link queryOkButton
+     */
     test('queryOkButton', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onOk={fn} />);
@@ -60,6 +72,9 @@ describe("Test confirm's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireOpen
+     */
     test('fireOpen', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onOk={fn} />);
@@ -68,6 +83,9 @@ describe("Test confirm's fire functions", () => {
         expect(document.querySelector(`.${getProvider('prefixCls')}-modal-root`)).not.toBeNull();
     });
 
+    /**
+     * @link fireOk
+     */
     test('fireOk', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onOk={fn} />);
@@ -76,6 +94,9 @@ describe("Test confirm's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireCancel
+     */
     test('fireCancel', () => {
         const fn = jest.fn();
         const { getByTestId } = render(<Confirm onCancel={fn} />);

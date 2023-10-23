@@ -5,13 +5,19 @@ import { Alert } from 'antd';
 import * as alert from '..';
 
 describe("Test Segmented's fire functions", () => {
-    test('test fireChange', () => {
+    /**
+     * @link fireClose
+     */
+    test('test fireClose', () => {
         const fn = jest.fn();
         const { container } = render(<Alert message="Warning Text" type="warning" closable onClose={fn} />);
         alert.fireClose(container);
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const { container, getByTestId } = render(
             <>

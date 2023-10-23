@@ -5,6 +5,9 @@ import { Anchor } from 'antd';
 import * as anchor from '..';
 
 describe("Test Anchor's fire functions", () => {
+    /**
+     * @link fireClick
+     */
     test('test fireClick', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -19,6 +22,9 @@ describe("Test Anchor's fire functions", () => {
         expect(fn.mock.calls[1]?.[1]).toMatchObject({ title: 'b', href: '#b' });
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const { container } = render(
             <>
@@ -34,6 +40,9 @@ describe("Test Anchor's fire functions", () => {
         expect(anchor.query(container, 1)?.className).toContain('test2');
     });
 
+    /**
+     * @link queryLink
+     */
     test('test queryLink', () => {
         const { container, getByTitle } = render(
             <Anchor>

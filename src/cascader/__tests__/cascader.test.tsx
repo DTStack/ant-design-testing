@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { Cascader } from 'antd';
 
 import * as cascader from '..';
@@ -24,14 +24,9 @@ const options = [
 ];
 
 describe("Test Cascader's fire functions", () => {
-    beforeEach(() => {
-        cleanup();
-        jest.useFakeTimers();
-    });
-    afterEach(() => {
-        jest.useRealTimers();
-    });
-
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container, getByTestId } = render(
             <div>
@@ -43,6 +38,9 @@ describe("Test Cascader's fire functions", () => {
         expect(cascader.query(container, 1)).toBe(getByTestId('cascader2'));
     });
 
+    /**
+     * @link querySelect
+     */
     test('querySelect', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -58,6 +56,9 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalledTimes(3);
     });
 
+    /**
+     * @link queryInput
+     */
     test('queryInput', () => {
         const fn = jest.fn();
         const { container, getByTestId } = render(
@@ -71,11 +72,17 @@ describe("Test Cascader's fire functions", () => {
         expect(cascader.queryInput(container, 1)).toBe(getByTestId('cascader2').querySelector('input'));
     });
 
+    /**
+     * @link queryDropdown
+     */
     test('queryDropdown', () => {
         render(<Cascader open options={options} />);
         expect(cascader.queryDropdown(document)).not.toBeNull();
     });
 
+    /**
+     * @link fireChange
+     */
     test('queryMenu', () => {
         const fn = jest.fn();
         render(<Cascader open options={options} changeOnSelect onChange={fn} />);
@@ -83,6 +90,9 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link queryMenuItem
+     */
     test('queryMenuItem', () => {
         const fn = jest.fn();
         render(<Cascader open options={options} changeOnSelect onChange={fn} />);
@@ -90,6 +100,9 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireOpen
+     */
     test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<Cascader onDropdownVisibleChange={fn} />);
@@ -97,6 +110,9 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalledTimes(1);
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -122,6 +138,9 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireSearch
+     */
     test('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -139,6 +158,9 @@ describe("Test Cascader's fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireClear
+     */
     test('fireClear', () => {
         const fn = jest.fn();
         const { container } = render(

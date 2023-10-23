@@ -5,6 +5,9 @@ import { Card } from 'antd';
 import * as card from '..';
 
 describe("Test card's fire functions", () => {
+    /**
+     * @link fireTabChange
+     */
     test('test fireTabChange', () => {
         const fn = jest.fn();
         const { container } = render(
@@ -20,6 +23,9 @@ describe("Test card's fire functions", () => {
         expect(fn).toBeCalledWith('tab2');
     });
 
+    /**
+     * @link query
+     */
     test('test query', () => {
         const { container, getByTestId } = render(
             <>
