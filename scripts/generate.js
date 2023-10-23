@@ -1,5 +1,4 @@
-const { SyntaxKind } = require('ts-morph');
-const { Project } = require('ts-morph');
+const { SyntaxKind, Project } = require('ts-morph');
 const path = require('path');
 
 const project = new Project();
