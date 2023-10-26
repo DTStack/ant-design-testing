@@ -3,13 +3,17 @@
     "version": "0.1.0-beta.4",
     "description": "Easier testing for ant-design-based UI library",
     "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
     "types": "dist/cjs/index.d.ts",
     "scripts": {
         "dev": "father dev",
-        "build": "father build",
+        "build": "father build && npm run generate",
         "build:deps": "father prebundle",
         "prepublishOnly": "father doctor && npm run build",
+        "generate": "node scripts/generate.js",
         "test": "jest",
+        "lint": "eslint src/**",
+        "lint:fix": "prettier --write src/** && eslint --fix src/**",
         "release": "bumpp --commit --push --tag && npm publish",
         "prepare": "husky install"
     },
@@ -19,10 +23,14 @@
     },
     "keywords": [
         "Ant Design",
-        "UI library"
+        "UI library",
+        "Jest",
+        "Unit Test",
+        "React Testing Library"
     ],
     "authors": [
-        "mortalYoung <yangwei1@outlook.com>"
+        "mortalYoung <yangwei1@outlook.com>",
+        "JackWang032 <w2522134117@outlook.com>"
     ],
     "license": "MIT",
     "files": [
@@ -50,7 +58,8 @@
         "@types/jest": "^29.5.1",
         "antd": "4",
         "bumpp": "^9.1.0",
-        "father": "^4.2.0",
+        "eslint-plugin-jsdoc": "^46.8.2",
+        "father": "^4.3.0",
         "husky": "^8.0.3",
         "jest": "^29.5.0",
         "jest-environment-jsdom": "^29.5.0",
@@ -61,6 +70,7 @@
         "rc-resize-observer": "*",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "ts-morph": "^19.0.0",
         "typescript": "^4.8.0"
     },
     "lint-staged": {

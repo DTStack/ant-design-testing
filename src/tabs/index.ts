@@ -7,6 +7,7 @@ import { failedQuerySelector, failedTriggerElement, queryViaSelector, queryViaSe
 
 /**
  * Fires onTabClick function
+ * @param activeKey the key of tab you want click
  */
 export function fireClick(container: IContainer, activeKey: string) {
     const selector = `.${getProvider('prefixCls')}-tabs-tab[data-node-key="${activeKey}"]`;
@@ -17,6 +18,7 @@ export function fireClick(container: IContainer, activeKey: string) {
 
 /**
  * Fires onChange function
+ * @param activeKey the key of tab you want change to
  */
 export function fireChange(container: IContainer, activeKey: string) {
     fireClick(container, activeKey);
@@ -51,6 +53,7 @@ export function fireEdit(container: IContainer, action: ActionType, activeKey?: 
 
 /**
  * Returns the container element of Tab
+ * @param index default is `0`
  */
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tabs`;
@@ -60,6 +63,7 @@ export function query(container: IContainer, index = 0) {
 
 /**
  * Returns the title element in Tab
+ * @param activeKey the key of tab you want to query
  */
 export function queryTabTitle(container: IContainer, activeKey: string) {
     const selector = `.${getProvider('prefixCls')}-tabs-tab[data-node-key="${activeKey}"]`;
@@ -69,6 +73,7 @@ export function queryTabTitle(container: IContainer, activeKey: string) {
 
 /**
  * Returns the add button element in Tab
+ * @param index default is `0`
  */
 export function queryAddButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tabs-nav-add`;
@@ -78,6 +83,7 @@ export function queryAddButton(container: IContainer, index = 0) {
 
 /**
  * Returns the remove button in Tab
+ * @param activeKey the key of tab you want to remove
  */
 export function queryRemoveButton(container: IContainer, activeKey: string) {
     const selectors = [

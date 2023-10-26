@@ -8,29 +8,29 @@ import { failedQuerySelector, queryViaSelector, queryViaSelectors } from '../uti
 /**
  * Fires rowSelection's onChange function
  */
-export const fireSelect = (container: IContainer, index: number) => {
+export function fireSelect(container: IContainer, index: number) {
     const row = queryRow(container, index);
     if (!row) throw failedQuerySelector(`.${getProvider('prefixCls')}-table-row`);
     const ele = checkbox.query(row);
     if (!ele) throw failedQuerySelector(`.${getProvider('prefixCls')}-checkbox-input`);
     fireEvent.click(ele);
-};
+}
 
 /**
  * Fires rowSelection's onSelectAll function
  */
-export const fireSelectAll = (container: IContainer) => {
+export function fireSelectAll(container: IContainer) {
     const header = queryHeader(container);
     if (!header) throw failedQuerySelector('table');
     const ele = checkbox.query(header);
     if (!ele) throw failedQuerySelector(`.${getProvider('prefixCls')}-checkbox-input`);
     fireEvent.click(ele);
-};
+}
 
 /**
  * Fires expandable's onExpand function
  */
-export const fireExpand = (container: IContainer, index: number) => {
+export function fireExpand(container: IContainer, index: number) {
     const selectors = [
         `.${getProvider('prefixCls')}-table-row`,
         `button.${getProvider('prefixCls')}-table-row-expand-icon`,
@@ -38,7 +38,7 @@ export const fireExpand = (container: IContainer, index: number) => {
     const ele = queryViaSelectors(container, selectors, [index]);
     if (!ele) throw failedQuerySelector(`${selectors[0]}[${index}] ${selectors[1]}`);
     fireEvent.click(ele);
-};
+}
 
 /**
  * Returns the wrapper element for Table

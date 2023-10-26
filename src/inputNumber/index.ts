@@ -15,7 +15,7 @@ export function fireChange(container: IContainer, value: any) {
 }
 
 /**
- * Fires onStepUp function
+ * Fires onStep function
  */
 export function fireStepUp(container: IContainer) {
     const selector = `.${getProvider('prefixCls')}-input-number-handler-up`;
@@ -25,7 +25,7 @@ export function fireStepUp(container: IContainer) {
 }
 
 /**
- * Fires onStepDown function
+ * Fires onStep function
  */
 export function fireStepDown(container: IContainer) {
     const selector = `.${getProvider('prefixCls')}-input-number-handler-down`;
@@ -38,10 +38,10 @@ export function fireStepDown(container: IContainer) {
  * Fires onPressEnter function
  */
 export function firePressEnter(container: IContainer) {
-    const selector = `input.${getProvider('prefixCls')}-input-number-input`;
-    const inputEl = queryInput(container);
+    const selector = `input.${getProvider('prefixCls')}-input-number`;
+    const inputEl = query(container);
     if (!inputEl) throw failedQuerySelector(selector);
-    fireEvent.keyDown(inputEl, { key: 'Enter' });
+    fireEvent.keyDown(inputEl, { key: 'Enter', keyCode: 13, which: 13 });
 }
 
 /**

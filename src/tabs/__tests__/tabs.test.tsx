@@ -25,26 +25,41 @@ const items: TabsProps['items'] = [
 describe("Test Tabs' fire functions", () => {
     beforeEach(cleanup);
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container } = render(<Tabs defaultActiveKey="1" items={items} />);
         expect(tabs.query(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryTabTitle
+     */
     test('queryTabTitle', () => {
         const { container } = render(<Tabs defaultActiveKey="1" items={items} />);
         expect(tabs.queryTabTitle(container, '1')?.textContent).toBe('Tab 1');
     });
 
+    /**
+     * @link queryAddButton
+     */
     test('queryAddButton', () => {
         const { container } = render(<Tabs type="editable-card" defaultActiveKey="1" items={items} />);
         expect(tabs.queryAddButton(container)).toBeInstanceOf(HTMLButtonElement);
     });
 
+    /**
+     * @link queryRemoveButton
+     */
     test('queryRemoveButton', () => {
         const { container } = render(<Tabs type="editable-card" defaultActiveKey="1" items={items} />);
         expect(tabs.queryRemoveButton(container, '1')).toBeInstanceOf(HTMLButtonElement);
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Tabs defaultActiveKey="1" items={items} onChange={fn} />);
@@ -52,6 +67,9 @@ describe("Test Tabs' fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireClick
+     */
     test('fireClick', () => {
         const fn = jest.fn();
         const { container } = render(<Tabs defaultActiveKey="1" items={items} onTabClick={fn} />);
@@ -59,6 +77,9 @@ describe("Test Tabs' fire functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireEdit
+     */
     test('fireEdit', () => {
         const fn = jest.fn();
         const { container } = render(<Tabs defaultActiveKey="1" type="editable-card" items={items} onEdit={fn} />);

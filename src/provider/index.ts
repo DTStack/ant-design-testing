@@ -1,5 +1,5 @@
 const globalConfig = {
-    prefixCls: 'rc',
+    prefixCls: 'ant',
 };
 
 export function getProviders() {

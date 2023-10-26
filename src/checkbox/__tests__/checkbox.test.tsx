@@ -7,6 +7,9 @@ import * as checkbox from '..';
 describe('Test checkbox', () => {
     beforeEach(cleanup);
 
+    /**
+     * @link query
+     */
     test('query', () => {
         const { container, getByTestId } = render(
             <>
@@ -18,6 +21,9 @@ describe('Test checkbox', () => {
         expect(checkbox.query(container, 1)?.querySelector('input')).toBe(getByTestId('Checkbox2'));
     });
 
+    /**
+     * @link queryGroup
+     */
     test('queryGroup', () => {
         const { container, getByTestId } = render(
             <>
@@ -29,6 +35,9 @@ describe('Test checkbox', () => {
         expect(checkbox.queryGroup(container, 1)).toBe(getByTestId('Checkbox2'));
     });
 
+    /**
+     * @link queryInput
+     */
     test('queryInput', () => {
         const fn = jest.fn();
         const { container } = render(<Checkbox.Group options={['Apple', 'Pear', 'Orange']} onChange={fn} />);
@@ -36,6 +45,9 @@ describe('Test checkbox', () => {
         expect(fn).toBeCalledWith(['Apple']);
     });
 
+    /**
+     * @link fireChange
+     */
     test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Checkbox.Group options={['Apple', 'Pear', 'Orange']} onChange={fn} />);

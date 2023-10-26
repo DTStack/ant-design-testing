@@ -7,11 +7,17 @@ import * as modal from '..';
 describe("Test Modal fire's functions", () => {
     beforeEach(cleanup);
 
+    /**
+     * @link queryModalFooter
+     */
     test('queryModalFooter', () => {
         const { container } = render(<Modal getContainer={false} open />);
         expect(modal.queryModalFooter(container)).not.toBeNull();
     });
 
+    /**
+     * @link queryCancelButton
+     */
     test('queryCancelButton', () => {
         const fn = jest.fn();
         const { container } = render(<Modal getContainer={false} open onCancel={fn} />);
@@ -19,6 +25,9 @@ describe("Test Modal fire's functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link queryOkButton
+     */
     test('queryOkButton', () => {
         const fn = jest.fn();
         const { container } = render(<Modal getContainer={false} open onOk={fn} />);
@@ -26,6 +35,9 @@ describe("Test Modal fire's functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireCancel
+     */
     test('fireCancel', () => {
         const fn = jest.fn();
         const { container } = render(<Modal getContainer={false} open onCancel={fn} />);
@@ -33,6 +45,9 @@ describe("Test Modal fire's functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link queryMask
+     */
     test('fireCancel with queryMask', () => {
         const fn = jest.fn();
         const { container } = render(<Modal getContainer={false} open onCancel={fn} />);
@@ -40,6 +55,9 @@ describe("Test Modal fire's functions", () => {
         expect(fn).toBeCalled();
     });
 
+    /**
+     * @link fireOk
+     */
     test('fireOk', () => {
         const fn = jest.fn();
         const { container } = render(<Modal getContainer={false} open onOk={fn} />);

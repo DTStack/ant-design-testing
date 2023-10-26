@@ -1,5 +1,3 @@
-import { provider } from '../src/provider';
-
 Object.defineProperty(global.window, 'matchMedia', {
     writable: true,
     configurable: true,
@@ -9,5 +7,3 @@ Object.defineProperty(global.window, 'matchMedia', {
         removeListener: jest.fn(),
     })),
 });
-
-provider({ prefixCls: 'ant' });
