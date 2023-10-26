@@ -14,7 +14,7 @@
         "test": "jest",
         "lint": "eslint src/**",
         "lint:fix": "prettier --write src/** && eslint --fix src/**",
-        "release": "bump --commit --push --tag && npm publish",
+        "release": "bumpp --commit --push --tag && npm publish",
         "prepare": "husky install"
     },
     "repository": {
