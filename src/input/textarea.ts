@@ -1,5 +1,5 @@
 import { act, fireEvent } from '@testing-library/react';
-import { _rs as onResize } from 'rc-resize-observer/lib/utils/observerUtil';
+import { _rs as onResize } from 'rc-resize-observer';
 
 import type { IContainer } from '../interface';
 import { failedQuerySelector, queryViaSelector } from '../utils';
