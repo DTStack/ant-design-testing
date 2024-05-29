@@ -12,7 +12,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link query
      */
-    it('query', () => {
+    test('query', () => {
         const { container, getByTestId } = render(
             <>
                 <AutoComplete data-testid="autoComplete1" />
@@ -26,7 +26,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link querySelector
      */
-    it('querySelector', () => {
+    test('querySelector', () => {
         const { container } = render(
             <>
                 <AutoComplete data-testid="autoComplete1" />
@@ -39,7 +39,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link queryOption
      */
-    it('queryOption', () => {
+    test('queryOption', () => {
         const { container } = render(
             <AutoComplete
                 getPopupContainer={(node) => node.parentNode}
@@ -57,7 +57,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link queryClear
      */
-    it('queryClear', () => {
+    test('queryClear', () => {
         const fn1 = jest.fn();
         const fn2 = jest.fn();
         const { container } = render(
@@ -76,7 +76,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link queryInput
      */
-    it('queryInput', () => {
+    test('queryInput', () => {
         const { container, getByTestId } = render(
             <>
                 <AutoComplete data-testid="autoComplete1" />
@@ -90,7 +90,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireOpen
      */
-    it('fireOpen', () => {
+    test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(
             <AutoComplete onDropdownVisibleChange={fn} options={[{ label: 'a', value: 'a' }]} />
@@ -102,7 +102,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireSelect
      */
-    it('fireSelect', () => {
+    test('fireSelect', () => {
         const fn = jest.fn();
         const { container } = render(
             <AutoComplete
@@ -119,7 +119,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireSearch
      */
-    it('fireSearch', () => {
+    test('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(<AutoComplete onSearch={fn} showSearch options={[{ label: 'a', value: 'a' }]} />);
         autoComplete.fireSearch(container, 'test');
@@ -129,7 +129,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireFocus
      */
-    it('fireFocus', () => {
+    test('fireFocus', () => {
         const fn = jest.fn();
         const { container } = render(<AutoComplete onFocus={fn} options={[{ label: 'a', value: 'a' }]} />);
         autoComplete.fireFocus(container);
@@ -139,7 +139,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireBlur
      */
-    it('fireBlur', () => {
+    test('fireBlur', () => {
         const fn = jest.fn();
         const { container } = render(<AutoComplete onBlur={fn} options={[{ label: 'a', value: 'a' }]} />);
         autoComplete.fireFocus(container);
@@ -150,7 +150,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireClear
      */
-    it('fireClear', () => {
+    test('fireClear', () => {
         const fn = jest.fn();
         const { container } = render(
             <AutoComplete onClear={fn} defaultValue={1} allowClear options={[{ label: 'a', value: 'a' }]} />

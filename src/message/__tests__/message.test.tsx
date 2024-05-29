@@ -19,7 +19,7 @@ describe('Test Message', () => {
     /**
      * @link query
      */
-    it('query', () => {
+    test('query', () => {
         const { container } = render(<Button onClick={() => Message.info('This is message')}>Display</Button>);
         button.fireClick(container);
         expect(message.query(document)).not.toBeNull();
@@ -28,7 +28,7 @@ describe('Test Message', () => {
     /**
      * @link fireClick
      */
-    it('fireClick', () => {
+    test('fireClick', () => {
         const fn = jest.fn();
         const { container } = render(
             <Button
@@ -50,7 +50,7 @@ describe('Test Message', () => {
     /**
      * @link fireClose
      */
-    it('fireClose', async () => {
+    test('fireClose', async () => {
         const fn = jest.fn();
         const { container } = render(
             <Button

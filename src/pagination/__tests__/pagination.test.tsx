@@ -17,7 +17,7 @@ describe('Test Pagination', () => {
     /**
      * @link query
      */
-    it('query', () => {
+    test('query', () => {
         const { container } = render(<Pagination defaultCurrent={6} total={500} />);
         expect(pagination.query(container)).not.toBeNull();
     });
@@ -25,7 +25,7 @@ describe('Test Pagination', () => {
     /**
      * @link queryPrevButton
      */
-    it('queryPrevButton', () => {
+    test('queryPrevButton', () => {
         const { container } = render(<Pagination defaultCurrent={6} total={500} />);
         expect(pagination.queryPrevButton(container)).not.toBeNull();
     });
@@ -33,7 +33,7 @@ describe('Test Pagination', () => {
     /**
      * @link queryNextButton
      */
-    it('queryNextButton', () => {
+    test('queryNextButton', () => {
         const { container } = render(<Pagination defaultCurrent={6} total={500} />);
         expect(pagination.queryNextButton(container)).not.toBeNull();
     });
@@ -41,7 +41,7 @@ describe('Test Pagination', () => {
     /**
      * @link queryPaginationItem
      */
-    it('queryPaginationItem', () => {
+    test('queryPaginationItem', () => {
         const { container } = render(<Pagination defaultCurrent={6} total={500} />);
         expect(pagination.queryPaginationItem(container, 1)).not.toBeNull();
     });
@@ -49,7 +49,7 @@ describe('Test Pagination', () => {
     /**
      * @link fireSizeChange
      */
-    it('fireSizeChange', () => {
+    test('fireSizeChange', () => {
         const fn = jest.fn();
         const { container } = render(<Pagination defaultCurrent={6} total={500} onShowSizeChange={fn} />);
         pagination.fireSizeOpen(container);
@@ -60,14 +60,14 @@ describe('Test Pagination', () => {
     /**
      * @link fireChange
      */
-    it('fireChange', () => {
+    test('fireChange', () => {
         const fn = jest.fn();
         const { container } = render(<Pagination defaultCurrent={1} total={500} onChange={fn} />);
         pagination.fireChange(container);
         expect(fn).toBeCalledWith(2, 10);
     });
 
-    it('fireChange with queryPrevButton', () => {
+    test('fireChange with queryPrevButton', () => {
         const fn = jest.fn();
         const { container } = render(<Pagination defaultCurrent={1} total={500} onChange={fn} />);
         pagination.fireChange(container);
@@ -76,7 +76,7 @@ describe('Test Pagination', () => {
         expect(fn).toBeCalledWith(1, 10);
     });
 
-    it('fireChange with specific item', () => {
+    test('fireChange with specific item', () => {
         const fn = jest.fn();
         const { container } = render(<Pagination defaultCurrent={1} total={500} onChange={fn} />);
         pagination.fireChange(pagination.queryPaginationItem(container, 3)!);
@@ -86,7 +86,7 @@ describe('Test Pagination', () => {
     /**
      * @link queryJumpNext
      */
-    it('fireChange with jump next', () => {
+    test('fireChange with jump next', () => {
         const fn = jest.fn();
         const { container } = render(<Pagination defaultCurrent={1} total={500} onChange={fn} />);
         pagination.fireChange(pagination.queryJumpNext(container)!);
@@ -96,7 +96,7 @@ describe('Test Pagination', () => {
     /**
      * @link queryJumpPrev
      */
-    it('fireChange with jump prev', () => {
+    test('fireChange with jump prev', () => {
         const fn = jest.fn();
         const { container } = render(<Pagination defaultCurrent={6} total={500} onChange={fn} />);
         pagination.fireChange(pagination.queryJumpPrev(container)!);
@@ -106,7 +106,7 @@ describe('Test Pagination', () => {
     /**
      * @link queryQuickJump
      */
-    it('fireChange with quick jump', () => {
+    test('fireChange with quick jump', () => {
         const fn = jest.fn();
         const { container } = render(<Pagination defaultCurrent={6} total={500} onChange={fn} showQuickJumper />);
         pagination.fireChange(pagination.queryQuickJump(container)!, 20);
