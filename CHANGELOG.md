@@ -1,3 +1,14 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.0.0](https://github.com/DTStack/ant-design-testing/compare/v1.0.0-beta.2...v1.0.0) (2024-06-03)
+
+
+### Features
+
+* init changelog ([#8](https://github.com/DTStack/ant-design-testing/issues/8)) ([8befd65](https://github.com/DTStack/ant-design-testing/commit/8befd65e5ade8d0e77affe85e116444f3eb37ab1))
+
 # [1.0.0-beta.2](https://github.com/DTStack/ant-design-testing/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2024-02-02)
 
 
@@ -118,6 +129,3 @@
 * develop select's fire functions ([660425d](https://github.com/DTStack/ant-design-testing/commit/660425d78c9e6c330d204bb49278623030e1f429))
 * downgrade antd to 4.x ([#1](https://github.com/DTStack/ant-design-testing/issues/1)) ([1a8730b](https://github.com/DTStack/ant-design-testing/commit/1a8730bcbf7ca36a6397c1dd88a8f70ab00040e7))
 * remove and ignore lock files ([dd3874e](https://github.com/DTStack/ant-design-testing/commit/dd3874e783be0b96d57a4713a350eb0bcfdd1ad5))
-
-
-
