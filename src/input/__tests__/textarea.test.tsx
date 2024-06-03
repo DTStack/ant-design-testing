@@ -1,12 +1,10 @@
 import React from 'react';
-import { cleanup, render, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Input } from 'antd';
 
 import * as textarea from '../textarea';
 
 describe("Test textarea's fire functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link query
      */

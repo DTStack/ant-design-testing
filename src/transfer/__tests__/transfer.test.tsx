@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Transfer } from 'antd';
 
 import * as transfer from '..';
@@ -11,7 +11,6 @@ const dataSource = [
 ];
 
 describe("Test Transfer's fire functions", () => {
-    afterEach(() => cleanup());
     beforeEach(() => {
         jest.useFakeTimers();
     });

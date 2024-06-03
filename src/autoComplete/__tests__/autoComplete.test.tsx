@@ -1,14 +1,10 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { AutoComplete } from 'antd';
 
 import * as autoComplete from '..';
 
 describe('Test Select fire functions', () => {
-    beforeEach(() => {
-        cleanup();
-    });
-
     /**
      * @link query
      */

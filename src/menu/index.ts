@@ -1,4 +1,4 @@
-import { act, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
@@ -11,9 +11,7 @@ export function fireMenuItemClick(container: IContainer, index: number) {
     const selector = `li.${getProvider('prefixCls')}-menu-item`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(`${selector} with index ${index}`);
-    act(() => {
-        fireEvent.click(ele);
-    });
+    fireEvent.click(ele);
 }
 
 /**
@@ -23,9 +21,7 @@ export function fireSubMenuClick(container: IContainer, index: number) {
     const selector = `div.${getProvider('prefixCls')}-menu-submenu-title`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) throw failedQuerySelector(`${selector} with index ${index}`);
-    act(() => {
-        fireEvent.click(ele);
-    });
+    fireEvent.click(ele);
 }
 
 /**

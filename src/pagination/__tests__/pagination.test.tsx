@@ -1,12 +1,11 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Pagination } from 'antd';
 
 import * as pagination from '../';
 
 describe('Test Pagination', () => {
     beforeEach(() => {
-        cleanup();
         jest.useFakeTimers();
     });
 

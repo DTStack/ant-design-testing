@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 
@@ -11,14 +11,14 @@ describe("Test menu fire's functions", () => {
     /**
      * @link fireMenuItemClick
      */
-    test('fire menu item click', () => {
+    test('fire menu item click', async () => {
         const fn = jest.fn();
         const menuItems: MenuItems = [
             { key: 'Option1', label: 'Option1' },
             { key: 'Option2', label: 'Option2' },
         ];
 
-        const { container } = render(<Menu items={menuItems} onClick={fn} />);
+        const { container } = await act(async () => render(<Menu items={menuItems} onClick={fn} />));
         menu.fireMenuItemClick(container, 0);
         expect(fn.mock.calls[0][0]).toMatchObject({ key: 'Option1' });
     });
@@ -26,7 +26,7 @@ describe("Test menu fire's functions", () => {
     /**
      * @link fireSubMenuClick
      */
-    test('fire submenu click', () => {
+    test('fire submenu click', async () => {
         const fn = jest.fn();
         const menuItems: MenuItems = [
             { key: 'Option1', label: 'Option1' },
@@ -42,8 +42,9 @@ describe("Test menu fire's functions", () => {
             },
         ];
 
-        const { container } = render(<Menu items={menuItems} onOpenChange={fn} triggerSubMenuAction="click" />);
-
+        const { container } = await act(async () =>
+            render(<Menu items={menuItems} onOpenChange={fn} triggerSubMenuAction="click" />)
+        );
         menu.fireSubMenuClick(container, 1);
         expect(fn).toBeCalledWith(['SubOption2']);
     });

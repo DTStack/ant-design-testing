@@ -1,12 +1,10 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Collapse } from 'antd';
 
 import * as collapse from '..';
 
 describe("Test Collapse's fire functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link query
      */

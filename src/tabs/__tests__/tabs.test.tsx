@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Tabs, type TabsProps } from 'antd';
 
 import * as tabs from '..';
@@ -23,8 +23,6 @@ const items: TabsProps['items'] = [
 ];
 
 describe("Test Tabs' fire functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link query
      */

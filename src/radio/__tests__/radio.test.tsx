@@ -1,12 +1,10 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Radio } from 'antd';
 
 import * as radio from '..';
 
 describe("Test Radio's fire functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link query
      */

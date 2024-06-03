@@ -1,12 +1,10 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Drawer } from 'antd';
 
 import * as drawer from '..';
 
 describe("Test Drawer fire's functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link fireClose
      */

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Table } from 'antd';
 import type { ColumnType } from 'antd/lib/table';
 
@@ -17,8 +17,6 @@ const dataSource = [
 ];
 
 describe("Test Table's fire functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link query
      */

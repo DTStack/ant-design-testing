@@ -1,12 +1,11 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Tooltip } from 'antd';
 
 import * as tooltip from '..';
 
 describe("test tooltip's fire functions", () => {
     beforeEach(() => {
-        cleanup();
         jest.useFakeTimers();
     });
     afterEach(() => {

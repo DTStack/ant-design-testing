@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Tree } from 'antd';
 import type { DataNode } from 'antd/es/tree';
 
@@ -40,8 +40,6 @@ const treeData: DataNode[] = [
 ];
 
 describe("Test Tree's fire functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link fireCheck
      */

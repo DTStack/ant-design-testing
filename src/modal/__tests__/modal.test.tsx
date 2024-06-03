@@ -1,12 +1,10 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Modal } from 'antd';
 
 import * as modal from '..';
 
 describe("Test Modal fire's functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link queryModalFooter
      */

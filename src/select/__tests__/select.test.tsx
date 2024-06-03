@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Select } from 'antd';
 
 import * as select from '..';
@@ -7,7 +7,6 @@ import * as select from '..';
 describe('Test Select fire functions', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
-        cleanup();
     });
 
     /**

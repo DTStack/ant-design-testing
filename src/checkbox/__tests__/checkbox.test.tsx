@@ -1,12 +1,10 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Checkbox } from 'antd';
 
 import * as checkbox from '..';
 
 describe('Test checkbox', () => {
-    beforeEach(cleanup);
-
     /**
      * @link query
      */

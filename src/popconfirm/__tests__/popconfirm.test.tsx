@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Button, Popconfirm } from 'antd';
 
 import * as button from '../../button';
@@ -7,7 +7,6 @@ import * as confirm from '..';
 
 describe("Test popconfirm fire's functions", () => {
     beforeEach(() => {
-        cleanup();
         jest.useFakeTimers();
     });
 
