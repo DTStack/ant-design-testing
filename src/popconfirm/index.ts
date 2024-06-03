@@ -10,8 +10,8 @@ import { failedQuerySelector, failedTriggerElement, queryViaSelector } from '../
  */
 export function fireOpen(trigger: HTMLElement) {
     if (!trigger) throw failedTriggerElement();
+    jest.runAllTimers();
     act(() => {
-        jest.runAllTimers();
         fireEvent.click(trigger);
     });
 }

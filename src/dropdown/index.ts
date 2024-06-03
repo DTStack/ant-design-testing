@@ -19,16 +19,14 @@ export function fireOpen(container: IContainer, trigger: 'hover' | 'click' | 'co
     const selector = `.${getProvider('prefixCls')}-dropdown-trigger`;
     const ele = query(container);
     if (!ele) throw failedQuerySelector(selector);
+    if (trigger === 'click') {
+        fireEvent.click(ele);
+    } else if (trigger === 'contextMenu') {
+        fireEvent.contextMenu(ele);
+    } else {
+        fireEvent.mouseEnter(ele);
+    }
     act(() => {
-        if (trigger === 'click') {
-            fireEvent.click(ele);
-        } else if (trigger === 'contextMenu') {
-            fireEvent.contextMenu(ele);
-        } else {
-            act(() => {
-                fireEvent.mouseEnter(ele);
-            });
-        }
         jest.runAllTimers();
     });
 }
@@ -42,9 +40,7 @@ export function fireSelect(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-dropdown-menu-item`;
     const ele = queryViaSelector(container, selector, index);
     if (!ele) return failedQuerySelector(selector);
-    act(() => {
-        fireEvent.click(ele);
-    });
+    fireEvent.click(ele);
 }
 
 /**

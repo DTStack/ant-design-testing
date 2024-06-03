@@ -7,8 +7,8 @@ import { failedTriggerElement } from '../utils';
  */
 export function fireOpen(ele?: HTMLElement) {
     if (!ele) throw failedTriggerElement();
+    fireEvent.mouseEnter(ele);
     act(() => {
-        fireEvent.mouseEnter(ele);
         jest.runAllTimers();
     });
 }

@@ -1,4 +1,4 @@
-import { act, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
@@ -26,9 +26,7 @@ export function fireClose(container: IContainer) {
     ];
     const ele = queryViaSelector(container, selectors[0]) || queryViaSelector(container, selectors[1]);
     if (!ele) throw failedQuerySelector(`${selectors[0]} or ${selectors[1]}`);
-    act(() => {
-        fireEvent.click(ele);
-    });
+    fireEvent.click(ele);
 }
 
 /**
