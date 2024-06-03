@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Button, message as Message } from 'antd';
 
 import * as button from '../../button';
@@ -7,7 +7,6 @@ import * as message from '../index';
 
 describe('Test Message', () => {
     beforeEach(() => {
-        cleanup();
         document.body.innerHTML = '';
         jest.useFakeTimers();
     });
@@ -19,16 +18,18 @@ describe('Test Message', () => {
     /**
      * @link query
      */
-    it('query', () => {
+    test('query', async () => {
         const { container } = render(<Button onClick={() => Message.info('This is message')}>Display</Button>);
         button.fireClick(container);
-        expect(message.query(document)).not.toBeNull();
+        await waitFor(async () => {
+            expect(message.query(document)).not.toBeNull();
+        });
     });
 
     /**
      * @link fireClick
      */
-    it('fireClick', () => {
+    test('fireClick', async () => {
         const fn = jest.fn();
         const { container } = render(
             <Button
@@ -44,13 +45,15 @@ describe('Test Message', () => {
         );
         button.fireClick(container);
         message.fireClick(document);
-        expect(fn).toBeCalledTimes(1);
+        await waitFor(async () => {
+            expect(fn).toBeCalledTimes(1);
+        });
     });
 
     /**
      * @link fireClose
      */
-    it('fireClose', async () => {
+    test('fireClose', async () => {
         const fn = jest.fn();
         const { container } = render(
             <Button
@@ -67,6 +70,8 @@ describe('Test Message', () => {
         );
         button.fireClick(container);
         await message.fireClose(4000);
-        expect(fn).toBeCalledTimes(1);
+        await waitFor(async () => {
+            expect(fn).toBeCalledTimes(1);
+        });
     });
 });

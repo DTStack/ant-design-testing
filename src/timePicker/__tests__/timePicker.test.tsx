@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { TimePicker } from 'antd';
 import moment from 'moment';
 
@@ -10,7 +10,6 @@ const dateAdaptor = moment;
 describe("Test TimePicker's fire functions", () => {
     beforeEach(() => {
         jest.useFakeTimers();
-        cleanup();
         document.body.innerHTML = '';
     });
     afterEach(() => {
@@ -50,8 +49,8 @@ describe("Test TimePicker's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(
             <TimePicker
-                defaultOpenValue={dateAdaptor('00:00:00', 'HH:mm:ss')}
-                onChange={fn}
+                defaultValue={dateAdaptor('00:00:00', 'HH:mm:ss')}
+                onOpenChange={fn}
                 getPopupContainer={(node) => node.parentElement!}
             />
         );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Modal } from 'antd';
 
 import { getProvider } from '../../provider';
@@ -23,7 +23,6 @@ function Confirm({ onOk, onCancel }: any) {
 
 describe("Test confirm's fire functions", () => {
     beforeEach(() => {
-        cleanup();
         jest.useFakeTimers();
         document.body.innerHTML = '';
     });

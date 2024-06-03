@@ -1,30 +1,30 @@
 import React from 'react';
-import { act, waitFor } from '@testing-library/react';
-import { notification } from 'antd';
+import { act, waitForElementToBeRemoved } from '@testing-library/react';
+import { notification as Notification } from 'antd';
 
-import { fireClick, fireClose, query } from '..';
+import * as notification from '..';
 
 describe("Test Notification's fire functions", () => {
-    afterEach(() => {
-        act(() => {
-            notification.destroy();
-        });
-    });
-
     /**
      * @link fireClick
      */
-    test('test fireClick', () => {
+    test('test fireClick', async () => {
         const fn = jest.fn();
         act(() => {
-            notification.info({
+            Notification.info({
                 message: 'This is a notification message',
                 duration: 0,
                 onClick: fn,
             });
         });
-        fireClick(document.body);
+        notification.fireClick(document.body);
         expect(fn).toHaveBeenCalled();
+
+        // fix act warnings, need to wait for notfications removed.
+        act(() => {
+            Notification.destroy();
+        });
+        await waitForElementToBeRemoved(() => document.body.querySelector('.ant-notification'));
     });
 
     /**
@@ -33,17 +33,21 @@ describe("Test Notification's fire functions", () => {
     test('test fireClose', async () => {
         const fn = jest.fn();
         act(() => {
-            notification.info({
+            Notification.info({
                 message: 'This is a notification message',
                 duration: 0,
                 closeIcon: <span>关闭</span>,
                 onClose: fn,
             });
         });
-        fireClose(document.body);
-        await waitFor(() => {
-            expect(fn).toBeCalled();
+        notification.fireClose(document.body);
+        expect(fn).toBeCalled();
+
+        // fix act warnings, need to wait for notfications removed.
+        act(() => {
+            Notification.destroy();
         });
+        await waitForElementToBeRemoved(() => document.body.querySelector('.ant-notification'));
     });
 
     /**
@@ -51,12 +55,12 @@ describe("Test Notification's fire functions", () => {
      */
     test('test query', () => {
         act(() => {
-            notification.info({
+            Notification.info({
                 message: 'This is a notification message',
                 className: 'test1',
                 duration: 0,
             });
         });
-        expect(query(document.body)?.className).toContain('test1');
+        expect(notification.query(document.body)?.className).toContain('test1');
     });
 });

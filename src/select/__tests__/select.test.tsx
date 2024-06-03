@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Select } from 'antd';
 
 import * as select from '..';
@@ -7,7 +7,6 @@ import * as select from '..';
 describe('Test Select fire functions', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
-        cleanup();
     });
 
     /**
@@ -103,7 +102,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireOpen
      */
-    it('fireOpen', () => {
+    test('fireOpen', () => {
         const fn = jest.fn();
         const { container } = render(<Select onDropdownVisibleChange={fn} options={[{ label: 1, value: 1 }]} />);
         select.fireOpen(container);
@@ -113,7 +112,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireSelect
      */
-    it('fireSelect', () => {
+    test('fireSelect', () => {
         const fn = jest.fn();
         const { container } = render(
             <Select onChange={fn} getPopupContainer={(node) => node.parentNode} options={[{ label: 1, value: 1 }]} />
@@ -126,7 +125,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireSearch
      */
-    it('fireSearch', () => {
+    test('fireSearch', () => {
         const fn = jest.fn();
         const { container } = render(<Select onSearch={fn} showSearch options={[{ label: 1, value: 1 }]} />);
         select.fireSearch(container, 'test');
@@ -136,7 +135,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireFocus
      */
-    it('fireFocus', () => {
+    test('fireFocus', () => {
         const fn = jest.fn();
         const { container } = render(<Select onFocus={fn} options={[{ label: 1, value: 1 }]} />);
         select.fireFocus(container);
@@ -146,7 +145,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireBlur
      */
-    it('fireBlur', () => {
+    test('fireBlur', () => {
         const fn = jest.fn();
         const { container } = render(<Select onBlur={fn} options={[{ label: 1, value: 1 }]} />);
         select.fireFocus(container);
@@ -157,7 +156,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireClear
      */
-    it('fireClear', () => {
+    test('fireClear', () => {
         const fn = jest.fn();
         const { container } = render(
             <Select onClear={fn} defaultValue={1} allowClear options={[{ label: 1, value: 1 }]} />
@@ -169,7 +168,7 @@ describe('Test Select fire functions', () => {
     /**
      * @link fireDeSelect
      */
-    it('fireDeSelect', () => {
+    test('fireDeSelect', () => {
         const fn = jest.fn();
         const { container } = render(
             <Select onDeselect={fn} defaultValue="1" allowClear mode="tags" options={[{ label: 1, value: '1' }]} />

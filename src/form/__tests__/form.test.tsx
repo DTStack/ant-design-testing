@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { Button, Form, Input } from 'antd';
 
 import * as button from '../../button';
@@ -7,7 +7,6 @@ import * as form from '../';
 
 describe("Test form's functions", () => {
     beforeEach(() => {
-        cleanup();
         jest.useFakeTimers();
     });
     afterEach(() => {

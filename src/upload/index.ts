@@ -14,8 +14,8 @@ export function fireUpload(container: IContainer, files: File[] | { name: string
     const selector = `.${getProvider('prefixCls')}-upload input[type='file']`;
     const ele = query(container);
     if (!ele) throw failedQuerySelector(selector);
+    fireEvent.change(ele, { target: { files } });
     act(() => {
-        fireEvent.change(ele, { target: { files } });
         jest.runAllTimers();
     });
 }
@@ -36,9 +36,7 @@ export function fireRemove(container: IContainer, index = 0) {
     const ele = queryViaSelector(listItemEle as IContainer, selectors[1]);
     if (!ele) throw failedQuerySelector(selectors[1]);
 
-    act(() => {
-        fireEvent.click(ele);
-    });
+    fireEvent.click(ele);
 }
 
 /**

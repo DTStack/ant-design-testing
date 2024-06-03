@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { DatePicker } from 'antd';
 import moment from 'moment';
 
@@ -8,8 +8,6 @@ import * as datePicker from '..';
 const dateAdaptor = moment;
 
 describe("Test DatePicker's fire functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link query
      */

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { TreeSelect } from 'antd';
 
 import * as treeSelect from '..';
@@ -7,7 +7,6 @@ import * as treeSelect from '..';
 describe("Test treeSelect's fire functions", () => {
     beforeEach(() => {
         jest.useFakeTimers();
-        cleanup();
         document.body.innerHTML = '';
     });
     afterEach(() => {

@@ -1,12 +1,10 @@
 import React from 'react';
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Switch } from 'antd';
 
 import * as switchEl from '..';
 
 describe("Test Switch's fire functions", () => {
-    beforeEach(cleanup);
-
     /**
      * @link query
      */

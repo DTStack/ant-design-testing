@@ -12,9 +12,8 @@ import * as modal from './';
  */
 export function fireOpen(ele?: HTMLElement) {
     if (!ele) throw failedTriggerElement();
-
+    fireEvent.click(ele);
     act(() => {
-        fireEvent.click(ele);
         jest.runAllTimers();
     });
 }
