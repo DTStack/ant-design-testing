@@ -1,6 +1,6 @@
 {
     "name": "ant-design-testing",
-    "version": "1.0.0-beta.2",
+    "version": "1.0.0",
     "description": "Easier testing for ant-design-based UI library",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -14,7 +14,8 @@
         "test": "jest",
         "lint": "eslint src/**",
         "lint:fix": "prettier --write src/** && eslint --fix src/**",
-        "release": "bumpp --commit --push --tag && npm publish",
+        "release": "standard-version",
+        "publish": "npm run publish",
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s & git add CHANGELOG.md",
         "prepare": "husky install"
     },
@@ -54,7 +55,7 @@
         "@types/jest": "^29.5.1",
         "antd": "4",
         "bumpp": "^9.1.0",
-        "conventional-changelog-cli": "^5.0.0",
+        "standard-version": "^9.5.0",
         "eslint-plugin-jsdoc": "^46.8.2",
         "father": "^4.3.0",
         "husky": "^8.0.3",
