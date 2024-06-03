@@ -38,7 +38,7 @@ describe("Test Upload's fire functions", () => {
     /**
      * @link fireRemove
      */
-    test('test fireRemove', () => {
+    test('test fireRemove', async () => {
         const fn = jest.fn();
         const files = [
             {
@@ -66,7 +66,9 @@ describe("Test Upload's fire functions", () => {
         );
 
         upload.fireRemove(container, 1);
-        expect(fn.mock.calls[0][0]).toMatchObject({ name: 'bar.png' });
+        await waitFor(() => {
+            expect(fn.mock.calls[0][0]).toMatchObject({ name: 'bar.png' });
+        });
     });
 
     /**
