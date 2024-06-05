@@ -33,6 +33,27 @@ describe('Test Select fire functions', () => {
     });
 
     /**
+     * @link queryDropdown
+     */
+    test('queryDropdown', () => {
+        const fn1 = jest.fn();
+        const fn2 = jest.fn();
+        const { container } = render(
+            <>
+                <AutoComplete options={[{ label: '1', value: '1' }]} onSelect={fn1} />
+                <AutoComplete options={[{ label: '2', value: '2' }]} onSelect={fn2} />
+            </>
+        );
+        autoComplete.fireOpen(autoComplete.querySelector(container)!);
+        autoComplete.fireSelect(autoComplete.queryDropdown(document)!, 0);
+        expect(fn1).toBeCalledWith('1', expect.objectContaining({ label: '1', value: '1' }));
+
+        autoComplete.fireOpen(autoComplete.querySelector(container, 1)!);
+        autoComplete.fireSelect(autoComplete.queryDropdown(document)!, 0);
+        expect(fn2).toBeCalledWith('2', expect.objectContaining({ label: '2', value: '2' }));
+    });
+
+    /**
      * @link queryOption
      */
     test('queryOption', () => {

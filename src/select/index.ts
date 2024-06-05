@@ -114,12 +114,13 @@ export function querySelector(container: IContainer, index = 0) {
 }
 
 /**
- * Returns the `index` dropdown's container for Select
- * @param index default is 0
+ * Returns the Select Dropdown which is not hidden
  */
-export function queryDropdown(container: IContainer, index = 0) {
-    const selector = `.${getProvider('prefixCls')}-select-dropdown`;
-    const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
+export function queryDropdown(container: IContainer) {
+    const selector = `.${getProvider('prefixCls')}-select-dropdown:not(.${getProvider(
+        'prefixCls'
+    )}-select-dropdown-hidden)`;
+    const ele = queryViaSelector<HTMLDivElement>(container, selector);
     return ele;
 }
 
