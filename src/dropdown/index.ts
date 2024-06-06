@@ -59,7 +59,9 @@ export function query(container: IContainer, index = 0) {
  * You need open Dropdown first
  */
 export function queryDropdownMenu(container: IContainer) {
-    const selector = `.${getProvider('prefixCls')}-dropdown-menu`;
+    const selector = `.${getProvider('prefixCls')}-dropdown:not(.${getProvider(
+        'prefixCls'
+    )}-dropdown-hidden) .${getProvider('prefixCls')}-dropdown-menu`;
     const ele = queryViaSelector(container, selector);
     return ele;
 }

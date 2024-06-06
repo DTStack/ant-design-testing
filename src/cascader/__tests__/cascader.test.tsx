@@ -185,7 +185,7 @@ describe("Test Cascader's fire functions", () => {
         expect(fn2).toBeCalledTimes(0);
 
         cascader.fireOpen(cascader.query(container, 1)!);
-        cascader.fireChange(cascader.queryDropdown(container, 1)!, 0, 0, 0);
+        cascader.fireChange(cascader.queryDropdown(container)!, 0, 0, 0);
         expect(fn1).toBeCalledTimes(1);
         expect(fn2).toBeCalledTimes(1);
     });

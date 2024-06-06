@@ -73,10 +73,10 @@ export function query(container: IContainer, index = 0) {
 }
 
 /**
- * Returns the dropdown element of timePicker
+ * Returns the dropdown of timePicker which is not hidden
  */
-export function queryDropdown(container: IContainer, index = 0) {
-    datePicker.queryDropdown(container, index);
+export function queryDropdown(container: IContainer) {
+    datePicker.queryDropdown(container);
 }
 
 /**

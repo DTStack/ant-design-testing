@@ -98,13 +98,14 @@ export function queryInput(container: IContainer, index = 0) {
 }
 
 /**
- * Returns the `index` element of Cascader's Dropdown
+ * Returns the Cascader's Dropdown which is not hidden
  * @notice Be aware of the different parentElement affected by getPopupContainer
- * @param index the order of Cascader's Dropdown, default is `0`
  */
-export function queryDropdown(container: IContainer, index = 0) {
-    const selector = `.${getProvider('prefixCls')}-cascader-dropdown`;
-    const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
+export function queryDropdown(container: IContainer) {
+    const selector = `.${getProvider('prefixCls')}-cascader-dropdown:not(.${getProvider(
+        'prefixCls'
+    )}-select-dropdown-hidden)`;
+    const ele = queryViaSelector<HTMLDivElement>(container, selector);
     return ele;
 }
 

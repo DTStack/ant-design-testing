@@ -11,6 +11,7 @@ export const failedTriggerElement = () => new Error('Failed to trigger element f
  * 判断容器元素自身是否匹配选择器
  */
 export function queryViaSelector<T extends HTMLElement>(container: IContainer, selector: string, index?: number) {
+    if (!container) throw new Error('container element is null');
     if (!(container instanceof Document) && container.matches(selector)) {
         return container as T;
     }

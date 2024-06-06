@@ -74,8 +74,9 @@ describe('Test Select fire functions', () => {
         select.fireOpen(select.querySelector(container)!);
         select.fireSelect(select.queryDropdown(document)!, 0);
         expect(fn1).toBeCalledWith(1, expect.objectContaining({ label: 1, value: 1 }));
+
         select.fireOpen(select.querySelector(container, 1)!);
-        select.fireSelect(select.queryDropdown(document, 1)!, 0);
+        select.fireSelect(select.queryDropdown(document)!, 0);
         expect(fn2).toBeCalledWith(2, expect.objectContaining({ label: 2, value: 2 }));
     });
 

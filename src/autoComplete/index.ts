@@ -71,6 +71,17 @@ export function querySelector(container: IContainer, index = 0) {
 }
 
 /**
+ * Returns the Select Dropdown which is not hidden
+ */
+export function queryDropdown(container: IContainer) {
+    const selector = `.${getProvider('prefixCls')}-select-dropdown:not(.${getProvider(
+        'prefixCls'
+    )}-select-dropdown-hidden)`;
+    const ele = queryViaSelector<HTMLDivElement>(container, selector);
+    return ele;
+}
+
+/**
  * Returns option element of AutoComplete
  */
 export function queryOption(container: IContainer, index = 0) {
