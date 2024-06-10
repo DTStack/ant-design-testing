@@ -1,4 +1,4 @@
-import type { IContainer } from '../interface';
+import type { IContainer, MixinElement, ReturnElement } from '../interface';
 
 export const failedQuerySelector = (selector: string) => new Error(`Failed to query selector about "${selector}"`);
 
@@ -40,4 +40,19 @@ export function queryViaSelectors<T extends HTMLElement>(container: IContainer, 
         }
         return acc?.querySelector<T>(cur);
     }, container as T);
+}
+
+export function mixinElementWithTestFuncs<T extends Record<string, Function>>(
+    el: ReturnElement,
+    funcs: T
+): MixinElement<T> | null | undefined {
+    if (!el) return el;
+    const mixinFunctions = Object.keys(funcs);
+    mixinFunctions.forEach((funcName) => {
+        if (!Object.prototype.hasOwnProperty.call(el, funcName)) {
+            // @ts-ignore
+            el[funcName] = funcs[funcName].bind(this, el);
+        }
+    });
+    return el as MixinElement<T>;
 }

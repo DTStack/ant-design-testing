@@ -4,7 +4,20 @@ import type { CascaderProps } from 'antd';
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import { fireClear as selectFireClear, fireOpen as selectFireOpen } from '../select';
-import { failedQuerySelector, queryViaSelector, queryViaSelectors } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector, queryViaSelectors } from '../utils';
+
+const mixins = {
+    query,
+    querySelect,
+    queryInput,
+    queryDropdown,
+    queryMenu,
+    queryMenuItem,
+    fireOpen,
+    fireChange,
+    fireSearch,
+    fireClear,
+};
 
 /**
  * Fires onDropdownVisibleChange for Cascader, and open drowdown
@@ -74,7 +87,7 @@ export function fireClear(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-cascader`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -84,7 +97,7 @@ export function query(container: IContainer, index = 0) {
 export function querySelect(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-select-selector`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -94,7 +107,7 @@ export function querySelect(container: IContainer, index = 0) {
 export function queryInput(container: IContainer, index = 0) {
     const selector = 'input';
     const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -106,7 +119,7 @@ export function queryDropdown(container: IContainer) {
         'prefixCls'
     )}-select-dropdown-hidden)`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -116,7 +129,7 @@ export function queryDropdown(container: IContainer) {
 export function queryMenu(container: IContainer, index = 0) {
     const selector = `ul.${getProvider('prefixCls')}-cascader-menu`;
     const ele = queryViaSelector<HTMLUListElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -126,5 +139,5 @@ export function queryMenu(container: IContainer, index = 0) {
 export function queryMenuItem(container: IContainer, index = 0) {
     const selector = `li.${getProvider('prefixCls')}-cascader-menu-item`;
     const ele = queryViaSelector<HTMLLIElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

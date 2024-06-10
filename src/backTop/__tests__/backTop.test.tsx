@@ -9,10 +9,19 @@ describe("Test BackTop's fire functions", () => {
      * @link fireClick
      */
     test('test fireClick', () => {
-        const onClick = jest.fn();
-        const { container } = render(<BackTop onClick={onClick} visibilityHeight={0} />);
+        const fn1 = jest.fn();
+        const fn2 = jest.fn();
+        const { container } = render(
+            <>
+                <BackTop onClick={fn1} visibilityHeight={0} />
+                <BackTop onClick={fn2} visibilityHeight={0} />
+            </>
+        );
         backTop.fireClick(container);
-        expect(onClick).toHaveBeenCalled();
+        expect(fn1).toBeCalledTimes(1);
+
+        backTop.query(container, 1)?.fireClick();
+        expect(fn2).toBeCalledTimes(1);
     });
 
     /**

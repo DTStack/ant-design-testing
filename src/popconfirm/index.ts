@@ -3,7 +3,16 @@ import { act, fireEvent } from '@testing-library/react';
 import * as button from '../button';
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, failedTriggerElement, queryViaSelector } from '../utils';
+import { failedQuerySelector, failedTriggerElement, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryButtons,
+    queryCancelButton,
+    queryConfirmButton,
+    fireCancel,
+    fireConfirm,
+};
 
 /**
  * Open popconfirm
@@ -42,7 +51,7 @@ export function fireConfirm(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-popover`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -51,7 +60,7 @@ export function query(container: IContainer, index = 0) {
 export function queryButtons(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-popover-buttons`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**

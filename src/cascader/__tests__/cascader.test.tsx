@@ -51,7 +51,7 @@ describe("Test Cascader's fire functions", () => {
         );
         cascader.fireOpen(cascader.querySelect(container)!);
         expect(fn).toBeCalledTimes(1);
-        cascader.fireOpen(cascader.querySelect(container, 1)!);
+        cascader.querySelect(container, 1)?.fireOpen();
         // The second time is called because of hidden the first one
         expect(fn).toBeCalledTimes(3);
     });

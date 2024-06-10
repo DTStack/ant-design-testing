@@ -1,6 +1,12 @@
 import { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { queryViaSelector } from '../utils';
+import { mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryFormItems,
+    queryFormItemControls,
+};
 
 /**
  * Returns the `index` container of Form
@@ -8,7 +14,8 @@ import { queryViaSelector } from '../utils';
  */
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-form`;
-    return queryViaSelector(container, selector, index);
+    const ele = queryViaSelector(container, selector, index);
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -17,7 +24,8 @@ export function query(container: IContainer, index = 0) {
  */
 export function queryFormItems(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-form-item`;
-    return queryViaSelector(container, selector, index);
+    const ele = queryViaSelector(container, selector, index);
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -26,5 +34,6 @@ export function queryFormItems(container: IContainer, index = 0) {
  */
 export function queryFormItemControls(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-form-item-control`;
-    return queryViaSelector(container, selector, index);
+    const ele = queryViaSelector(container, selector, index);
+    return mixinElementWithTestFuncs(ele, mixins);
 }

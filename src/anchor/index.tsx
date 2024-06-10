@@ -2,7 +2,13 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryLink,
+    fireClick,
+};
 
 /**
  * Fires onClick function
@@ -33,7 +39,7 @@ export function fireClick(container: IContainer, indexOrHash?: string | number) 
 export function query(container: IContainer, index = 0) {
     const selector = getSelector();
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -43,7 +49,7 @@ export function query(container: IContainer, index = 0) {
 export function queryLink(container: IContainer, index = 0) {
     const selector = getSelector('link');
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 function getSelector(type = 'default') {

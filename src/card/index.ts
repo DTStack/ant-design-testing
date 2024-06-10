@@ -2,7 +2,12 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    fireTabChange,
+};
 
 /**
  * Fires onTabChange function
@@ -24,5 +29,5 @@ export function fireTabChange(container: IContainer, key: string) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-card`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

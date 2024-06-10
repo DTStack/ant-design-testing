@@ -2,7 +2,14 @@ import { act, fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryUploadListItem,
+    fireUpload,
+    fireRemove,
+};
 
 /**
  * Fires onChange function
@@ -46,7 +53,7 @@ export function fireRemove(container: IContainer, index = 0) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-upload input[type='file']`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -56,5 +63,5 @@ export function query(container: IContainer, index = 0) {
 export function queryUploadListItem(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-upload-list .${getProvider('prefixCls')}-upload-list-text-container`;
     const ele = queryViaSelector(container, selector, index)?.firstElementChild;
-    return ele;
+    return mixinElementWithTestFuncs(ele as HTMLElement, mixins);
 }

@@ -2,7 +2,14 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector, queryViaSelectors } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector, queryViaSelectors } from '../utils';
+
+const mixins = {
+    query,
+    queryPanelContent,
+    queryPanelHeader,
+    fireChange,
+};
 
 /**
  * Fires onChange function
@@ -21,7 +28,7 @@ export function fireChange(container: IContainer, index: number) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-collapse`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -36,7 +43,7 @@ export function queryPanelContent(container: IContainer, index = 0) {
         `.${getProvider('prefixCls')}-collapse-content-box`,
     ];
     const ele = queryViaSelectors(container, selectors, [index, 0]);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -49,5 +56,5 @@ export function queryPanelHeader(container: IContainer, index = 0) {
         `.${getProvider('prefixCls')}-collapse-header-text`,
     ];
     const ele = queryViaSelectors(container, selectors, [index, 0]);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

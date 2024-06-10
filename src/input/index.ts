@@ -2,7 +2,18 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    querySearchButton,
+    fireFocus,
+    fireBlur,
+    fireChange,
+    fireClear,
+    firePressEnter,
+    fireSearch,
+};
 
 /**
  * Fires onFocus function
@@ -74,7 +85,7 @@ export function fireSearch(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `input.${getProvider('prefixCls')}-input`;
     const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -83,7 +94,7 @@ export function query(container: IContainer, index = 0) {
 export function querySearchButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-input-search-button`;
     const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 export * as textarea from './textarea';

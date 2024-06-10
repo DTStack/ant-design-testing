@@ -2,7 +2,12 @@ import { fireEvent, queryByText } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    fireClose,
+};
 
 /**
  * Fires onClose function by click close icon
@@ -28,5 +33,5 @@ export function query(container: IContainer, titleOrIndex: string | number) {
     } else {
         ele = queryViaSelector(container, selector, titleOrIndex);
     }
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

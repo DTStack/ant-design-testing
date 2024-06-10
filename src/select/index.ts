@@ -2,7 +2,23 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector, queryViaSelectors } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector, queryViaSelectors } from '../utils';
+
+const mixins = {
+    query,
+    queryInput,
+    querySelectorWrapper,
+    queryDropdown,
+    queryOption,
+    queryClear,
+    fireSearch,
+    fireOpen,
+    fireSelect,
+    fireDeSelect,
+    fireFocus,
+    fireBlur,
+    fireClear,
+};
 
 /**
  * Fires onSearch function
@@ -89,7 +105,7 @@ export function fireClear(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-select`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -99,7 +115,7 @@ export function query(container: IContainer, index = 0) {
 export function queryInput(container: IContainer, index = 0) {
     const selector = `input.${getProvider('prefixCls')}-select-selection-search-input`;
     const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -110,7 +126,7 @@ export function queryInput(container: IContainer, index = 0) {
 export function querySelectorWrapper(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-select-selector`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -121,7 +137,7 @@ export function queryDropdown(container: IContainer) {
         'prefixCls'
     )}-select-dropdown-hidden)`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -131,7 +147,7 @@ export function queryDropdown(container: IContainer) {
 export function queryOption(container: IContainer, index = 0) {
     const selector = `div.${getProvider('prefixCls')}-select-item-option-content`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -140,5 +156,5 @@ export function queryOption(container: IContainer, index = 0) {
 export function queryClear(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-select-clear`;
     const ele = queryViaSelector<HTMLSpanElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

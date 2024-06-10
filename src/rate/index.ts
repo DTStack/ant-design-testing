@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
 
 /**
  *  fix issue https://github.com/jestjs/jest/pull/13825#issuecomment-1452037295
@@ -18,10 +18,16 @@ const resetProperty = () => {
     });
 };
 
+const mixins = {
+    query,
+    fireChange,
+    fireHoverChange,
+};
+
 /**
  * Fires onChange function
  */
-export const fireChange = (container: IContainer, value: number) => {
+export function fireChange(container: IContainer, value: number) {
     resetProperty();
     const isHalfStar = !Number.isInteger(value);
     const starIntValue = Math.ceil(value);
@@ -32,12 +38,12 @@ export const fireChange = (container: IContainer, value: number) => {
     if (!ele) throw failedQuerySelector(selector);
 
     fireEvent(ele, new MouseEvent('click', { clientX: isHalfStar ? -1 : 0, bubbles: true }));
-};
+}
 
 /**
  * Fires onHoverChange function
  */
-export const fireHoverChange = (container: IContainer, value: number) => {
+export function fireHoverChange(container: IContainer, value: number) {
     resetProperty();
     const isHalfStar = !Number.isInteger(value);
     const starIntValue = Math.ceil(value);
@@ -48,14 +54,14 @@ export const fireHoverChange = (container: IContainer, value: number) => {
     if (!ele) throw failedQuerySelector(selector);
 
     fireEvent(ele, new MouseEvent('mousemove', { clientX: isHalfStar ? -1 : 0, bubbles: true }));
-};
+}
 
 /**
  * Returns the `index` container of Rate
  * @param index default is `0`
  */
-export const query = (container: IContainer, index = 0) => {
+export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-rate`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
-};
+    return mixinElementWithTestFuncs(ele, mixins);
+}

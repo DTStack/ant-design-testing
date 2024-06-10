@@ -1,7 +1,13 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { failedQuerySelector, failedQuerySelectors, failedTriggerElement, queryViaSelector } from '..';
+import {
+    failedQuerySelector,
+    failedQuerySelectors,
+    failedTriggerElement,
+    mixinElementWithTestFuncs,
+    queryViaSelector,
+} from '..';
 
 describe('Test utils', () => {
     [failedQuerySelector, failedTriggerElement].forEach((fn) => {
@@ -23,5 +29,14 @@ describe('Test utils', () => {
 
         expect(queryViaSelector(container, 'span', 0)).toBe(getByTestId('span1'));
         expect(queryViaSelector(getByTestId('span1'), 'span', 0)).toBe(getByTestId('span1'));
+    });
+
+    it('mixinElementWithTestFuncs', () => {
+        const el = document.body;
+        const minins = {
+            calc: () => null,
+        };
+        const mixinElement = mixinElementWithTestFuncs(el, minins);
+        expect(Object.prototype.hasOwnProperty.call(mixinElement, 'calc')).toBe(true);
     });
 });

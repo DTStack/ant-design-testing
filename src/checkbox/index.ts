@@ -2,7 +2,14 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryGroup,
+    queryInput,
+    fireChange,
+};
 
 /**
  * Fires onChange function
@@ -21,7 +28,7 @@ export function fireChange(container: IContainer, index: number) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-checkbox-wrapper`;
     const ele = queryViaSelector<HTMLLabelElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -31,7 +38,7 @@ export function query(container: IContainer, index = 0) {
 export function queryGroup(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-checkbox-group`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -41,5 +48,5 @@ export function queryGroup(container: IContainer, index = 0) {
 export function queryInput(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-checkbox-input`;
     const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

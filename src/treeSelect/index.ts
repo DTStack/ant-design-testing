@@ -2,7 +2,20 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryInput,
+    queryDropdown,
+    queryOption,
+    querySelectorWrapper,
+    queryClear,
+    fireOpen,
+    fireSearch,
+    fireSelect,
+    fireTreeExpand,
+};
 
 /**
  * Fires onDropdownVisibleChange function
@@ -54,7 +67,7 @@ export function fireTreeExpand(container: IContainer, index: number) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tree-select`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -66,7 +79,7 @@ export function queryInput(container: IContainer, index = 0) {
         'prefixCls'
     )}-select-selection-search-input`;
     const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -77,7 +90,7 @@ export function queryInput(container: IContainer, index = 0) {
 export function querySelectorWrapper(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tree-select .${getProvider('prefixCls')}-select-selector`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -88,7 +101,7 @@ export function queryDropdown(container: IContainer) {
         'prefixCls'
     )}-select-dropdown-hidden)`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -101,7 +114,7 @@ export function queryDropdown(container: IContainer) {
 export function queryOption(container: IContainer, index = 0) {
     const selector = `span.${getProvider('prefixCls')}-select-tree-node-content-wrapper`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -110,5 +123,5 @@ export function queryOption(container: IContainer, index = 0) {
 export function queryClear(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tree-select .${getProvider('prefixCls')}-select-clear`;
     const ele = queryViaSelector<HTMLSpanElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

@@ -18,8 +18,8 @@ describe("Test DatePicker's fire functions", () => {
                 <DatePicker data-testid="datePicker2" />
             </>
         );
-        expect(datePicker.query(container)?.querySelector('input')).toBe(getByTestId('datePicker1'));
-        expect(datePicker.query(container, 1)?.querySelector('input')).toBe(getByTestId('datePicker2'));
+        expect(datePicker.query(container)?.queryInput()).toBe(getByTestId('datePicker1'));
+        expect(datePicker.query(container, 1)?.queryInput()).toBe(getByTestId('datePicker2'));
     });
 
     /**
@@ -49,7 +49,7 @@ describe("Test DatePicker's fire functions", () => {
             />
         );
         datePicker.fireOpen(container);
-        datePicker.fireChange(datePicker.queryDropdown(container)!, '24');
+        datePicker.queryDropdown(container)?.fireChange('24');
         expect(
             (fn.mock.calls[0][0] as ReturnType<typeof dateAdaptor>).isSame(dateAdaptor('2018-04-24 19:18'))
         ).toBeTruthy();
@@ -114,22 +114,22 @@ describe("Test DatePicker's fire functions", () => {
             />
         );
         datePicker.fireOpen(container);
-        datePicker.firePanelChange(datePicker.queryPrevButton(container)!);
+        datePicker.queryPrevButton(container)?.firePanelChange();
         expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').subtract(1, 'month'), 'date');
 
-        datePicker.firePanelChange(datePicker.queryNextButton(container)!);
+        datePicker.queryNextButton(container)?.firePanelChange();
         expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18'), 'date');
 
-        datePicker.firePanelChange(datePicker.querySuperNextButton(container)!);
+        datePicker.querySuperNextButton(container)?.firePanelChange();
         expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'date');
 
-        datePicker.firePanelChange(datePicker.queryMonthButton(container)!);
+        datePicker.queryMonthButton(container)?.firePanelChange();
         expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'month');
 
-        datePicker.firePanelChange(datePicker.queryYearButton(container)!);
+        datePicker.queryYearButton(container)?.firePanelChange();
         expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'year');
 
-        datePicker.firePanelChange(datePicker.queryDecadeButton(container)!);
+        datePicker.queryDecadeButton(container)?.firePanelChange();
         expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'decade');
     });
 

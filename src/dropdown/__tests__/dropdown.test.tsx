@@ -47,7 +47,7 @@ describe("Test Dropdown's fire functions", () => {
             </Dropdown>
         );
         dropdown.fireOpen(container);
-        dropdown.fireSelect(dropdown.queryDropdownMenu(container) as HTMLElement, 1);
+        dropdown.queryDropdownMenu(container)?.fireSelect(1);
         await waitFor(() => expect(fn.mock.calls[0][0]).toMatchObject({ key: 'item-2' }));
     });
 
