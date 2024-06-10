@@ -9,7 +9,7 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
  */
 export function fireOpen(container: IContainer) {
     const selector = `.${getProvider('prefixCls')}-tree-select .${getProvider('prefixCls')}-select-selector`;
-    const ele = querySelector(container);
+    const ele = querySelectorWrapper(container);
     if (!ele) throw failedQuerySelector(selector);
     fireEvent.mouseDown(ele);
 }
@@ -74,7 +74,7 @@ export function queryInput(container: IContainer, index = 0) {
  * the main element to call fireOpen
  * @param index default is 0
  */
-export function querySelector(container: IContainer, index = 0) {
+export function querySelectorWrapper(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tree-select .${getProvider('prefixCls')}-select-selector`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
     return ele;

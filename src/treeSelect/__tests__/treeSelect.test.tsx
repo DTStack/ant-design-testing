@@ -141,9 +141,9 @@ describe("Test treeSelect's fire functions", () => {
     });
 
     /**
-     * @link querySelector
+     * @link querySelectorWrapper
      */
-    test('querySelector', () => {
+    test('querySelectorWrapper', () => {
         const fn1 = jest.fn();
         const fn2 = jest.fn();
         const { container } = render(
@@ -152,9 +152,9 @@ describe("Test treeSelect's fire functions", () => {
                 <TreeSelect onDropdownVisibleChange={fn2} />
             </>
         );
-        treeSelect.fireOpen(treeSelect.querySelector(container)!);
+        treeSelect.fireOpen(treeSelect.querySelectorWrapper(container)!);
         expect(fn1).toBeCalledTimes(1);
-        treeSelect.fireOpen(treeSelect.querySelector(container, 1)!);
+        treeSelect.fireOpen(treeSelect.querySelectorWrapper(container, 1)!);
         expect(fn2).toBeCalledTimes(1);
     });
 
@@ -180,7 +180,7 @@ describe("Test treeSelect's fire functions", () => {
         ];
         const fn = jest.fn();
         const { container } = render(<TreeSelect treeData={treeData} onSelect={fn} />);
-        treeSelect.fireOpen(treeSelect.querySelector(container)!);
+        treeSelect.fireOpen(treeSelect.querySelectorWrapper(container)!);
         treeSelect.fireSelect(treeSelect.queryDropdown(document)!, 0);
         expect(fn).toBeCalledWith('0-0', expect.objectContaining({ title: 'Node1', value: '0-0' }));
     });

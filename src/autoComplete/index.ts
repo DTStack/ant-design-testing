@@ -66,8 +66,8 @@ export function queryInput(container: IContainer, index = 0) {
 /**
  * Returns selector element of AutoComplete
  */
-export function querySelector(container: IContainer, index = 0) {
-    return select.querySelector(container, index);
+export function querySelectorWrapper(container: IContainer, index = 0) {
+    return select.querySelectorWrapper(container, index);
 }
 
 /**
