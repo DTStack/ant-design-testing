@@ -42,9 +42,9 @@ describe('Test Select fire functions', () => {
     });
 
     /**
-     * @link querySelector
+     * @link querySelectorWrapper
      */
-    test('querySelector', () => {
+    test('querySelectorWrapper', () => {
         const fn1 = jest.fn();
         const fn2 = jest.fn();
         const { container } = render(
@@ -53,9 +53,9 @@ describe('Test Select fire functions', () => {
                 <Select onDropdownVisibleChange={fn2} />
             </>
         );
-        select.fireOpen(select.querySelector(container)!);
+        select.fireOpen(select.querySelectorWrapper(container)!);
         expect(fn1).toBeCalledTimes(1);
-        select.fireOpen(select.querySelector(container, 1)!);
+        select.fireOpen(select.querySelectorWrapper(container, 1)!);
         expect(fn2).toBeCalledTimes(1);
     });
 
@@ -71,11 +71,11 @@ describe('Test Select fire functions', () => {
                 <Select options={[{ label: 2, value: 2 }]} onSelect={fn2} />
             </>
         );
-        select.fireOpen(select.querySelector(container)!);
+        select.fireOpen(select.querySelectorWrapper(container)!);
         select.fireSelect(select.queryDropdown(document)!, 0);
         expect(fn1).toBeCalledWith(1, expect.objectContaining({ label: 1, value: 1 }));
 
-        select.fireOpen(select.querySelector(container, 1)!);
+        select.fireOpen(select.querySelectorWrapper(container, 1)!);
         select.fireSelect(select.queryDropdown(document)!, 0);
         expect(fn2).toBeCalledWith(2, expect.objectContaining({ label: 2, value: 2 }));
     });

@@ -20,16 +20,16 @@ describe('Test Select fire functions', () => {
     });
 
     /**
-     * @link querySelector
+     * @link querySelectorWrapper
      */
-    test('querySelector', () => {
+    test('querySelectorWrapper', () => {
         const { container } = render(
             <>
                 <AutoComplete data-testid="autoComplete1" />
                 <AutoComplete data-testid="autoComplete2" />
             </>
         );
-        expect(autoComplete.querySelector(container)).not.toBe(autoComplete.querySelector(container, 1));
+        expect(autoComplete.querySelectorWrapper(container)).not.toBe(autoComplete.querySelectorWrapper(container, 1));
     });
 
     /**
@@ -44,11 +44,11 @@ describe('Test Select fire functions', () => {
                 <AutoComplete options={[{ label: '2', value: '2' }]} onSelect={fn2} />
             </>
         );
-        autoComplete.fireOpen(autoComplete.querySelector(container)!);
+        autoComplete.fireOpen(autoComplete.querySelectorWrapper(container)!);
         autoComplete.fireSelect(autoComplete.queryDropdown(document)!, 0);
         expect(fn1).toBeCalledWith('1', expect.objectContaining({ label: '1', value: '1' }));
 
-        autoComplete.fireOpen(autoComplete.querySelector(container, 1)!);
+        autoComplete.fireOpen(autoComplete.querySelectorWrapper(container, 1)!);
         autoComplete.fireSelect(autoComplete.queryDropdown(document)!, 0);
         expect(fn2).toBeCalledWith('2', expect.objectContaining({ label: '2', value: '2' }));
     });
