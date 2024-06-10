@@ -15,8 +15,8 @@ describe('Test checkbox', () => {
                 <Checkbox data-testid="Checkbox2">Checkbox</Checkbox>
             </>
         );
-        expect(checkbox.query(container)?.querySelector('input')).toBe(getByTestId('Checkbox1'));
-        expect(checkbox.query(container, 1)?.querySelector('input')).toBe(getByTestId('Checkbox2'));
+        expect(checkbox.query(container)?.queryInput()).toBe(getByTestId('Checkbox1'));
+        expect(checkbox.query(container, 1)?.queryInput()).toBe(getByTestId('Checkbox2'));
     });
 
     /**
@@ -40,6 +40,13 @@ describe('Test checkbox', () => {
         const fn = jest.fn();
         const { container } = render(<Checkbox.Group options={['Apple', 'Pear', 'Orange']} onChange={fn} />);
         checkbox.fireChange(checkbox.queryInput(container)!, 0);
+        expect(fn).toBeCalledWith(['Apple']);
+    });
+
+    test('queryInput via chain', () => {
+        const fn = jest.fn();
+        const { container } = render(<Checkbox.Group options={['Apple', 'Pear', 'Orange']} onChange={fn} />);
+        checkbox.queryInput(container)?.fireChange(0);
         expect(fn).toBeCalledWith(['Apple']);
     });
 

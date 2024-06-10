@@ -2,7 +2,13 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelectors, queryViaSelector, queryViaSelectors } from '../utils';
+import { failedQuerySelectors, mixinElementWithTestFuncs, queryViaSelector, queryViaSelectors } from '../utils';
+
+const mixins = {
+    query,
+    queryBreadcrumbItem,
+    fireClick,
+};
 
 /**
  * Fires onClick function
@@ -21,7 +27,7 @@ export function fireClick(container: IContainer, index: number) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-breadcrumb`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -31,5 +37,5 @@ export function query(container: IContainer, index = 0) {
 export function queryBreadcrumbItem(container: IContainer, index = 0) {
     const selectors = [`.${getProvider('prefixCls')}-breadcrumb li`, `.${getProvider('prefixCls')}-breadcrumb-link`];
     const ele = queryViaSelectors(container, selectors, [index, 0]);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

@@ -3,7 +3,16 @@ import { fireEvent } from '@testing-library/react';
 import * as datePicker from '../datePicker';
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryDropdown,
+    queryOk,
+    fireOpen,
+    fireOk,
+    fireSelectCell,
+};
 
 /**
  * Fires onOpenChange function
@@ -69,7 +78,7 @@ export function fireChange(container: IContainer, time: TimeString | [TimeString
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -85,5 +94,5 @@ export function queryDropdown(container: IContainer) {
 export function queryOk(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker-ok button`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

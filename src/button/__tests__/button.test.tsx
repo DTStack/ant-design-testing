@@ -23,10 +23,19 @@ describe("Test Button's fire functions", () => {
      * @link fireClick
      */
     test('test fireClick', () => {
-        const fn = jest.fn();
-        const { container } = render(<Button onClick={fn}>Button</Button>);
+        const fn1 = jest.fn();
+        const fn2 = jest.fn();
+        const { container } = render(
+            <>
+                <Button onClick={fn1}>Button1</Button>
+                <Button onClick={fn2}>Button2</Button>
+            </>
+        );
         button.fireClick(container);
-        expect(fn).toBeCalled();
+        expect(fn1).toBeCalled();
+
+        button.query(container, 1)?.fireClick();
+        expect(fn2).toBeCalled();
     });
 
     test('fireClick support dom self', () => {

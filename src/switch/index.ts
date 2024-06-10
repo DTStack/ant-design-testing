@@ -2,7 +2,13 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    fireClick,
+    fireChange,
+};
 
 /**
  * Fires onClick function
@@ -26,5 +32,5 @@ export function fireChange(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-switch`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

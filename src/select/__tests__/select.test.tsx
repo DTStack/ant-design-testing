@@ -36,7 +36,7 @@ describe('Test Select fire functions', () => {
             </>
         );
         select.fireSearch(select.queryInput(container)!, 'test1');
-        select.fireSearch(select.queryInput(container, 1)!, 'test2');
+        select.queryInput(container, 1)?.fireSearch('test2');
         expect(fn1).toBeCalledWith('test1');
         expect(fn2).toBeCalledWith('test2');
     });
@@ -55,7 +55,7 @@ describe('Test Select fire functions', () => {
         );
         select.fireOpen(select.querySelectorWrapper(container)!);
         expect(fn1).toBeCalledTimes(1);
-        select.fireOpen(select.querySelectorWrapper(container, 1)!);
+        select.querySelectorWrapper(container, 1)?.fireOpen();
         expect(fn2).toBeCalledTimes(1);
     });
 
@@ -75,8 +75,8 @@ describe('Test Select fire functions', () => {
         select.fireSelect(select.queryDropdown(document)!, 0);
         expect(fn1).toBeCalledWith(1, expect.objectContaining({ label: 1, value: 1 }));
 
-        select.fireOpen(select.querySelectorWrapper(container, 1)!);
-        select.fireSelect(select.queryDropdown(document)!, 0);
+        select.querySelectorWrapper(container, 1)?.fireOpen();
+        select.queryDropdown(document)?.fireSelect(0);
         expect(fn2).toBeCalledWith(2, expect.objectContaining({ label: 2, value: 2 }));
     });
 
@@ -97,6 +97,23 @@ describe('Test Select fire functions', () => {
         );
         select.fireOpen(container);
         select.fireSelect(select.queryOption(container, 1)!, 0);
+        expect(fn).toBeCalledWith(2, expect.objectContaining({ label: 2, value: 2 }));
+    });
+
+    test('queryOption via chain', () => {
+        const fn = jest.fn();
+        const { container } = render(
+            <Select
+                options={[
+                    { label: 1, value: 1 },
+                    { label: 2, value: 2 },
+                ]}
+                getPopupContainer={(node) => node.parentNode}
+                onSelect={fn}
+            />
+        );
+        select.fireOpen(container);
+        select.queryOption(container, 1)?.fireSelect(0);
         expect(fn).toBeCalledWith(2, expect.objectContaining({ label: 2, value: 2 }));
     });
 

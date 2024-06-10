@@ -2,7 +2,15 @@ import { act, fireEvent } from '@testing-library/react';
 import type { IContainer } from 'src/interface';
 
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryDropdownMenu,
+    queryDropdownMenuItem,
+    fireOpen,
+    fireSelect,
+};
 
 /**
  * Fires onOpenChange function and close Dropdown
@@ -50,7 +58,7 @@ export function fireSelect(container: IContainer, index = 0) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-dropdown-trigger`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -63,7 +71,7 @@ export function queryDropdownMenu(container: IContainer) {
         'prefixCls'
     )}-dropdown-hidden) .${getProvider('prefixCls')}-dropdown-menu`;
     const ele = queryViaSelector(container, selector);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -73,5 +81,5 @@ export function queryDropdownMenu(container: IContainer) {
 export function queryDropdownMenuItem(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-dropdown-menu-item`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

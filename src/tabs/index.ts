@@ -3,7 +3,23 @@ import type { TabsProps } from 'antd';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, failedTriggerElement, queryViaSelector, queryViaSelectors } from '../utils';
+import {
+    failedQuerySelector,
+    failedTriggerElement,
+    mixinElementWithTestFuncs,
+    queryViaSelector,
+    queryViaSelectors,
+} from '../utils';
+
+const mixins = {
+    query,
+    queryTabTitle,
+    queryAddButton,
+    queryRemoveButton,
+    fireClick,
+    fireChange,
+    fireEdit,
+};
 
 /**
  * Fires onTabClick function
@@ -58,7 +74,7 @@ export function fireEdit(container: IContainer, action: ActionType, activeKey?: 
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tabs`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -68,7 +84,7 @@ export function query(container: IContainer, index = 0) {
 export function queryTabTitle(container: IContainer, activeKey: string) {
     const selector = `.${getProvider('prefixCls')}-tabs-tab[data-node-key="${activeKey}"]`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -78,7 +94,7 @@ export function queryTabTitle(container: IContainer, activeKey: string) {
 export function queryAddButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tabs-nav-add`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -91,5 +107,5 @@ export function queryRemoveButton(container: IContainer, activeKey: string) {
         `.${getProvider('prefixCls')}-tabs-tab-remove`,
     ];
     const ele = queryViaSelectors<HTMLButtonElement>(container, selectors, []);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

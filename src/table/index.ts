@@ -3,7 +3,17 @@ import { fireEvent } from '@testing-library/react';
 import * as checkbox from '../checkbox';
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector, queryViaSelectors } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector, queryViaSelectors } from '../utils';
+
+const mixins = {
+    query,
+    queryHeader,
+    queryBody,
+    queryRow,
+    fireSelect,
+    fireSelectAll,
+    fireExpand,
+};
 
 /**
  * Fires rowSelection's onChange function
@@ -46,7 +56,7 @@ export function fireExpand(container: IContainer, index: number) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-table-wrapper`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -60,7 +70,7 @@ export function queryHeader(container: IContainer, index = 0) {
         ? `.${getProvider('prefixCls')}-table-header`
         : `.${getProvider('prefixCls')}-table-thead`;
     const ele = queryViaSelector(container, selector);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -74,7 +84,7 @@ export function queryBody(container: IContainer, index = 0) {
         ? `.${getProvider('prefixCls')}-table-body`
         : `.${getProvider('prefixCls')}-table-tbody`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -83,5 +93,5 @@ export function queryBody(container: IContainer, index = 0) {
 export function queryRow(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-table-row`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

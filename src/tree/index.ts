@@ -2,7 +2,16 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, failedQuerySelectors, queryViaSelector } from '../utils';
+import { failedQuerySelector, failedQuerySelectors, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    fireCheck,
+    fireExpand,
+    fireRightClick,
+    fireSelect,
+    fireDrag,
+};
 
 /**
  * Fires onCheck function
@@ -76,5 +85,5 @@ export function fireDrag(container: IContainer, sourceNodeTitle: string, targetN
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-tree`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

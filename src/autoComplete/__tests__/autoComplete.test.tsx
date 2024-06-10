@@ -23,13 +23,18 @@ describe('Test Select fire functions', () => {
      * @link querySelectorWrapper
      */
     test('querySelectorWrapper', () => {
+        const fn1 = jest.fn();
+        const fn2 = jest.fn();
         const { container } = render(
             <>
-                <AutoComplete data-testid="autoComplete1" />
-                <AutoComplete data-testid="autoComplete2" />
+                <AutoComplete onDropdownVisibleChange={fn1} />
+                <AutoComplete onDropdownVisibleChange={fn2} />
             </>
         );
-        expect(autoComplete.querySelectorWrapper(container)).not.toBe(autoComplete.querySelectorWrapper(container, 1));
+        autoComplete.fireOpen(autoComplete.querySelectorWrapper(container)!);
+        expect(fn1).toBeCalledTimes(1);
+        autoComplete.querySelectorWrapper(container, 1)?.fireOpen();
+        expect(fn2).toBeCalledTimes(1);
     });
 
     /**
@@ -48,8 +53,8 @@ describe('Test Select fire functions', () => {
         autoComplete.fireSelect(autoComplete.queryDropdown(document)!, 0);
         expect(fn1).toBeCalledWith('1', expect.objectContaining({ label: '1', value: '1' }));
 
-        autoComplete.fireOpen(autoComplete.querySelectorWrapper(container, 1)!);
-        autoComplete.fireSelect(autoComplete.queryDropdown(document)!, 0);
+        autoComplete.querySelectorWrapper(container, 1)?.fireOpen();
+        autoComplete.queryDropdown(document)?.fireSelect(0);
         expect(fn2).toBeCalledWith('2', expect.objectContaining({ label: '2', value: '2' }));
     });
 
@@ -86,7 +91,8 @@ describe('Test Select fire functions', () => {
         autoComplete.fireClear(autoComplete.queryClear(container)!);
         expect(fn1).toBeCalledTimes(1);
         expect(fn2).not.toBeCalled();
-        autoComplete.fireClear(autoComplete.queryClear(container, 1)!);
+
+        autoComplete.queryClear(container, 1)?.fireClear();
         expect(fn2).toBeCalledTimes(1);
     });
 

@@ -2,7 +2,25 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, failedTriggerElement, queryViaSelector } from '../utils';
+import { failedQuerySelector, failedTriggerElement, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryInput,
+    queryDropdown,
+    queryDecadeButton,
+    queryMonthButton,
+    queryNextButton,
+    queryPrevButton,
+    queryYearButton,
+    querySuperNextButton,
+    querySuperPrevButton,
+    fireOpen,
+    fireClose,
+    firePanelChange,
+    fireChange,
+    fireOk,
+};
 
 /**
  * Fires onOpenChange function.
@@ -83,7 +101,7 @@ export function fireOk(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -93,7 +111,7 @@ export function query(container: IContainer, index = 0) {
 export function queryInput(container: IContainer, index = 0) {
     const selector = `input`;
     const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -104,7 +122,7 @@ export function queryDropdown(container: IContainer) {
         'prefixCls'
     )}-picker-dropdown-hidden)`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -114,7 +132,7 @@ export function queryDropdown(container: IContainer) {
 export function querySuperPrevButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker-header-super-prev-btn`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -124,7 +142,7 @@ export function querySuperPrevButton(container: IContainer, index = 0) {
 export function queryPrevButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker-header-prev-btn`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -134,7 +152,7 @@ export function queryPrevButton(container: IContainer, index = 0) {
 export function querySuperNextButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker-header-super-next-btn`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -144,7 +162,7 @@ export function querySuperNextButton(container: IContainer, index = 0) {
 export function queryNextButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker-header-next-btn`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -154,7 +172,7 @@ export function queryNextButton(container: IContainer, index = 0) {
 export function queryDecadeButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker-decade-btn`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -164,7 +182,7 @@ export function queryDecadeButton(container: IContainer, index = 0) {
 export function queryYearButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker-year-btn`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -174,5 +192,5 @@ export function queryYearButton(container: IContainer, index = 0) {
 export function queryMonthButton(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-picker-month-btn`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

@@ -3,7 +3,20 @@ import { fireEvent } from '@testing-library/react';
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import * as select from '../select';
-import { failedTriggerElement, queryViaSelector, queryViaSelectors } from '../utils';
+import { failedTriggerElement, mixinElementWithTestFuncs, queryViaSelector, queryViaSelectors } from '../utils';
+
+const mixins = {
+    query,
+    queryNextButton,
+    queryPrevButton,
+    queryPaginationItem,
+    queryJumpNext,
+    queryJumpPrev,
+    queryQuickJump,
+    fireChange,
+    fireSizeChange,
+    fireSizeOpen,
+};
 
 /**
  * Fires pageSize's dropdown open
@@ -49,7 +62,7 @@ export function fireChange(container: IContainer, value?: number) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-pagination`;
     const ele = queryViaSelector<HTMLUListElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -61,7 +74,7 @@ export function queryPrevButton(container: IContainer, index = 0) {
         `.${getProvider('prefixCls')}-pagination-item-link`,
     ];
     const ele = queryViaSelectors<HTMLButtonElement>(container, selectors, [index]);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -73,7 +86,7 @@ export function queryNextButton(container: IContainer, index = 0) {
         `.${getProvider('prefixCls')}-pagination-item-link`,
     ];
     const ele = queryViaSelectors<HTMLButtonElement>(container, selectors, [index]);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -87,7 +100,7 @@ export function queryPaginationItem(container: IContainer, index: number) {
     }
     const selector = `.${getProvider('prefixCls')}-pagination-item-${index}`;
     const ele = queryViaSelector<HTMLButtonElement>(container, selector, 0);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -96,7 +109,7 @@ export function queryPaginationItem(container: IContainer, index: number) {
 export function queryJumpNext(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-pagination-jump-next`;
     const ele = queryViaSelector<HTMLLIElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -105,7 +118,7 @@ export function queryJumpNext(container: IContainer, index = 0) {
 export function queryJumpPrev(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-pagination-jump-prev`;
     const ele = queryViaSelector<HTMLLIElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -114,5 +127,5 @@ export function queryJumpPrev(container: IContainer, index = 0) {
 export function queryQuickJump(container: IContainer, index = 0) {
     const selectors = [`.${getProvider('prefixCls')}-pagination-options-quick-jumper`, 'input'];
     const ele = queryViaSelectors<HTMLInputElement>(container, selectors, [index]);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

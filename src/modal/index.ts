@@ -3,7 +3,17 @@ import { fireEvent } from '@testing-library/react';
 import * as button from '../button';
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedTriggerElement, queryViaSelector } from '../utils';
+import { failedTriggerElement, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryModalFooter,
+    queryOkButton,
+    queryCancelButton,
+    queryMask,
+    fireOk,
+    fireCancel,
+};
 
 /**
  * Fires onOk function
@@ -31,7 +41,7 @@ export function fireCancel(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-modal`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -40,7 +50,7 @@ export function query(container: IContainer, index = 0) {
 export function queryModalFooter(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-modal-footer`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -73,7 +83,7 @@ export function queryOkButton(container: IContainer, index = 0) {
 export function queryMask(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-modal-close`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 export * as confirm from './confirm';

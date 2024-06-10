@@ -2,7 +2,13 @@ import { act, fireEvent } from '@testing-library/react';
 
 import { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelector, queryViaSelector } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryContent,
+    fireClick,
+};
 
 /**
  * Fires onClick function
@@ -34,7 +40,7 @@ export async function fireClose(duration = 3000) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-message`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -43,5 +49,5 @@ export function query(container: IContainer, index = 0) {
 export function queryContent(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-message-notice-content`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }

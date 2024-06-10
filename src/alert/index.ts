@@ -9,7 +9,7 @@ import { failedQuerySelector, queryViaSelector } from '../utils';
  */
 export function fireClose(container: IContainer) {
     const selector = `.${getProvider('prefixCls')}-alert-close-icon`;
-    const ele = container.querySelector(selector);
+    const ele = queryViaSelector(container, selector);
     if (!ele) throw failedQuerySelector(selector);
     fireEvent.click(ele);
 }

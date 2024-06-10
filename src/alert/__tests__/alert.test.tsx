@@ -27,5 +27,6 @@ describe("Test Segmented's fire functions", () => {
         );
         expect(alert.query(container)).toEqual(getByTestId('test1'));
         expect(alert.query(container, 1)).toEqual(getByTestId('test2'));
+        alert.query(container, 1);
     });
 });

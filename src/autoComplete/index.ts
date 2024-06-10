@@ -1,7 +1,22 @@
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
 import * as select from '../select';
-import { queryViaSelector } from '../utils';
+import { mixinElementWithTestFuncs, queryViaSelector } from '../utils';
+
+const mixins = {
+    query,
+    queryInput,
+    querySelectorWrapper,
+    queryDropdown,
+    queryOption,
+    queryClear,
+    fireSearch,
+    fireOpen,
+    fireSelect,
+    fireFocus,
+    fireBlur,
+    fireClear,
+};
 
 /**
  * Fires onSearch function
@@ -53,7 +68,7 @@ export function fireClear(container: IContainer) {
 export function query(container: IContainer, index = 0) {
     const selector = `.${getProvider('prefixCls')}-select-auto-complete`;
     const ele = queryViaSelector(container, selector, index);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
@@ -78,7 +93,7 @@ export function queryDropdown(container: IContainer) {
         'prefixCls'
     )}-select-dropdown-hidden)`;
     const ele = queryViaSelector<HTMLDivElement>(container, selector);
-    return ele;
+    return mixinElementWithTestFuncs(ele, mixins);
 }
 
 /**
