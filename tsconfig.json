@@ -7,5 +7,6 @@
         "skipLibCheck": true,
         "baseUrl": "./",
         "noImplicitThis": false
-    }
+    },
+    "include": ["src/**/*"]
 }

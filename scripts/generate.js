@@ -61,16 +61,40 @@ testFiles.forEach((sourceFile) => {
     results.push({ componentName, exampleCodeMap });
 });
 
+function capitalizeFirstLetter(input) {
+    if (input.length === 0) {
+        return input;
+    }
+    return input.charAt(0).toUpperCase() + input.slice(1);
+}
+
+function addImportModule(sourceFile, moduleNames, path) {
+    const existingImport = sourceFile.getImportDeclaration(
+        (declaration) => declaration.getModuleSpecifierValue() === path
+    );
+
+    if (existingImport) {
+        existingImport.addNamedImports(moduleNames);
+    } else {
+        sourceFile.addImportDeclaration({
+            namedImports: moduleNames,
+            moduleSpecifier: path,
+        });
+    }
+}
+
 const outputProject = new Project();
 outputProject.addSourceFilesAtPaths('dist/(esm|cjs)/*/index.d.ts');
 
-results.forEach(({ componentName, exampleCodeMap }) => {
-    const outputFile = outputProject.getSourceFile((file) => {
-        const dirPath = file.getDirectoryPath();
-        const dirName = path.basename(dirPath);
-        return componentName === dirName;
-    });
-    if (!outputFile || !exampleCodeMap.size) return;
+outputProject.getSourceFiles().forEach((outputFile) => {
+    const dirPath = outputFile.getDirectoryPath();
+    const dirName = path.basename(dirPath);
+    const result = results.find(({ componentName }) => componentName === dirName);
+    if (!result || result.exampleCodeMap.size === 0) return;
+
+    const { exampleCodeMap } = result;
+
+    addImportModule(outputFile, ['MixinElement'], '../interface');
 
     outputFile.getStatements().forEach((s) => {
         // It may be arrow function or common function
@@ -80,6 +104,19 @@ results.forEach(({ componentName, exampleCodeMap }) => {
 
         // Find method declaration and if it has example test code, add jsdoc
         const methodName = declaration.getFirstChildByKind(SyntaxKind.Identifier)?.getText();
+
+        // Extract complex return types to outside
+        if (methodName?.startsWith('query')) {
+            const returnType = declaration.getReturnTypeNode();
+            const returnTypeText = returnType.getText()?.replace('import("../interface").MixinElement', 'MixinElement');
+            const newTypeAliasName = capitalizeFirstLetter(methodName) + 'ReturnElement';
+            declaration.setReturnType(newTypeAliasName);
+            outputFile.addTypeAlias({
+                name: newTypeAliasName,
+                type: returnTypeText,
+            });
+        }
+
         if (!exampleCodeMap.has(methodName)) return;
         const testExampleCode = exampleCodeMap.get(methodName);
 
