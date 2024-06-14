@@ -1,6 +1,6 @@
 {
     "name": "ant-design-testing",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Easier testing for ant-design-based UI library",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
