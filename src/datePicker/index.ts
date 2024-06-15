@@ -27,10 +27,10 @@ const mixins = {
  * Meanwhile, open Dropdown
  */
 export function fireOpen(container: IContainer) {
-    const selector = 'input';
+    const selector = `.${getProvider('prefixCls')}-picker .${getProvider('prefixCls')}-picker-input`;
     const ele = queryInput(container);
     if (!ele) throw failedQuerySelector(selector);
-    fireEvent.mouseDown(ele);
+    fireEvent.click(ele);
     fireEvent.focus(ele);
 }
 
@@ -39,7 +39,7 @@ export function fireOpen(container: IContainer) {
  * Meanwhile, close dropdown
  */
 export function fireClose(container: IContainer) {
-    const selector = 'input';
+    const selector = `.${getProvider('prefixCls')}-picker-input input`;
     const ele = queryInput(container);
     if (!ele) throw failedQuerySelector(selector);
     fireEvent.blur(ele);
@@ -75,7 +75,9 @@ export function firePanelChange(container: IContainer) {
  * @param text current text on Panel
  */
 export function fireChange(container: IContainer, text: string) {
-    const eles = container.querySelectorAll('table td');
+    const eles = container.querySelectorAll(
+        `.${getProvider('prefixCls')}-picker-dropdown:not(.${getProvider('prefixCls')}-picker-dropdown-hidden) table td`
+    );
     const selector = '-in-view';
     const cell = Array.from(eles).find((td) => {
         return td.textContent === String(text) && td.className.includes(selector);
@@ -109,7 +111,7 @@ export function query(container: IContainer, index = 0) {
  * @param index default is `0`
  */
 export function queryInput(container: IContainer, index = 0) {
-    const selector = `input`;
+    const selector = `.${getProvider('prefixCls')}-picker-input input`;
     const ele = queryViaSelector<HTMLInputElement>(container, selector, index);
     return mixinElementWithTestFuncs(ele, mixins);
 }

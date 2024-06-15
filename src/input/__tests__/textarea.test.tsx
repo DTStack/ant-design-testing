@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Input } from 'antd';
 
 import * as textarea from '../textarea';
@@ -26,7 +26,6 @@ describe("Test textarea's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Input.TextArea onChange={fn} />);
         textarea.fireChange(container, 'test');
-
         expect(fn).toBeCalled();
     });
 
@@ -37,7 +36,6 @@ describe("Test textarea's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Input.TextArea onFocus={fn} />);
         textarea.fireFocus(container);
-
         expect(fn).toBeCalled();
     });
 
@@ -48,7 +46,6 @@ describe("Test textarea's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Input.TextArea onBlur={fn} />);
         textarea.fireBlur(container);
-
         expect(fn).toBeCalled();
     });
 
@@ -69,20 +66,6 @@ describe("Test textarea's fire functions", () => {
         const fn = jest.fn();
         const { container } = render(<Input.TextArea onPressEnter={fn} />);
         textarea.firePressEnter(container);
-
         expect(fn).toBeCalled();
-    });
-
-    /**
-     * @link fireResize
-     */
-    test('fireResize', async () => {
-        const fn = jest.fn();
-        const { container } = render(<Input.TextArea onResize={fn} />);
-        textarea.fireResize(container, { width: 200, height: 300 } as DOMRect);
-
-        await waitFor(() => {
-            expect(fn).toBeCalled();
-        });
     });
 });

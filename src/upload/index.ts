@@ -33,7 +33,7 @@ export function fireUpload(container: IContainer, files: File[] | { name: string
  */
 export function fireRemove(container: IContainer, index = 0) {
     const selectors = [
-        `.${getProvider('prefixCls')}-upload-list .${getProvider('prefixCls')}-upload-list-text-container`,
+        `.${getProvider('prefixCls')}-upload-list .${getProvider('prefixCls')}-upload-list-item-container`,
         '.anticon-delete',
     ];
 
@@ -61,7 +61,7 @@ export function query(container: IContainer, index = 0) {
  * @param index default is `0`
  */
 export function queryUploadListItem(container: IContainer, index = 0) {
-    const selector = `.${getProvider('prefixCls')}-upload-list .${getProvider('prefixCls')}-upload-list-text-container`;
-    const ele = queryViaSelector(container, selector, index)?.firstElementChild;
+    const selector = `.${getProvider('prefixCls')}-upload-list .${getProvider('prefixCls')}-upload-list-item-container`;
+    const ele = queryViaSelector(container, selector, index);
     return mixinElementWithTestFuncs(ele as HTMLElement, mixins);
 }

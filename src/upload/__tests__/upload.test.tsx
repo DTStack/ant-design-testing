@@ -114,7 +114,7 @@ describe("Test Upload's fire functions", () => {
                 <button type="button">upload</button>
             </Upload>
         );
-        expect(upload.queryUploadListItem(container)).toEqual(getByTestId('foo.png'));
-        expect(upload.queryUploadListItem(container, 1)).toEqual(getByTestId('bar.png'));
+        expect(upload.queryUploadListItem(container)?.firstElementChild).toEqual(getByTestId('foo.png'));
+        expect(upload.queryUploadListItem(container, 1)?.firstElementChild).toEqual(getByTestId('bar.png'));
     });
 });

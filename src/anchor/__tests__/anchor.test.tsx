@@ -10,12 +10,11 @@ describe("Test Anchor's fire functions", () => {
      */
     test('test fireClick', () => {
         const fn = jest.fn();
-        const { container } = render(
-            <Anchor onClick={fn}>
-                <Anchor.Link title="a" href="#a" />
-                <Anchor.Link title="b" href="#b" />
-            </Anchor>
-        );
+        const items = [
+            { title: 'a', href: '#a', key: 'a' },
+            { title: 'b', href: '#b', key: 'b' },
+        ];
+        const { container } = render(<Anchor onClick={fn} items={items} />);
         anchor.fireClick(container, '#a');
         expect(fn.mock.calls[0]?.[1]).toMatchObject({ title: 'a', href: '#a' });
         anchor.fireClick(container, 1);
@@ -28,12 +27,8 @@ describe("Test Anchor's fire functions", () => {
     test('test query', () => {
         const { container } = render(
             <>
-                <Anchor className="test1">
-                    <Anchor.Link title="a" href="#a" />
-                </Anchor>
-                <Anchor className="test2">
-                    <Anchor.Link title="b" href="#b" />
-                </Anchor>
+                <Anchor className="test1" items={[{ title: 'a', key: 'a', href: '#a' }]} />
+                <Anchor className="test2" items={[{ title: 'a', key: 'a', href: '#a' }]} />
             </>
         );
         expect(anchor.query(container)?.className).toContain('test1');
@@ -44,12 +39,11 @@ describe("Test Anchor's fire functions", () => {
      * @link queryLink
      */
     test('test queryLink', () => {
-        const { container, getByTitle } = render(
-            <Anchor>
-                <Anchor.Link title="a" href="#a" />
-                <Anchor.Link title="b" href="#b" />
-            </Anchor>
-        );
+        const items = [
+            { title: 'a', href: '#a', key: 'a' },
+            { title: 'b', href: '#b', key: 'b' },
+        ];
+        const { container, getByTitle } = render(<Anchor items={items} />);
         expect(anchor.queryLink(container)).toEqual(getByTitle('a'));
         expect(anchor.queryLink(container, 1)).toEqual(getByTitle('b'));
     });

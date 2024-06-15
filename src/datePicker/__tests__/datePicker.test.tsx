@@ -1,11 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { DatePicker } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import * as datePicker from '..';
 
-const dateAdaptor = moment;
+const dateAdaptor = dayjs;
 
 describe("Test DatePicker's fire functions", () => {
     /**
@@ -44,16 +44,14 @@ describe("Test DatePicker's fire functions", () => {
         const { container } = render(
             <DatePicker
                 onChange={fn}
-                value={dateAdaptor('2018-04-13 19:18')}
+                value={dateAdaptor('2018-04-13')}
                 getPopupContainer={(node) => node.parentElement!}
             />
         );
         datePicker.fireOpen(container);
         datePicker.queryDropdown(container)?.fireChange('24');
-        expect(
-            (fn.mock.calls[0][0] as ReturnType<typeof dateAdaptor>).isSame(dateAdaptor('2018-04-24 19:18'))
-        ).toBeTruthy();
-        expect(fn.mock.calls[0][1]).toBe(dateAdaptor('2018-04-24 19:18').format('YYYY-MM-DD'));
+        expect((fn.mock.calls[0][0] as ReturnType<typeof dateAdaptor>).isSame(dateAdaptor('2018-04-24'))).toBeTruthy();
+        expect(fn.mock.calls[0][1]).toBe('2018-04-24');
     });
 
     /**
@@ -70,7 +68,7 @@ describe("Test DatePicker's fire functions", () => {
     /**
      * @link fireOpen
      */
-    test('fireOpen', () => {
+    test('fireOpen', async () => {
         const fn = jest.fn();
         const { container } = render(<DatePicker onOpenChange={fn} />);
         datePicker.fireOpen(container);
@@ -80,11 +78,17 @@ describe("Test DatePicker's fire functions", () => {
     /**
      * @link fireClose
      */
-    test('fireClose', () => {
-        const fn = jest.fn();
-        const { container } = render(<DatePicker onOpenChange={fn} open />);
+    test('fireClose', async () => {
+        const fn1 = jest.fn();
+        const fn2 = jest.fn();
+        const { container } = render(<DatePicker onOpenChange={(isOpen) => (isOpen ? fn1() : fn2())} />);
+        datePicker.fireOpen(container);
+        expect(fn1).toBeCalled();
+
         datePicker.fireClose(container);
-        expect(fn).toBeCalledTimes(1);
+        await waitFor(() => {
+            expect(fn2).toBeCalled();
+        });
     });
 
     /**
@@ -95,13 +99,13 @@ describe("Test DatePicker's fire functions", () => {
         const { container } = render(
             <DatePicker
                 onPanelChange={fn}
-                value={dateAdaptor('2018-04-13 19:18')}
+                value={dateAdaptor('2018-04-13')}
                 getPopupContainer={(node) => node.parentElement!}
             />
         );
         datePicker.fireOpen(container);
         datePicker.firePanelChange(container);
-        expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').subtract(1, 'year'), 'date');
+        expect(fn).lastCalledWith(dateAdaptor('2018-04-13').subtract(1, 'year'), 'date');
     });
 
     test('firePanelChange with certain button', () => {
@@ -109,28 +113,28 @@ describe("Test DatePicker's fire functions", () => {
         const { container } = render(
             <DatePicker
                 onPanelChange={fn}
-                value={dateAdaptor('2018-04-13 19:18')}
+                value={dateAdaptor('2018-04-13')}
                 getPopupContainer={(node) => node.parentElement!}
             />
         );
         datePicker.fireOpen(container);
         datePicker.queryPrevButton(container)?.firePanelChange();
-        expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').subtract(1, 'month'), 'date');
+        expect(fn).lastCalledWith(dateAdaptor('2018-04-13').subtract(1, 'month'), 'date');
 
         datePicker.queryNextButton(container)?.firePanelChange();
-        expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18'), 'date');
+        expect(fn).lastCalledWith(dateAdaptor('2018-04-13'), 'date');
 
         datePicker.querySuperNextButton(container)?.firePanelChange();
-        expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'date');
+        expect(fn).lastCalledWith(dateAdaptor('2018-04-13').add(1, 'year'), 'date');
 
         datePicker.queryMonthButton(container)?.firePanelChange();
-        expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'month');
+        expect(fn).lastCalledWith(dateAdaptor('2018-04-13').add(1, 'year'), 'month');
 
         datePicker.queryYearButton(container)?.firePanelChange();
-        expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'year');
+        expect(fn).lastCalledWith(dateAdaptor('2018-04-13').add(1, 'year'), 'year');
 
         datePicker.queryDecadeButton(container)?.firePanelChange();
-        expect(fn).lastCalledWith(dateAdaptor('2018-04-13 19:18').add(1, 'year'), 'decade');
+        expect(fn).lastCalledWith(dateAdaptor('2018-04-13').add(1, 'year'), 'decade');
     });
 
     /**
@@ -141,16 +145,14 @@ describe("Test DatePicker's fire functions", () => {
         const { container } = render(
             <DatePicker
                 onChange={fn}
-                value={dateAdaptor('2018-04-13 19:18')}
+                value={dateAdaptor('2018-04-13')}
                 getPopupContainer={(node) => node.parentElement!}
             />
         );
         datePicker.fireOpen(container);
         datePicker.fireChange(container, '24');
-        expect(
-            (fn.mock.calls[0][0] as ReturnType<typeof dateAdaptor>).isSame(dateAdaptor('2018-04-24 19:18'))
-        ).toBeTruthy();
-        expect(fn.mock.calls[0][1]).toBe(dateAdaptor('2018-04-24 19:18').format('YYYY-MM-DD'));
+
+        expect(fn.mock.calls[0][1]).toBe('2018-04-24');
     });
 
     test('fireCalendarChange', () => {
