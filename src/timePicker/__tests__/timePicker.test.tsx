@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { TimePicker } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import * as timePicker from '..';
 
-const dateAdaptor = moment;
+const dateAdaptor = dayjs;
 
 describe("Test TimePicker's fire functions", () => {
     beforeEach(() => {

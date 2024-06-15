@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, waitForElementToBeRemoved } from '@testing-library/react';
+import { act, waitFor } from '@testing-library/react';
 import { notification as Notification } from 'antd';
 
 import * as notification from '..';
@@ -17,14 +17,15 @@ describe("Test Notification's fire functions", () => {
                 onClick: fn,
             });
         });
+        await waitFor(() => {
+            expect(notification.query(document.body)).toBeTruthy();
+        });
         notification.fireClick(document.body);
         expect(fn).toHaveBeenCalled();
 
-        // fix act warnings, need to wait for notfications removed.
         act(() => {
             Notification.destroy();
         });
-        await waitForElementToBeRemoved(() => document.body.querySelector('.ant-notification'));
     });
 
     /**
@@ -40,26 +41,26 @@ describe("Test Notification's fire functions", () => {
                 onClose: fn,
             });
         });
+        await waitFor(() => {
+            expect(notification.query(document.body)).toBeTruthy();
+        });
         notification.fireClose(document.body);
         expect(fn).toBeCalled();
-
-        // fix act warnings, need to wait for notfications removed.
-        act(() => {
-            Notification.destroy();
-        });
-        await waitForElementToBeRemoved(() => document.body.querySelector('.ant-notification'));
     });
 
     /**
      * @link query
      */
-    test('test query', () => {
+    test('test query', async () => {
         act(() => {
             Notification.info({
                 message: 'This is a notification message',
                 className: 'test1',
                 duration: 0,
             });
+        });
+        await waitFor(() => {
+            expect(notification.query(document.body)).toBeTruthy();
         });
         expect(notification.query(document.body)?.className).toContain('test1');
     });

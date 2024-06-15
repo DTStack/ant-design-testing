@@ -44,7 +44,8 @@
     },
     "peerDependencies": {
         "@testing-library/react": "*",
-        "antd": "4",
+        "antd": "5",
+        "dayjs": "*",
         "rc-resize-observer": "*"
     },
     "devDependencies": {
@@ -52,7 +53,8 @@
         "@swc/jest": "^0.2.26",
         "@testing-library/react": "^13.0.0",
         "@types/jest": "^29.5.1",
-        "antd": "4",
+        "antd": "5",
+        "dayjs": "^1.11.8",
         "bumpp": "^9.1.0",
         "standard-version": "^9.5.0",
         "eslint-plugin-jsdoc": "^46.8.2",

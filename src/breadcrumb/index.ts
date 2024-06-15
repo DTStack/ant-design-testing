@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react';
 
 import type { IContainer } from '../interface';
 import { getProvider } from '../provider';
-import { failedQuerySelectors, mixinElementWithTestFuncs, queryViaSelector, queryViaSelectors } from '../utils';
+import { failedQuerySelector, mixinElementWithTestFuncs, queryViaSelector } from '../utils';
 
 const mixins = {
     query,
@@ -14,9 +14,9 @@ const mixins = {
  * Fires onClick function
  */
 export function fireClick(container: IContainer, index: number) {
-    const selectors = [`.${getProvider('prefixCls')}-breadcrumb li`, `.${getProvider('prefixCls')}-breadcrumb-link`];
-    const ele = queryViaSelectors(container, selectors, [index]);
-    if (!ele) throw failedQuerySelectors(selectors);
+    const selector = `.${getProvider('prefixCls')}-breadcrumb-link`;
+    const ele = queryViaSelector(container, selector, index);
+    if (!ele) throw failedQuerySelector(selector);
     fireEvent.click(ele);
 }
 
@@ -35,7 +35,7 @@ export function query(container: IContainer, index = 0) {
  * @param {number} index default is `0`
  */
 export function queryBreadcrumbItem(container: IContainer, index = 0) {
-    const selectors = [`.${getProvider('prefixCls')}-breadcrumb li`, `.${getProvider('prefixCls')}-breadcrumb-link`];
-    const ele = queryViaSelectors(container, selectors, [index, 0]);
+    const selector = `.${getProvider('prefixCls')}-breadcrumb-link`;
+    const ele = queryViaSelector(container, selector, index);
     return mixinElementWithTestFuncs(ele, mixins);
 }

@@ -10,12 +10,8 @@ describe("Test breadcrumb's fire functions", () => {
      */
     test('test fireClick', () => {
         const fn = jest.fn();
-        const { container } = render(
-            <Breadcrumb>
-                <Breadcrumb.Item>Foo</Breadcrumb.Item>
-                <Breadcrumb.Item onClick={fn}>Bar</Breadcrumb.Item>
-            </Breadcrumb>
-        );
+        const items = [{ title: 'Foo' }, { title: 'Bar', onClick: fn }];
+        const { container } = render(<Breadcrumb items={items} />);
         breadCrumb.fireClick(container, 1);
         expect(fn).toBeCalled();
     });
@@ -38,12 +34,9 @@ describe("Test breadcrumb's fire functions", () => {
      * @link queryBreadcrumbItem
      */
     test('test queryBreadcrumbItem', () => {
-        const { container, queryByText } = render(
-            <Breadcrumb>
-                <Breadcrumb.Item>Foo</Breadcrumb.Item>
-                <Breadcrumb.Item>Bar</Breadcrumb.Item>
-            </Breadcrumb>
-        );
+        const items = [{ title: 'Foo' }, { title: 'Bar' }];
+        const { container, queryByText } = render(<Breadcrumb items={items} />);
+
         expect(breadCrumb.queryBreadcrumbItem(container)).toBe(queryByText('Foo'));
         expect(breadCrumb.queryBreadcrumbItem(container, 1)).toBe(queryByText('Bar'));
     });

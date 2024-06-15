@@ -29,7 +29,7 @@ export function fireOpen(trigger: HTMLElement) {
  * Fires onCancel function
  */
 export function fireCancel(container: IContainer) {
-    const selector = `.${getProvider('prefixCls')}-popover-buttons .${getProvider('prefixCls')}-btn`;
+    const selector = `.${getProvider('prefixCls')}-popconfirm-buttons .${getProvider('prefixCls')}-btn`;
     const ele = queryCancelButton(container);
     if (!ele) throw failedQuerySelector(selector);
     fireEvent.click(ele);
@@ -39,7 +39,7 @@ export function fireCancel(container: IContainer) {
  * Fires onConfirm function
  */
 export function fireConfirm(container: IContainer) {
-    const selector = `.${getProvider('prefixCls')}-popover-buttons .${getProvider('prefixCls')}-btn`;
+    const selector = `.${getProvider('prefixCls')}-popconfirm-buttons .${getProvider('prefixCls')}-btn`;
     const ele = queryConfirmButton(container);
     if (!ele) throw failedQuerySelector(selector);
     fireEvent.click(ele);
@@ -49,7 +49,7 @@ export function fireConfirm(container: IContainer) {
  * Returns the container element
  */
 export function query(container: IContainer, index = 0) {
-    const selector = `.${getProvider('prefixCls')}-popover`;
+    const selector = `.${getProvider('prefixCls')}-popconfirm`;
     const ele = queryViaSelector(container, selector, index);
     return mixinElementWithTestFuncs(ele, mixins);
 }
@@ -58,7 +58,7 @@ export function query(container: IContainer, index = 0) {
  * Returns the buttons element
  */
 export function queryButtons(container: IContainer, index = 0) {
-    const selector = `.${getProvider('prefixCls')}-popover-buttons`;
+    const selector = `.${getProvider('prefixCls')}-popconfirm-buttons`;
     const ele = queryViaSelector(container, selector, index);
     return mixinElementWithTestFuncs(ele, mixins);
 }

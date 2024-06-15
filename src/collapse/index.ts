@@ -34,7 +34,7 @@ export function query(container: IContainer, index = 0) {
 /**
  * Returns the `index` of Collapse Panel Content
  *
- * You need add `forceRender` attr to Collapse.Panel or call `fireChange` first to expand it
+ * You need to call `fireChange` to expand panel content first
  * @param index default is `0`
  */
 export function queryPanelContent(container: IContainer, index = 0) {
