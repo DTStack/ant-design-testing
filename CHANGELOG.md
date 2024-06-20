@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/DTStack/ant-design-testing/compare/v1.0.0-beta.2...v2.0.0) (2024-06-20)
+
+
+### Features
+
+* add qrCode, colorPicker, tour component ([5a94e9a](https://github.com/DTStack/ant-design-testing/commit/5a94e9a1f7e07673f5e2763817f5ad625954a75a))
+* compatible with antd v5. x ([c83b45b](https://github.com/DTStack/ant-design-testing/commit/c83b45bef08321b65140356936b017584a0bc047))
+* init changelog ([#8](https://github.com/DTStack/ant-design-testing/issues/8)) ([8befd65](https://github.com/DTStack/ant-design-testing/commit/8befd65e5ade8d0e77affe85e116444f3eb37ab1))
+* support chain calls on query functions ([7efca80](https://github.com/DTStack/ant-design-testing/commit/7efca80932b727a1e8c669124d447018cbafb6c0))
+
+
+### Bug Fixes
+
+* query visible popup element only ([#11](https://github.com/DTStack/ant-design-testing/issues/11)) ([46ba684](https://github.com/DTStack/ant-design-testing/commit/46ba684a430792246aa1d68dd8e0caebd9bf0163))
+* rename querySelector to querySelectorWrapper, avoid duplication with HTMLElement.querySelector ([add4daf](https://github.com/DTStack/ant-design-testing/commit/add4daf1103f1ac33febf5bd6d79d60077e41d43))
+
 ## [1.1.0](https://github.com/DTStack/ant-design-testing/compare/v1.0.0-beta.2...v1.1.0) (2024-06-14)
 
 
