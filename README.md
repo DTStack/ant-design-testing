@@ -6,6 +6,9 @@ This library is based on `Jest` and `React-Testing-Library`
 
 ## Usage
 
+The latest package supports antd v5.x version.
+If you are using antd 4.x, please install `ant-design-testing@1.x` version.
+
 ```shell
 $ npm install ant-design-testing -D
 #or
@@ -104,7 +107,16 @@ it('test MyForm', () => {
     expect(fn).toBeCalledWith({username: 'zhangsan', password: '123456', role: 'admin'});
 });
 ```
+All query methods support chain calling
+```tsx
+// basic usage
+const userName = input.query(container)!;
+const password = input.query(container, 1)!;
+input.fireChange(userName, 'zhangsan');
+input.fireChange(password, '123456');
 
-**Notice**
+// chain usage
+input.query(container)?.fireChange('zhangsan');
+input.query(container, 1)?.fireChange('123456');
 
-Currently, only antd4. x is supported.
+```
